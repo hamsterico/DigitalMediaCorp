@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web B - Prompt Kreator AI Profesional</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-950 text-slate-100 font-sans antialiased min-h-screen flex flex-col">
+    <!-- Security Login Gate (Terhubung ke Google Sheets) -->
+    <div id="authGate" class="fixed inset-0 bg-slate-950 z-50 flex items-center justify-center p-4">
+        <div class="bg-slate-900 border border-slate-800 p-8 rounded-2xl max-w-md w-full space-y-6 shadow-2xl">
+            <div class="text-center">
+                <h2 class="text-2xl font-bold">Verifikasi Akses Web B</h2>
+                <p class="text-xs text-slate-400 mt-1">Masukkan email terdaftar yang sudah di-approve oleh admin di Google Sheet.</p>
+            </div>
+            <form onsubmit="verifyAccess(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs uppercase tracking-wider text-slate-400 mb-1">Email Terdaftar</label>
+                    <input type="email" id="loginEmail" required class="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-3 text-slate-100 focus:outline-none focus:border-blue-500 text-sm" placeholder="emailanda@gmail.com">
+                </div>
+                <button type="submit" id="loginBtn" class="w-full bg-blue-600 hover:bg-blue-500 font-semibold py-3 rounded-xl transition text-sm">Masuk ke Prompt Kreator</button>
+            </form>
+            <p id="loginError" class="text-xs text-center hidden"></p>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="border-b border-slate-800 bg-slate-900/50 backdrop-blur sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+            <span class="text-xl font-bold bg-gradient-to-r from-blue-400 to-indigo-500 bg-clip-text text-transparent">Prompt Kreator AI v2.0</span>
+            <div class="flex items-center gap-4">
+                <span id="userSessionEmail" class="text-xs text-slate-400 hidden sm:inline"></span>
+                <button onclick="logout()" class="text-xs bg-slate-800 hover:bg-slate-700 px-3 py-1.5 rounded-lg border border-slate-700 transition">Keluar</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Workspace -->
+    <main class="max-w-6xl mx-auto px-6 py-10 flex-1 w-full grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <!-- Input Panel -->
+        <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl space-y-6 shadow-xl">
+            <h2 class="text-xl font-bold border-b border-slate-800 pb-3">Konfigurasi Parameter Prompt</h2>
+            
+            <div>
+                <label class="block text-xs uppercase tracking-wider text-blue-400 font-bold mb-1">1. Mode Pembuatan</label>
+                <select id="modeSelection" onchange="toggleMode()" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-3 text-slate-100 focus:outline-none focus:border-blue-500 font-semibold text-sm">
+                    <option value="template">Gunakan Template Profesional (Otomatis)</option>
+                    <option value="custom">Atur Kamera & Parameter Sendiri (Custom)</option>
+                </select>
+            </div>
+
+            <div>
+                <label class="block text-xs uppercase tracking-wider text-slate-400 mb-1">2. Pilih Jenis Output Kreatif</label>
+                <select id="contentType" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-3 text-slate-100 focus:outline-none focus:border-blue-500 text-sm">
+                    <option value="video">Pembuatan Video Sinematik</option>
+                    <option value="image">Pembuatan Gambar / Desain Visual</option>
+                    <option value="audio">Audio / Text-to-Speech & Sound Effects</option>
+                    <option value="presentation">Presentasi HTML Slide / PowerPoint</option>
+                </select>
+            </div>
+
+            <div id="templateSection">
+                <label class="block text-xs uppercase tracking-wider text-slate-400 mb-1">3. Pilih Template Artistik / Film</label>
+                <select id="videoTemplate" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-3 text-slate-100 focus:outline-none focus:border-blue-500 text-sm">
+                    <option value="realistis">Realistis Dokumenter (Akurat & Natural)</option>
+                    <option value="pixar">Animasi Ala Pixar / Disney 3D</option>
+                    <option value="cyberpunk">Cyberpunk Neon Futuristic</option>
+                    <option value="ghibli">Anime 2D Studio Ghibli</option>
+                    <option value="cinematic_noir">Cinematic Noir (Monokrom Dramatis)</option>
+                    <option value="unreal5">Unreal Engine 5 Hyper-Detailed Render</option>
+                </select>
+            </div>
+
+            <div id="customCameraSection" class="hidden space-y-3 bg-slate-950 p-4 rounded-xl border border-slate-800">
+                <p class="text-xs text-blue-400 font-bold uppercase tracking-wider">Pengaturan Kamera Manual</p>
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-[10px] text-slate-400 mb-1">Pilih Lensa</label>
+                        <select id="cameraLens" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-slate-100">
+                            <option value="Anamorphic 35mm lens">Anamorphic 35mm</option>
+                            <option value="Telephoto 85mm lens">Telephoto 85mm</option>
+                            <option value="Wide angle 16mm lens">Wide Angle 16mm</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-[10px] text-slate-400 mb-1">Pilih Angle</label>
+                        <select id="cameraAngle" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-slate-100">
+                            <option value="Drone FPV shot">Drone FPV</option>
+                            <option value="Low angle cinematic">Low Angle (Megah)</option>
+                            <option value="Dolly zoom tracking">Dolly Zoom</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <label class="block text-xs uppercase tracking-wider text-slate-400 mb-1">4. Deskripsi Inti Keinginan Anda (Bahasa Indonesia)</label>
+                <textarea id="corePromptInput" rows="4" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-4 text-slate-100 focus:outline-none focus:border-blue-500 text-sm" placeholder="Contoh: Seekor kucing astronot sedang berjalan perlahan di permukaan bulan..."></textarea>
+            </div>
+
+            <button onclick="generatePrompt()" class="w-full bg-blue-600 hover:bg-blue-500 font-semibold py-3.5 rounded-xl transition shadow-lg text-sm">Buat Prompt Profesional (Auto-Translate)</button>
+        </div>
+
+        <!-- Output Panel -->
+        <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl flex flex-col space-y-4 shadow-xl">
+            <h2 class="text-xl font-bold border-b border-slate-800 pb-3">Hasil Prompt AI Siap Pakai</h2>
+            <div class="flex-1 bg-slate-950 border border-slate-800 rounded-xl p-4 font-mono text-xs text-slate-300 overflow-y-auto whitespace-pre-wrap select-all" id="promptOutputArea">
+                Belum ada prompt yang dihasilkan. Silakan isi parameter di sebelah kiri lalu klik tombol "Buat Prompt Profesional".
+            </div>
+            <button onclick="copyPrompt()" class="bg-indigo-600 hover:bg-indigo-500 font-semibold py-3.5 rounded-xl transition text-sm">Salin Prompt (Copy Prompt)</button>
+        </div>
+    </main>
+
+    <script>
+        // Masukkan URL Web App Google Apps Script Abang di sini:
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxCykkjM95rfyrsMmYTNE82wJImtKtzUko3rUBX4f0/dev";
+
+        window.onload = function() {
+            const activeUser = sessionStorage.getItem('active_user_email');
+            if (activeUser) {
+                document.getElementById('authGate').classList.add('hidden');
+                document.getElementById('userSessionEmail').innerText = `Akun: ${activeUser}`;
+            }
+        };
+
+        function toggleMode() {
+            const mode = document.getElementById('modeSelection').value;
+            const templateSec = document.getElementById('templateSection');
+            const customSec = document.getElementById('customCameraSection');
+            if(mode === 'template') {
+                templateSec.classList.remove('hidden');
+                customSec.classList.add('hidden');
+            } else {
+                templateSec.classList.add('hidden');
+                customSec.classList.remove('hidden');
+            }
+        }
+
+        async function verifyAccess(e) {
+            e.preventDefault();
+            const email = document.getElementById('loginEmail').value.trim();
+            const btn = document.getElementById('loginBtn');
+            const errorText = document.getElementById('loginError');
+
+            btn.disabled = true;
+            btn.innerText = "Memeriksa database cloud...";
+            errorText.classList.add('hidden');
+
+            try {
+                const response = await fetch(`${SCRIPT_URL}?action=check&email=${encodeURIComponent(email)}`);
+                const result = await response.json();
+
+                if (result.status === 'approved') {
+                    sessionStorage.setItem('active_user_email', email);
+                    document.getElementById('authGate').classList.add('hidden');
+                    document.getElementById('userSessionEmail').innerText = `Akun: ${email}`;
+                } else if (result.status === 'pending') {
+                    errorText.classList.remove('hidden');
+                    errorText.classList.add('text-yellow-400');
+                    errorText.innerText = "Akses Anda masih PENDING. Silakan selesaikan pembayaran dan konfirmasi via WhatsApp.";
+                    btn.disabled = false;
+                    btn.innerText = "Masuk ke Prompt Kreator";
+                } else {
+                    errorText.classList.remove('hidden');
+                    errorText.classList.add('text-red-400');
+                    errorText.innerText = "Email tidak ditemukan! Silakan daftar terlebih dahulu di halaman utama.";
+                    btn.disabled = false;
+                    btn.innerText = "Masuk ke Prompt Kreator";
+                }
+            } catch (err) {
+                console.error(err);
+                errorText.classList.remove('hidden');
+                errorText.classList.add('text-red-400');
+                errorText.innerText = "Gagal terhubung ke database cloud. Periksa kembali URL Apps Script Anda.";
+                btn.disabled = false;
+                btn.innerText = "Masuk ke Prompt Kreator";
+            }
+        }
+
+        function logout() {
+            sessionStorage.removeItem('active_user_email');
+            location.reload();
+        }
+
+        async function generatePrompt() {
+            const mode = document.getElementById('modeSelection').value;
+            const type = document.getElementById('contentType').value;
+            const coreText = document.getElementById('corePromptInput').value.trim();
+            const outputArea = document.getElementById('promptOutputArea');
+
+            if (!coreText) {
+                alert('Mohon isi deskripsi inti prompt terlebih dahulu!');
+                return;
+            }
+
+            outputArea.innerText = "⏳ Sedang menerjemahkan teks ke Bahasa Inggris dan meracik parameter profesional...";
+
+            let translatedText = coreText;
+            try {
+                // Memperbaiki endpoint MyMemory API dengan penanganan encoding yang aman
+                const res = await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(coreText)}&langpair=id|en`);
+                const data = await res.json();
+                if (data && data.responseData && data.responseData.translatedText) {
+                    translatedText = data.responseData.translatedText;
+                }
+            } catch (error) {
+                console.log("Terjemahan otomatis gagal, menggunakan teks asli:", error);
+            }
+
+            let finalPrompt = `[Task: High-End ${type.toUpperCase()} Generation]\n`;
+            if(mode === 'template') {
+                const template = document.getElementById('videoTemplate').value;
+                finalPrompt += `[Aesthetic Style: ${template.toUpperCase()}]\n`;
+            } else {
+                const lens = document.getElementById('cameraLens').value;
+                const angle = document.getElementById('cameraAngle').value;
+                finalPrompt += `[Camera & Optics: ${lens}, ${angle}]\n`;
+            }
+            finalPrompt += `[Core Subject Description (Translated): ${translatedText}]\n`;
+            finalPrompt += `[Final Polish: 8k resolution, volumetric lighting, masterpiece, zero artifacts]`;
+
+            outputArea.innerText = finalPrompt;
+        }
+
+        function copyPrompt() {
+            const text = document.getElementById('promptOutputArea').innerText;
+            if(text.includes("Belum ada prompt") || text.includes("Sedang menerjemahkan")) {
+                alert('Belum ada hasil prompt yang valid untuk disalin!');
+                return;
+            }
+            navigator.clipboard.writeText(text);
+            alert('Prompt profesional berhasil disalin ke clipboard!');
+        }
+    </script>
+</body>
+</html>

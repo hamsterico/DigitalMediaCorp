@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kuis Kesehatan Seksual Pria — Intim &amp; Privat</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg-deep: #14060f;
+    --bg-mid: #2a0f1e;
+    --bg-warm: #3d1729;
+    --rose: #e8a4b8;
+    --rose-deep: #b8446b;
+    --gold: #e6b980;
+    --cream: #f5e6d3;
+    --text: #f7e9ec;
+    --text-soft: #d9b8c4;
+    --card: rgba(255,255,255,0.04);
+    --card-border: rgba(232,164,184,0.18);
+    --card-hover: rgba(232,164,184,0.08);
+  }
+
+  body {
+    font-family: 'Georgia', 'Segoe UI', serif;
+    background:
+      radial-gradient(circle at 20% 0%, rgba(184,68,107,0.25) 0%, transparent 45%),
+      radial-gradient(circle at 80% 100%, rgba(230,185,128,0.15) 0%, transparent 45%),
+      linear-gradient(135deg, var(--bg-deep) 0%, var(--bg-mid) 50%, var(--bg-warm) 100%);
+    background-attachment: fixed;
+    min-height: 100vh;
+    padding: 20px;
+    color: var(--text);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    top: -100px; right: -100px;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(230,185,128,0.18) 0%, transparent 70%);
+    pointer-events: none; z-index: 0;
+  }
+  body::after {
+    content: '';
+    position: fixed;
+    bottom: -120px; left: -120px;
+    width: 450px; height: 450px;
+    background: radial-gradient(circle, rgba(184,68,107,0.22) 0%, transparent 70%);
+    pointer-events: none; z-index: 0;
+  }
+
+  .container {
+    max-width: 840px;
+    margin: 0 auto;
+    background: linear-gradient(160deg, rgba(30,10,20,0.92), rgba(45,15,30,0.88));
+    border: 1px solid rgba(232,164,184,0.22);
+    border-radius: 24px;
+    box-shadow:
+      0 30px 80px rgba(0,0,0,0.6),
+      0 0 120px rgba(184,68,107,0.15),
+      inset 0 1px 0 rgba(255,255,255,0.05);
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+    backdrop-filter: blur(10px);
+  }
+
+  header {
+    background: linear-gradient(135deg, rgba(61,23,41,0.9), rgba(90,30,55,0.85));
+    padding: 38px 25px 32px;
+    text-align: center;
+    border-bottom: 1px solid rgba(232,164,184,0.2);
+    position: relative;
+  }
+  header::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 60%; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+
+  header .rose-icon {
+    font-size: 52px;
+    display: block;
+    margin-bottom: 12px;
+    filter: drop-shadow(0 0 20px rgba(232,164,184,0.6));
+    animation: softFloat 3s ease-in-out infinite;
+  }
+  @keyframes softFloat {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+  }
+
+  header h1 {
+    font-family: 'Georgia', serif;
+    font-size: 27px;
+    color: var(--cream);
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+    font-weight: 400;
+    font-style: italic;
+  }
+  header h1 em { color: var(--rose); font-style: italic; }
+  header p {
+    font-size: 13.5px;
+    color: var(--text-soft);
+    line-height: 1.6;
+    font-family: 'Segoe UI', sans-serif;
+  }
+
+  .content { padding: 30px 26px; }
+
+  .intro {
+    background: linear-gradient(135deg, rgba(184,68,107,0.12), rgba(230,185,128,0.06));
+    border-left: 3px solid var(--rose-deep);
+    padding: 18px 20px;
+    border-radius: 12px;
+    font-size: 14px;
+    line-height: 1.7;
+    margin-bottom: 26px;
+    color: var(--text);
+    font-family: 'Segoe UI', sans-serif;
+    box-shadow: inset 0 0 30px rgba(184,68,107,0.05);
+  }
+  .intro strong { color: var(--rose); }
+
+  .progress-wrap {
+    position: sticky; top: 0;
+    background: linear-gradient(180deg, rgba(30,10,20,0.98), rgba(30,10,20,0.85) 80%, transparent);
+    padding: 14px 0 18px;
+    z-index: 10;
+    margin-bottom: 10px;
+    backdrop-filter: blur(6px);
+  }
+  .progress-bar-bg {
+    background: rgba(255,255,255,0.06);
+    height: 8px;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid rgba(232,164,184,0.1);
+  }
+  .progress-bar {
+    background: linear-gradient(90deg, var(--gold), var(--rose), var(--rose-deep));
+    height: 100%; width: 0%;
+    transition: width 0.4s ease;
+    border-radius: 10px;
+    box-shadow: 0 0 12px rgba(232,164,184,0.6);
+  }
+  .progress-text {
+    text-align: center;
+    font-size: 12.5px;
+    color: var(--text-soft);
+    margin-top: 9px;
+    letter-spacing: 0.5px;
+    font-family: 'Segoe UI', sans-serif;
+    font-weight: 500;
+  }
+
+  .question {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 16px;
+    padding: 22px;
+    margin-bottom: 18px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  .question::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px; height: 100%;
+    background: linear-gradient(180deg, var(--gold), var(--rose-deep));
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .question:hover { border-color: rgba(232,164,184,0.35); background: var(--card-hover); }
+  .question:hover::before { opacity: 1; }
+  .question.answered { border-color: rgba(230,185,128,0.5); background: rgba(230,185,128,0.05); }
+  .question.answered::before { opacity: 1; }
+
+  .q-cat {
+    display: inline-block;
+    background: linear-gradient(135deg, rgba(184,68,107,0.35), rgba(90,30,55,0.35));
+    color: var(--cream);
+    font-size: 10.5px;
+    font-weight: 700;
+    padding: 4px 12px;
+    border-radius: 20px;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border: 1px solid rgba(232,164,184,0.25);
+    font-family: 'Segoe UI', sans-serif;
+  }
+
+  .q-text {
+    font-size: 16.5px;
+    font-weight: 400;
+    margin-bottom: 8px;
+    line-height: 1.5;
+    color: var(--cream);
+    font-family: 'Georgia', serif;
+  }
+
+  .q-hint {
+    font-size: 12.5px;
+    color: var(--text-soft);
+    font-style: italic;
+    margin-bottom: 16px;
+    line-height: 1.55;
+    font-family: 'Segoe UI', sans-serif;
+    padding-left: 12px;
+    border-left: 2px solid rgba(230,185,128,0.3);
+  }
+
+  .options { display: flex; flex-direction: column; gap: 9px; }
+
+  .option {
+    display: flex; align-items: flex-start; gap: 12px;
+    background: rgba(255,255,255,0.03);
+    border: 1.5px solid rgba(232,164,184,0.15);
+    border-radius: 12px;
+    padding: 13px 15px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 14px;
+    line-height: 1.45;
+    color: var(--text);
+    font-family: 'Segoe UI', sans-serif;
+  }
+  .option:hover {
+    border-color: var(--rose);
+    background: rgba(232,164,184,0.08);
+    transform: translateX(3px);
+    box-shadow: 0 4px 20px rgba(184,68,107,0.15);
+  }
+  .option input { display: none; }
+  .radio-mark {
+    width: 20px; height: 20px; min-width: 20px;
+    border: 2px solid rgba(232,164,184,0.4);
+    border-radius: 50%;
+    margin-top: 1px;
+    position: relative;
+    transition: all 0.2s;
+  }
+  .option input:checked + .radio-mark {
+    border-color: var(--gold);
+    background: linear-gradient(135deg, var(--rose), var(--rose-deep));
+    box-shadow: 0 0 15px rgba(232,164,184,0.7);
+  }
+  .option input:checked + .radio-mark::after {
+    content: ''; position: absolute;
+    top: 4px; left: 4px;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--cream);
+  }
+  .option input:checked ~ .opt-label { color: var(--cream); font-weight: 600; }
+  .option.selected {
+    border-color: var(--gold);
+    background: linear-gradient(135deg, rgba(230,185,128,0.12), rgba(184,68,107,0.08));
+  }
+
+  .btn-area { display: flex; gap: 12px; margin-top: 28px; flex-wrap: wrap; }
+
+  button {
+    flex: 1;
+    min-width: 150px;
+    padding: 16px 22px;
+    font-size: 15.5px;
+    font-weight: 700;
+    border: none;
+    border-radius: 14px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    font-family: 'Segoe UI', sans-serif;
+    letter-spacing: 0.3px;
+  }
+
+  .btn-primary {
+    background: linear-gradient(135deg, var(--rose-deep), var(--rose));
+    color: #fff;
+    box-shadow: 0 8px 30px rgba(184,68,107,0.4), inset 0 1px 0 rgba(255,255,255,0.2);
+  }
+  .btn-primary:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(184,68,107,0.55);
+  }
+  .btn-primary:disabled {
+    background: rgba(255,255,255,0.08);
+    box-shadow: none;
+    cursor: not-allowed;
+    color: rgba(255,255,255,0.3);
+  }
+
+  .btn-secondary {
+    background: rgba(255,255,255,0.06);
+    color: var(--text-soft);
+    border: 1px solid rgba(232,164,184,0.2);
+  }
+  .btn-secondary:hover { background: rgba(232,164,184,0.1); color: var(--cream); }
+
+  #result { display: none; }
+
+  .result-card {
+    border-radius: 20px;
+    padding: 32px 26px;
+    text-align: center;
+    margin-bottom: 22px;
+    animation: fadeInUp 0.6s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .result-card::before {
+    content: '';
+    position: absolute;
+    top: -50%; left: -50%;
+    width: 200%; height: 200%;
+    background: radial-gradient(circle at center, rgba(255,255,255,0.06), transparent 60%);
+    pointer-events: none;
+  }
+
+  .result-good  { background: linear-gradient(135deg, rgba(76,175,80,0.18), rgba(56,142,60,0.08)); border: 2px solid rgba(129,199,132,0.4); }
+  .result-mid   { background: linear-gradient(135deg, rgba(255,193,7,0.15), rgba(255,152,0,0.08)); border: 2px solid rgba(255,193,7,0.4); }
+  .result-warn  { background: linear-gradient(135deg, rgba(255,111,0,0.15), rgba(230,81,0,0.08)); border: 2px solid rgba(255,111,0,0.4); }
+  .result-alert { background: linear-gradient(135deg, rgba(229,57,53,0.18), rgba(183,28,28,0.08)); border: 2px solid rgba(229,57,53,0.45); }
+
+  .result-icon {
+    font-size: 64px;
+    margin-bottom: 14px;
+    display: block;
+    filter: drop-shadow(0 0 25px rgba(232,164,184,0.4));
+  }
+  .result-title {
+    font-family: 'Georgia', serif;
+    font-size: 24px;
+    font-weight: 400;
+    font-style: italic;
+    margin-bottom: 10px;
+    color: var(--cream);
+  }
+  .result-sub {
+    font-size: 13.5px;
+    color: var(--text-soft);
+    margin-bottom: 18px;
+    font-family: 'Segoe UI', sans-serif;
+  }
+
+  .score-badge {
+    display: inline-block;
+    background: rgba(0,0,0,0.35);
+    border: 1px solid rgba(232,164,184,0.3);
+    padding: 8px 22px;
+    border-radius: 30px;
+    font-size: 17px;
+    font-weight: 800;
+    margin-bottom: 20px;
+    color: var(--gold);
+    font-family: 'Segoe UI', sans-serif;
+  }
+
+  .result-desc {
+    font-size: 14.5px;
+    line-height: 1.7;
+    text-align: left;
+    background: rgba(0,0,0,0.25);
+    padding: 18px 20px;
+    border-radius: 14px;
+    margin-top: 8px;
+    color: var(--text);
+    font-family: 'Segoe UI', sans-serif;
+    border: 1px solid rgba(232,164,184,0.1);
+  }
+  .result-desc ul { margin: 10px 0 0 22px; }
+  .result-desc li { margin-bottom: 8px; }
+  .result-desc strong { color: var(--rose); }
+
+  .dimensions {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 12px;
+    margin-top: 22px;
+  }
+  .dim-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(232,164,184,0.15);
+    border-radius: 14px;
+    padding: 16px 18px;
+    text-align: left;
+    font-family: 'Segoe UI', sans-serif;
+    transition: transform 0.2s;
+  }
+  .dim-card:hover { transform: translateY(-2px); }
+  .dim-card .dim-label {
+    font-size: 11.5px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-soft);
+    margin-bottom: 6px;
+    font-weight: 600;
+  }
+  .dim-card .dim-value {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--gold);
+    margin-bottom: 4px;
+  }
+  .dim-card .dim-bar {
+    height: 5px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-top: 8px;
+  }
+  .dim-card .dim-fill {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 0.8s ease;
+  }
+  .dim-low .dim-fill  { background: linear-gradient(90deg, #66bb6a, #43a047); }
+  .dim-mid .dim-fill  { background: linear-gradient(90deg, #ffca28, #ff9800); }
+  .dim-high .dim-fill { background: linear-gradient(90deg, #ef5350, #b71c1c); }
+  .dim-low .dim-value  { color: #81c784; }
+  .dim-mid .dim-value  { color: #ffca28; }
+  .dim-high .dim-value { color: #ff6b6b; }
+
+  .solutions {
+    background: linear-gradient(135deg, rgba(230,185,128,0.08), rgba(184,68,107,0.06));
+    border: 1px solid rgba(230,185,128,0.25);
+    border-radius: 16px;
+    padding: 24px;
+    margin-top: 22px;
+  }
+  .solutions h3 {
+    font-family: 'Georgia', serif;
+    font-style: italic;
+    font-size: 19px;
+    color: var(--cream);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .solution-item {
+    background: rgba(255,255,255,0.03);
+    border-left: 3px solid var(--rose);
+    border-radius: 10px;
+    padding: 16px 18px;
+    margin-bottom: 12px;
+    font-size: 13.5px;
+    line-height: 1.7;
+    font-family: 'Segoe UI', sans-serif;
+    color: var(--text);
+  }
+  .solution-item .sol-title {
+    font-weight: 700;
+    color: var(--gold);
+    display: block;
+    margin-bottom: 6px;
+    font-size: 14.5px;
+  }
+  .solution-item ul { margin: 8px 0 0 20px; }
+  .solution-item li { margin-bottom: 6px; }
+  .solution-item.urgent { border-left-color: #ef5350; background: rgba(229,57,53,0.08); }
+  .solution-item.psych  { border-left-color: #ba68c8; }
+  .solution-item.med    { border-left-color: #64b5f6; }
+  .solution-item.life   { border-left-color: #66bb6a; }
+
+  .breakdown-box {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(232,164,184,0.15);
+    border-radius: 16px;
+    padding: 22px;
+    margin-top: 20px;
+  }
+  .breakdown-box h3 {
+    font-family: 'Georgia', serif;
+    font-style: italic;
+    color: var(--cream);
+    font-weight: 400;
+    margin-bottom: 16px;
+    font-size: 17px;
+  }
+  .bd-item {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 9px 12px; border-radius: 8px;
+    font-size: 13px; margin-bottom: 6px;
+    background: rgba(255,255,255,0.04);
+    font-family: 'Segoe UI', sans-serif;
+    color: var(--text);
+    gap: 10px;
+  }
+  .bd-item.high { background: rgba(229,57,53,0.15); border-left: 4px solid #ef5350; }
+  .bd-item.mid  { background: rgba(255,193,7,0.12); border-left: 4px solid #ffb300; }
+  .bd-item.low  { background: rgba(76,175,80,0.12); border-left: 4px solid #66bb6a; }
+  .bd-score { font-weight: 700; color: var(--gold); min-width: 40px; text-align: right; }
+
+  .disclaimer {
+    background: rgba(255,193,7,0.08);
+    border: 1px solid rgba(255,193,7,0.35);
+    border-radius: 14px;
+    padding: 18px 20px;
+    font-size: 12.5px;
+    line-height: 1.7;
+    margin-top: 24px;
+    color: #ffd97a;
+    font-family: 'Segoe UI', sans-serif;
+  }
+  .disclaimer strong { color: #ffb300; }
+
+  .privacy-note {
+    background: rgba(100,181,246,0.08);
+    border-left: 4px solid #64b5f6;
+    border-radius: 10px;
+    padding: 14px 18px;
+    font-size: 12.5px;
+    line-height: 1.6;
+    margin-top: 16px;
+    color: #b3d9ff;
+    font-family: 'Segoe UI', sans-serif;
+  }
+  .privacy-note strong { color: #e3f2fd; }
+
+  footer {
+    text-align: center;
+    padding: 20px;
+    font-size: 11.5px;
+    color: rgba(255,255,255,0.35);
+    border-top: 1px solid rgba(232,164,184,0.1);
+    font-family: 'Segoe UI', sans-serif;
+    letter-spacing: 0.5px;
+  }
+
+  @media (max-width: 500px) {
+    header h1 { font-size: 21px; }
+    .q-text { font-size: 15px; }
+    .option { font-size: 13px; padding: 12px 13px; }
+    button { font-size: 14.5px; }
+    .dimensions { grid-template-columns: 1fr; }
+    .result-title { font-size: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <span class="rose-icon">🌹</span>
+    <h1>Kuis <em>Kesehatan Seksual Pria</em></h1>
+    <p>Deteksi dini disfungsi ereksi, ejakulasi dini,<br>faktor psikologis &amp; kesehatan fisik</p>
+  </header>
+
+  <div class="content">
+    <div id="intro" class="intro">
+      <strong>🕯️ Cara mengisi:</strong><br>
+      Jawab setiap pertanyaan dengan <em>jujur</em> sesuai kondisi Anda <strong>dalam 3 bulan terakhir</strong>.
+      Tidak ada jawaban benar atau salah — kejujuran Anda membantu hasil yang lebih akurat.
+      Kuis ini bersifat <em>skrining awal</em>, bukan diagnosis medis.
+    </div>
+
+    <div class="progress-wrap" id="progressWrap">
+      <div class="progress-bar-bg"><div class="progress-bar" id="progressBar"></div></div>
+      <div class="progress-text" id="progressText">0 dari 0 pertanyaan terjawab</div>
+    </div>
+
+    <form id="quizForm"></form>
+
+    <div class="btn-area" id="btnArea">
+      <button type="button" class="btn-primary" id="submitBtn" disabled>✨ Lihat Hasil &amp; Solusi</button>
+      <button type="button" class="btn-secondary" id="resetBtn">Reset</button>
+    </div>
+
+    <div id="result"></div>
+  </div>
+
+  <footer>
+    Kuis edukasi — bukan pengganti konsultasi dokter/psikolog/terapis seks.
+  </footer>
+</div>
+
+<script>
+/* ============================================================
+   DATA PERTANYAAN — 20 soal, 5 kategori
+   ============================================================ */
+const CAT_LABELS = {
+  ereksi:    '❤️ Fungsi Ereksi',
+  ejakulasi: '⚡ Ejakulasi',
+  psikologis:'🧠 Psikologis',
+  fisik:     '🩺 Kesehatan Fisik',
+  gaya:      '🌿 Gaya Hidup'
+};
+
+const QUESTIONS = [
+  /* ===== FUNGSI EREKSI (4) ===== */
+  { cat:'ereksi',
+    q: "Seberapa sering Anda mengalami kesulitan mencapai ereksi saat ingin berhubungan seksual?",
+    hint: "Sesekali sulit itu wajar. Yang perlu diperhatikan bila sering dan berulang.",
+    opts: [ {t:"Tidak pernah / hampir selalu bisa ereksi",s:0}, {t:"Kadang sulit (1 dari 4 kali)",s:1}, {t:"Sering sulit (setengah kali atau lebih)",s:2}, {t:"Hampir selalu tidak bisa ereksi",s:3} ] },
+
+  { cat:'ereksi',
+    q: "Apakah kekerasan ereksi Anda cukup untuk penetrasi?",
+    hint: "Ereksi yang cukup keras adalah tanda aliran darah & saraf yang sehat.",
+    opts: [ {t:"Selalu cukup keras",s:0}, {t:"Kadang kurang keras, tapi masih bisa",s:1}, {t:"Sering tidak cukup keras",s:2}, {t:"Hampir selalu tidak cukup keras",s:3} ] },
+
+  { cat:'ereksi',
+    q: "Apakah ereksi Anda sering hilang sebelum hubungan selesai?",
+    hint: "Kehilangan ereksi di tengah jalan sering menandakan masalah vaskular atau kecemasan.",
+    opts: [ {t:"Tidak pernah",s:0}, {t:"Kadang (1 dari 5 kali)",s:1}, {t:"Sering",s:2}, {t:"Hampir selalu",s:3} ] },
+
+  { cat:'ereksi',
+    q: "Bagaimana dengan ereksi pagi (morning erection) Anda?",
+    hint: "Ereksi pagi yang masih ada biasanya menandakan fungsi organ masih baik — mengarah ke penyebab psikologis.",
+    opts: [ {t:"Masih sering, normal",s:0}, {t:"Berkurang dari dulu",s:1}, {t:"Jarang",s:2}, {t:"Hampir tidak pernah lagi",s:3} ] },
+
+  /* ===== EJAKULASI (3) ===== */
+  { cat:'ejakulasi',
+    q: "Berapa lama Anda biasanya bertahan sebelum ejakulasi setelah penetrasi?",
+    hint: "Ejakulasi dini umumnya < 1–2 menit secara konsisten.",
+    opts: [ {t:"Lebih dari 5 menit (normal)",s:0}, {t:"3–5 menit",s:1}, {t:"1–2 menit",s:2}, {t:"Kurang dari 1 menit",s:3} ] },
+
+  { cat:'ejakulasi',
+    q: "Apakah Anda merasa sulit menahan/mengontrol ejakulasi?",
+    hint: "Kesulitan mengontrol ejakulasi adalah ciri utama ejakulasi dini.",
+    opts: [ {t:"Bisa mengontrol dengan baik",s:0}, {t:"Kadang sulit menahan",s:1}, {t:"Sering sulit menahan",s:2}, {t:"Hampir tidak bisa menahan sama sekali",s:3} ] },
+
+  { cat:'ejakulasi',
+    q: "Apakah Anda atau pasangan merasa tidak puas / frustrasi dengan durasi hubungan?",
+    hint: "Dampak emosional terhadap hubungan juga bagian penting dari penilaian.",
+    opts: [ {t:"Tidak, kami puas",s:0}, {t:"Sedikit kurang puas",s:1}, {t:"Cukup mengganggu",s:2}, {t:"Sangat mengganggu hubungan",s:3} ] },
+
+  /* ===== PSIKOLOGIS (4) ===== */
+  { cat:'psikologis',
+    q: "Apakah Anda sedang mengalami stres berat (pekerjaan, keuangan, keluarga)?",
+    hint: "Stres kronis dapat menekan hormon testosteron & gairah seksual.",
+    opts: [ {t:"Tidak, stres normal",s:0}, {t:"Stres ringan",s:1}, {t:"Stres cukup berat",s:2}, {t:"Stres sangat berat / berkepanjangan",s:3} ] },
+
+  { cat:'psikologis',
+    q: "Apakah Anda merasa cemas atau takut gagal saat akan berhubungan seksual?",
+    hint: "Performance anxiety adalah penyebab psikologis tersering disfungsi ereksi.",
+    opts: [ {t:"Tidak ada kecemasan",s:0}, {t:"Kadang cemas ringan",s:1}, {t:"Sering cemas",s:2}, {t:"Sangat cemas, sampai menghindari hubungan",s:3} ] },
+
+  { cat:'psikologis',
+    q: "Apakah Anda merasa sedih, kehilangan minat, atau tidak bersemangat belakangan ini?",
+    hint: "Depresi erat kaitannya dengan penurunan libido dan disfungsi seksual.",
+    opts: [ {t:"Tidak",s:0}, {t:"Kadang sedih, masih wajar",s:1}, {t:"Sering murung & kehilangan minat",s:2}, {t:"Hampir setiap hari merasa sedih/kosong",s:3} ] },
+
+  { cat:'psikologis',
+    q: "Bagaimana kualitas tidur & tingkat kelelahan Anda?",
+    hint: "Kurang tidur menurunkan testosteron dan energi seksual secara signifikan.",
+    opts: [ {t:"Tidur cukup, energi baik",s:0}, {t:"Kadang kurang tidur",s:1}, {t:"Sering kurang tidur / lelah",s:2}, {t:"Sangat lelah / insomnia kronis",s:3} ] },
+
+  /* ===== KESEHATAN FISIK (5) ===== */
+  { cat:'fisik',
+    q: "Apakah Anda memiliki diabetes atau gula darah tinggi?",
+    hint: "Diabetes merusak saraf & pembuluh darah — penyebab utama disfungsi ereksi.",
+    opts: [ {t:"Tidak / gula darah normal",s:0}, {t:"Prediabetes",s:1}, {t:"Diabetes terkontrol",s:2}, {t:"Diabetes tidak terkontrol",s:3} ] },
+
+  { cat:'fisik',
+    q: "Apakah Anda memiliki tekanan darah tinggi (hipertensi)?",
+    hint: "Hipertensi merusak pembuluh darah kecil termasuk di organ intim.",
+    opts: [ {t:"Tidak / normal",s:0}, {t:"Kadang agak tinggi",s:1}, {t:"Hipertensi terdiagnosis",s:2}, {t:"Hipertensi sulit terkontrol / minum obat",s:3} ] },
+
+  { cat:'fisik',
+    q: "Apakah Anda memiliki kolesterol tinggi atau gangguan lemak darah?",
+    hint: "Kolesterol tinggi mempersempit pembuluh darah, mengurangi aliran darah ke penis.",
+    opts: [ {t:"Tidak / normal",s:0}, {t:"Borderline",s:1}, {t:"Kolesterol tinggi terdiagnosis",s:2}, {t:"Kolesterol tinggi + gangguan jantung",s:3} ] },
+
+  { cat:'fisik',
+    q: "Bagaimana berat badan Anda (BMI / lingkar perut)?",
+    hint: "Obesitas menurunkan testosteron & memicu resistensi insulin.",
+    opts: [ {t:"Ideal / normal",s:0}, {t:"Sedikit berlebih",s:1}, {t:"Kegemukan (obesitas)",s:2}, {t:"Obesitas berat / perut buncit besar",s:3} ] },
+
+  { cat:'fisik',
+    q: "Apakah Anda memiliki riwayat penyakit jantung, stroke, atau gangguan pembuluh darah?",
+    hint: "Penyakit vaskular adalah faktor risiko utama disfungsi ereksi.",
+    opts: [ {t:"Tidak",s:0}, {t:"Ada faktor risiko (keluarga)",s:1}, {t:"Pernah didiagnosis ringan",s:2}, {t:"Ada penyakit jantung/stroke",s:3} ] },
+
+  /* ===== GAYA HIDUP & OBAT (4) ===== */
+  { cat:'gaya',
+    q: "Apakah Anda merokok?",
+    hint: "Nikotin menyempitkan pembuluh darah & mempercepat disfungsi ereksi 10 tahun lebih awal.",
+    opts: [ {t:"Tidak merokok",s:0}, {t:"Mantan perokok",s:1}, {t:"Perokok ringan (<10 batang/hari)",s:2}, {t:"Perokok berat (>10 batang/hari)",s:3} ] },
+
+  { cat:'gaya',
+    q: "Seberapa sering Anda mengonsumsi alkohol?",
+    hint: "Alkohol berlebihan menekan testosteron & mengganggu kualitas ereksi.",
+    opts: [ {t:"Tidak / sangat jarang",s:0}, {t:"Sosial (1–2x/bulan)",s:1}, {t:"Mingguan",s:2}, {t:"Hampir setiap hari / sering mabuk",s:3} ] },
+
+  { cat:'gaya',
+    q: "Apakah Anda pernah / sering mengonsumsi obat kuat (Viagra, dll) tanpa resep dokter?",
+    hint: "Obat kuat tanpa resep berbahaya, terutama bila ada gangguan jantung atau minum obat nitrat.",
+    opts: [ {t:"Tidak pernah",s:0}, {t:"Pernah coba 1–2 kali",s:1}, {t:"Kadang pakai tanpa resep",s:2}, {t:"Sering pakai tanpa resep / dari sumber tidak resmi",s:3} ] },
+
+  { cat:'gaya',
+    q: "Seberapa rutin Anda berolahraga (minimal 30 menit, 3x/minggu)?",
+    hint: "Olahraga teratur meningkatkan aliran darah, testosteron, dan stamina seksual.",
+    opts: [ {t:"Rutin ≥ 3x/minggu",s:0}, {t:"1–2x/minggu",s:1}, {t:"Jarang",s:2}, {t:"Tidak pernah / mager total",s:3} ] }
+];
+
+/* ============================================================
+   RENDER PERTANYAAN
+   ============================================================ */
+const form         = document.getElementById('quizForm');
+const submitBtn    = document.getElementById('submitBtn');
+const resetBtn     = document.getElementById('resetBtn');
+const progressBar  = document.getElementById('progressBar');
+const progressText = document.getElementById('progressText');
+const resultDiv    = document.getElementById('result');
+const progressWrap = document.getElementById('progressWrap');
+const btnArea      = document.getElementById('btnArea');
+const introDiv     = document.getElementById('intro');
+
+const TOTAL = QUESTIONS.length;
+let answered = new Set();
+
+QUESTIONS.forEach((item, i) => {
+  const div = document.createElement('div');
+  div.className = 'question';
+  div.id = 'q' + i;
+
+  let optsHTML = '';
+  item.opts.forEach(opt => {
+    optsHTML += `
+      <label class="option" data-q="${i}">
+        <input type="radio" name="q${i}" value="${opt.s}" data-q="${i}">
+        <span class="radio-mark"></span>
+        <span class="opt-label">${opt.t}</span>
+      </label>`;
+  });
+
+  div.innerHTML = `
+    <span class="q-cat">${CAT_LABELS[item.cat]}</span>
+    <div class="q-text">${i+1}. ${item.q}</div>
+    <div class="q-hint">${item.hint}</div>
+    <div class="options">${optsHTML}</div>`;
+
+  form.appendChild(div);
+});
+
+form.addEventListener('change', (e) => {
+  if (e.target.type === 'radio') {
+    const qIndex = parseInt(e.target.dataset.q);
+    document.querySelectorAll(`.option[data-q="${qIndex}"]`).forEach(o => o.classList.remove('selected'));
+    e.target.closest('.option').classList.add('selected');
+    document.getElementById('q' + qIndex).classList.add('answered');
+    answered.add(qIndex);
+    updateProgress();
+  }
+});
+
+function updateProgress() {
+  const n = answered.size;
+  progressBar.style.width = (n / TOTAL) * 100 + '%';
+  progressText.textContent = `${n} dari ${TOTAL} pertanyaan terjawab`;
+  submitBtn.disabled = n < TOTAL;
+  if (n === TOTAL) submitBtn.textContent = '✨ Lihat Hasil & Solusi';
+}
+progressText.textContent = `0 dari ${TOTAL} pertanyaan terjawab`;
+
+/* ============================================================
+   SUBMIT — hitung & tampilkan hasil
+   ============================================================ */
+submitBtn.addEventListener('click', () => {
+  const catTotals = { ereksi:0, ejakulasi:0, psikologis:0, fisik:0, gaya:0 };
+  const catMax = { ereksi: 4*3, ejakulasi: 3*3, psikologis: 4*3, fisik: 5*3, gaya: 4*3 };
+  const details = [];
+  let total = 0;
+
+  QUESTIONS.forEach((item, i) => {
+    const sel = document.querySelector(`input[name="q${i}"]:checked`);
+    const val = sel ? parseInt(sel.value) : 0;
+    const label = item.opts.find(o => o.s === val)?.t || '-';
+    total += val;
+    catTotals[item.cat] += val;
+    details.push({ no:i+1, cat:item.cat, q:item.q, answer:label, score:val });
+  });
+
+  showResult(total, catTotals, catMax, details);
+});
+
+/* ============================================================
+   TAMPILKAN HASIL + SOLUSI
+   ============================================================ */
+function showResult(total, catTotals, catMax, details) {
+  const maxScore = TOTAL * 3;
+  const percent  = Math.round((total / maxScore) * 100);
+
+  const pct = {
+    ereksi:     catTotals.ereksi    / catMax.ereksi    * 100,
+    ejakulasi:  catTotals.ejakulasi / catMax.ejakulasi * 100,
+    psikologis: catTotals.psikologis/ catMax.psikologis* 100,
+    fisik:      catTotals.fisik     / catMax.fisik     * 100,
+    gaya:       catTotals.gaya      / catMax.gaya      * 100
+  };
+
+  const flags = {
+    impotensi:  pct.ereksi     >= 50,
+    ejakulasi:  pct.ejakulasi  >= 50,
+    psikologis: pct.psikologis >= 50,
+    fisik:      pct.fisik      >= 50,
+    obatkuat:   pct.gaya       >= 50
+  };
+
+  let icon, title, cls, desc;
+  if (percent <= 20) {
+    icon = "🌹"; title = "Kondisi Anda Tergolong Sehat"; cls = "result-good";
+    desc = `Berdasarkan jawaban Anda, <strong>tidak ada indikasi signifikan</strong> gangguan fungsi seksual. Pertahankan gaya hidup sehat, kelola stres, dan jaga komunikasi dengan pasangan. Lakukan pemeriksaan rutin (gula darah, kolesterol, tekanan darah) setahun sekali.`;
+  } else if (percent <= 40) {
+    icon = "🕯️"; title = "Ada Beberapa Keluhan Ringan"; cls = "result-mid";
+    desc = `Anda mengalami <strong>beberapa keluhan ringan</strong> yang mungkin masih bisa diperbaiki dengan penyesuaian gaya hidup. Perhatikan tidur, stres, olahraga, dan pola makan. Bila keluhan berlanjut >3 bulan, konsultasikan ke dokter.`;
+  } else if (percent <= 60) {
+    icon = "⚠️"; title = "Ada Indikasi Gangguan yang Perlu Ditangani"; cls = "result-warn";
+    desc = `Skor Anda menunjukkan <strong>indikasi gangguan yang cukup jelas</strong>. Sebaiknya segera konsultasi ke dokter umum / urolog / psikolog klinis untuk evaluasi. Semakin dini ditangani, semakin mudah diatasi.`;
+  } else {
+    icon = "🚨"; title = "Indikasi Kuat Gangguan — Segera Konsultasi"; cls = "result-alert";
+    desc = `Skor Anda <strong>tinggi</strong> dan mengarah pada gangguan yang perlu evaluasi medis profesional. Jangan mengobati sendiri atau membeli obat kuat tanpa resep — bisa berbahaya. Segera periksa ke dokter spesialis urologi/andrologi atau psikolog seksual.`;
+  }
+
+  const dimHTML = `
+    <div class="dimensions">
+      ${dimCard('Disfungsi Ereksi', catTotals.ereksi, catMax.ereksi)}
+      ${dimCard('Ejakulasi Dini', catTotals.ejakulasi, catMax.ejakulasi)}
+      ${dimCard('Faktor Psikologis', catTotals.psikologis, catMax.psikologis)}
+      ${dimCard('Kesehatan Fisik', catTotals.fisik, catMax.fisik)}
+      ${dimCard('Gaya Hidup & Obat', catTotals.gaya, catMax.gaya)}
+    </div>
+  `;
+
+  let solutionsHTML = '';
+
+  if (flags.impotensi) {
+    solutionsHTML += solutionBlock('urgent', '🔴 Indikasi Disfungsi Ereksi (Impotensi)', `
+      <ul>
+        <li><strong>Konsultasi ke dokter urolog/androlog</strong> — jangan tunda.</li>
+        <li>Pemeriksaan yang mungkin dilakukan: <em>testosteron total &amp; bebas</em>, gula darah, lipid profil, USG Doppler penis, TSH.</li>
+        <li>Terapi medis (dengan resep dokter): PDE5 inhibitor seperti <em>sildenafil</em>, <em>tadalafil</em>, <em>vardenafil</em>.</li>
+        <li>Alternatif: <em>vacuum erection device</em>, terapi gelombang kejut (Li-ESWT), injeksi alprostadil, atau implan penis untuk kasus berat.</li>
+        <li>Perbaiki penyebab dasar: kontrol diabetes, hipertensi, kolesterol.</li>
+        <li><strong>Jangan beli obat kuat dari sumber tidak resmi</strong> — banyak palsu &amp; berbahaya.</li>
+      </ul>`);
+  }
+
+  if (flags.ejakulasi) {
+    solutionsHTML += solutionBlock('med', '⚡ Indikasi Ejakulasi Dini', `
+      <ul>
+        <li><strong>Terapi perilaku</strong> (bisa latihan sendiri): teknik <em>stop-start</em> &amp; <em>squeeze</em>.</li>
+        <li><strong>Latihan otot panggul (Kegel)</strong> — 3 set x 10 repetisi, tiap hari.</li>
+        <li><strong>Teknik sensate focus</strong> dengan pasangan untuk mengurangi kecemasan.</li>
+        <li><em>Desensitisasi topikal</em>: krim lidokain/prilokain (dengan saran dokter).</li>
+        <li>Obat oral (dengan resep): <em>dapoxetine</em>, atau off-label SSRI dosis rendah.</li>
+        <li>Konseling seks atau terapi pasangan sangat membantu bila ada faktor psikologis.</li>
+      </ul>`);
+  }
+
+  if (flags.psikologis) {
+    solutionsHTML += solutionBlock('psych', '🧠 Indikasi Faktor Psikologis', `
+      <ul>
+        <li><strong>Konseling / psikoterapi</strong> dengan psikolog klinis atau terapis seks bersertifikat.</li>
+        <li><strong>Cognitive Behavioral Therapy (CBT)</strong> efektif untuk <em>performance anxiety</em>.</li>
+        <li>Latihan <strong>mindfulness &amp; relaksasi</strong> (pernapasan 4-7-8, meditasi 10 menit/hari).</li>
+        <li>Perbaiki kualitas tidur (7–9 jam), kelola stres kerja.</li>
+        <li>Bila gejala depresi berat: konsultasi ke psikiater — beberapa antidepresan justru memperbaiki fungsi seksual (mis. bupropion).</li>
+        <li>Bicarakan perasaan dengan pasangan — komunikasi terbuka mengurangi tekanan.</li>
+      </ul>`);
+  }
+
+  if (flags.fisik) {
+    solutionsHTML += solutionBlock('med', '🩺 Indikasi Masalah Kesehatan Fisik', `
+      <ul>
+        <li><strong>Kontrol gula darah</strong> (HbA1c &lt; 7%) bila diabetes.</li>
+        <li><strong>Kontrol tekanan darah</strong> (target &lt; 130/80 mmHg).</li>
+        <li><strong>Turunkan kolesterol LDL</strong> dengan diet &amp; obat bila perlu.</li>
+        <li><strong>Turunkan berat badan</strong> — turun 5–10% sudah memperbaiki ereksi secara signifikan.</li>
+        <li>Periksa <strong>kadar testosteron</strong> — hipogonadisme sering luput terdiagnosis.</li>
+        <li>Olahraga kardio 150 menit/minggu + latihan beban 2x/minggu.</li>
+      </ul>`);
+  }
+
+  if (flags.obatkuat) {
+    solutionsHTML += solutionBlock('urgent', '💊 Peringatan Penggunaan Obat Kuat', `
+      <ul>
+        <li><strong>STOP membeli obat kuat tanpa resep</strong> — obat palsu sering mengandung bahan berbahaya (sildenafil dosis tinggi, logam berat, bahkan sildenafil yang dicampur bahan kimia obat).</li>
+        <li>Bahaya nyata: <strong>serangan jantung, stroke, kematian</strong> — terutama bila Anda punya gangguan jantung atau minum obat nitrat (nitrogliserin).</li>
+        <li>Konsultasi ke dokter — dapatkan resep resmi bila memang dibutuhkan.</li>
+        <li>Cek dulu penyebab dasarnya — obat kuat bukan solusi jangka panjang.</li>
+      </ul>`);
+  }
+
+  if (!flags.impotensi && !flags.ejakulasi && !flags.psikologis && !flags.fisik && !flags.obatkuat) {
+    solutionsHTML = solutionBlock('life', '🌿 Rekomendasi Umum (Kondisi Baik)', `
+      <ul>
+        <li>Pertahankan olahraga teratur 3–5x/minggu.</li>
+        <li>Tidur 7–9 jam setiap malam.</li>
+        <li>Kelola stres dengan meditasi, hobi, atau jalan santai.</li>
+        <li>Komunikasi terbuka dengan pasangan.</li>
+        <li>Cek kesehatan rutin 1x setahun: gula darah, lipid, testosteron.</li>
+      </ul>`);
+  }
+
+  let bdHTML = '';
+  details.forEach(d => {
+    let c = 'low';
+    if (d.score === 3) c = 'high';
+    else if (d.score >= 2) c = 'mid';
+    bdHTML += `<div class="bd-item ${c}">
+        <span style="font-size:12.5px;">P${d.no}. ${d.q.length > 60 ? d.q.substring(0,60)+'…' : d.q}</span>
+        <span class="bd-score">${d.score}/3</span></div>`;
+  });
+
+  resultDiv.innerHTML = `
+    <div class="result-card ${cls}">
+      <span class="result-icon">${icon}</span>
+      <div class="result-title">${title}</div>
+      <div class="result-sub">Hasil skrining kesehatan seksual Anda</div>
+      <div class="score-badge">Skor Total: ${total} / ${maxScore} (${percent}%)</div>
+      <div class="result-desc">${desc}</div>
+    </div>
+
+    <div class="breakdown-box">
+      <h3>📊 Profil per Dimensi</h3>
+      ${dimHTML}
+    </div>
+
+    <div class="solutions">
+      <h3>🌹 Rekomendasi &amp; Solusi untuk Anda</h3>
+      ${solutionsHTML}
+    </div>
+
+    <div class="breakdown-box">
+      <h3>📝 Rincian Jawaban</h3>
+      ${bdHTML}
+    </div>
+
+    <div class="privacy-note">
+      <strong>🔒 Privasi:</strong> Semua jawaban Anda diproses <em>hanya di browser Anda</em> — tidak ada data yang dikirim ke server, tidak ada pelacakan. Tutup halaman ini dan data hilang sepenuhnya.
+    </div>
+
+    <div class="disclaimer">
+      <strong>⚠️ PENTING — DISCLAIMER:</strong><br>
+      Kuis ini hanya alat <strong>edukasi &amp; skrining awal</strong>, bukan diagnosis medis. Hasil tidak dapat memastikan ada/tidaknya gangguan. Disfungsi ereksi, ejakulasi dini, dan masalah seksual lainnya <strong>hanya dapat dipastikan melalui pemeriksaan dokter</strong> (urolog, androlog, psikolog, atau terapis seks). <strong>Jangan mengonsumsi obat kuat tanpa resep dokter</strong> — dapat berbahaya bagi jantung dan jiwa. Jika ada keluhan berat, segera konsultasi ke profesional kesehatan.
+    </div>
+
+    <div class="btn-area">
+      <button type="button" class="btn-secondary" onclick="location.reload()">🔄 Ulangi Kuis</button>
+    </div>`;
+
+  resultDiv.style.display = 'block';
+  progressWrap.style.display = 'none';
+  btnArea.style.display = 'none';
+  introDiv.style.display = 'none';
+  form.style.display = 'none';
+  resultDiv.scrollIntoView({ behavior:'smooth', block:'start' });
+}
+
+function dimCard(label, val, max) {
+  const pct = Math.round((val / max) * 100);
+  let cls = 'dim-low';
+  if (pct >= 66) cls = 'dim-high';
+  else if (pct >= 34) cls = 'dim-mid';
+  return `
+    <div class="dim-card ${cls}">
+      <div class="dim-label">${label}</div>
+      <div class="dim-value">${val} / ${max}</div>
+      <div class="dim-bar"><div class="dim-fill" style="width:${pct}%"></div></div>
+    </div>`;
+}
+
+function solutionBlock(type, title, body) {
+  return `<div class="solution-item ${type}">
+      <span class="sol-title">${title}</span>
+      ${body}
+    </div>`;
+}
+
+/* ============================================================
+   RESET
+   ============================================================ */
+resetBtn.addEventListener('click', () => {
+  if (confirm('Yakin ingin mengosongkan semua jawaban?')) {
+    form.reset();
+    answered.clear();
+    document.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+    document.querySelectorAll('.question').forEach(q => q.classList.remove('answered'));
+    updateProgress();
+    resultDiv.style.display = 'none';
+    form.style.display = 'block';
+    progressWrap.style.display = 'block';
+    btnArea.style.display = 'flex';
+    introDiv.style.display = 'block';
+    submitBtn.textContent = '✨ Lihat Hasil & Solusi';
+    window.scrollTo({ top: 0, behavior:'smooth' });
+  }
+});
+</script>
+</body>
+</html>

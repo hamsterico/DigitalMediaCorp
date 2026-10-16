@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kuis Manhaj Ustad</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Segoe UI,Georgia,serif;background:linear-gradient(135deg,#0a1a12,#10281c,#143426);min-height:100vh;padding:20px;color:#e8eed8}
+.container{max-width:860px;margin:0 auto;background:linear-gradient(160deg,#10281c,#143426);border:1px solid rgba(212,175,55,.28);border-radius:22px;box-shadow:0 30px 80px rgba(0,0,0,.6);overflow:hidden}
+header{background:linear-gradient(135deg,#143426,#1e5f3f);padding:38px 25px 32px;text-align:center;border-bottom:1px solid rgba(212,175,55,.25);position:relative}
+header:before{content:"";position:absolute;top:0;left:50%;transform:translateX(-50%);width:70%;height:2px;background:linear-gradient(90deg,transparent,#d4af37,transparent)}
+.moon{font-size:46px;display:block;margin-bottom:10px}
+header h1{font-size:25px;color:#f2ecd8;margin-bottom:12px;font-weight:600;line-height:1.3}
+header h1 em{color:#d4af37;font-style:normal}
+header p{font-size:13.5px;color:#a8bfa8;line-height:1.65}
+.content{padding:30px 26px 36px}
+.warn-box{background:linear-gradient(135deg,rgba(212,175,55,.1),rgba(212,175,55,.03));border:1px solid rgba(212,175,55,.35);border-radius:12px;padding:15px 18px;font-size:12.5px;line-height:1.7;color:#e6d69a;margin-bottom:22px}
+.warn-box strong{color:#d4af37}
+.intro{background:linear-gradient(135deg,rgba(76,175,125,.1),rgba(212,175,55,.05));border-left:3px solid #4caf7d;padding:18px 20px;border-radius:10px;font-size:13.5px;line-height:1.75;margin-bottom:24px}
+.intro strong{color:#e6c86a}
+.progress-wrap{position:sticky;top:0;background:#10281c;padding:14px 0 18px;z-index:10;margin-bottom:10px}
+.progress-bar-bg{background:rgba(255,255,255,.06);height:8px;border-radius:10px;overflow:hidden;border:1px solid rgba(212,175,55,.15)}
+.progress-bar{background:linear-gradient(90deg,#e6c86a,#4caf7d,#1e5f3f);height:100%;width:0;transition:width .4s ease;border-radius:10px}
+.progress-text{text-align:center;font-size:12.5px;color:#a8bfa8;margin-top:9px;font-weight:500}
+.question{background:rgba(255,255,255,.04);border:1px solid rgba(212,175,55,.22);border-radius:14px;padding:22px;margin-bottom:18px;transition:all .3s;position:relative}
+.question.answered{border-color:rgba(76,175,125,.5);background:rgba(76,175,125,.05)}
+.q-cat{display:inline-block;background:linear-gradient(135deg,rgba(30,95,63,.6),rgba(20,52,38,.6));color:#e6c86a;font-size:10.5px;font-weight:700;padding:4px 12px;border-radius:20px;margin-bottom:12px;letter-spacing:1px;text-transform:uppercase;border:1px solid rgba(212,175,55,.3)}
+.q-text{font-size:16px;font-weight:600;margin-bottom:8px;line-height:1.5;color:#f2ecd8}
+.q-hint{font-size:12.5px;color:#a8bfa8;font-style:italic;margin-bottom:16px;line-height:1.55;padding-left:12px;border-left:2px solid rgba(212,175,55,.3)}
+.options{display:flex;flex-direction:column;gap:9px}
+.option{display:flex;align-items:flex-start;gap:12px;background:rgba(255,255,255,.03);border:1.5px solid rgba(212,175,55,.15);border-radius:11px;padding:13px 15px;cursor:pointer;transition:all .2s;font-size:14px;line-height:1.5}
+.option:hover{border-color:#d4af37;background:rgba(212,175,55,.06);transform:translateX(3px)}
+.option input{display:none}
+.radio-mark{width:20px;height:20px;min-width:20px;border:2px solid rgba(212,175,55,.4);border-radius:50%;margin-top:1px;position:relative}
+.option input:checked+.radio-mark{border-color:#d4af37;background:linear-gradient(135deg,#4caf7d,#1e5f3f)}
+.option input:checked+.radio-mark:after{content:"";position:absolute;top:4px;left:4px;width:8px;height:8px;border-radius:50%;background:#e6c86a}
+.option input:checked~.opt-label{color:#f2ecd8;font-weight:600}
+.option.selected{border-color:#d4af37;background:linear-gradient(135deg,rgba(212,175,55,.08),rgba(76,175,125,.06))}
+.btn-area{display:flex;gap:12px;margin-top:26px;flex-wrap:wrap}
+button{flex:1;min-width:150px;padding:16px 22px;font-size:15px;font-weight:700;border:none;border-radius:12px;cursor:pointer;transition:all .25s;font-family:inherit}
+.btn-primary{background:linear-gradient(135deg,#1e5f3f,#4caf7d);color:#fff;box-shadow:0 8px 28px rgba(30,95,63,.5)}
+.btn-primary:hover{transform:translateY(-2px)}
+.btn-primary.not-ready{background:rgba(255,255,255,.12);box-shadow:none;color:rgba(255,255,255,.55)}
+.btn-secondary{background:rgba(255,255,255,.06);color:#a8bfa8;border:1px solid rgba(212,175,55,.22)}
+.btn-secondary:hover{background:rgba(212,175,55,.1);color:#f2ecd8}
+#result{display:none}
+.result-card{border-radius:18px;padding:34px 26px;text-align:center;margin-bottom:22px;animation:fadeInUp .6s ease}
+@keyframes fadeInUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.grade-1{background:linear-gradient(135deg,rgba(76,175,125,.22),rgba(30,95,63,.1));border:2px solid rgba(76,175,125,.5)}
+.grade-2{background:linear-gradient(135deg,rgba(255,193,7,.18),rgba(255,152,0,.1));border:2px solid rgba(255,193,7,.45)}
+.grade-3{background:linear-gradient(135deg,rgba(255,111,0,.18),rgba(230,81,0,.1));border:2px solid rgba(255,111,0,.45)}
+.grade-4{background:linear-gradient(135deg,rgba(229,57,53,.22),rgba(140,20,20,.1));border:2px solid rgba(229,57,53,.5)}
+.grade-badge{display:inline-block;font-size:68px;font-weight:900;line-height:1;margin-bottom:10px;color:#d4af37;font-family:Georgia,serif;text-shadow:0 0 20px rgba(212,175,55,.5)}
+.result-title{font-size:24px;font-weight:700;margin-bottom:10px;color:#f2ecd8}
+.result-sub{font-size:13.5px;color:#a8bfa8;margin-bottom:18px}
+.score-badge{display:inline-block;background:rgba(0,0,0,.35);border:1px solid rgba(212,175,55,.35);padding:8px 22px;border-radius:30px;font-size:16px;font-weight:800;margin-bottom:20px;color:#d4af37}
+.result-desc{font-size:14px;line-height:1.75;text-align:left;background:rgba(0,0,0,.3);padding:18px 20px;border-radius:12px;border:1px solid rgba(212,175,55,.15)}
+.result-desc ul{margin:10px 0 0 22px}
+.result-desc li{margin-bottom:8px}
+.result-desc strong{color:#e6c86a}
+.result-desc em{color:#4caf7d;font-style:italic}
+.breakdown-box{background:rgba(255,255,255,.03);border:1px solid rgba(212,175,55,.15);border-radius:14px;padding:22px;margin-top:20px}
+.breakdown-box h3{font-size:17px;color:#f2ecd8;margin-bottom:16px}
+.dimensions{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin-top:20px}
+.dim-card{background:rgba(255,255,255,.03);border:1px solid rgba(212,175,55,.15);border-radius:12px;padding:16px 18px}
+.dim-label{font-size:11.5px;text-transform:uppercase;letter-spacing:1px;color:#a8bfa8;margin-bottom:6px;font-weight:700}
+.dim-value{font-size:22px;font-weight:800;color:#d4af37;margin-bottom:4px}
+.dim-bar{height:5px;background:rgba(255,255,255,.08);border-radius:4px;overflow:hidden;margin-top:8px}
+.dim-fill{height:100%;border-radius:4px;transition:width .8s ease}
+.dim-low .dim-fill{background:linear-gradient(90deg,#66bb6a,#43a047)}
+.dim-mid .dim-fill{background:linear-gradient(90deg,#ffca28,#ff9800)}
+.dim-high .dim-fill{background:linear-gradient(90deg,#ef5350,#b71c1c)}
+.dim-low .dim-value{color:#81c784}
+.dim-mid .dim-value{color:#ffca28}
+.dim-high .dim-value{color:#ff6b6b}
+.bd-item{display:flex;justify-content:space-between;align-items:center;padding:9px 12px;border-radius:8px;font-size:12.5px;margin-bottom:6px;background:rgba(255,255,255,.04);gap:10px}
+.bd-item.high{background:rgba(229,57,53,.15);border-left:4px solid #ef5350}
+.bd-item.mid{background:rgba(255,193,7,.12);border-left:4px solid #ffb300}
+.bd-item.low{background:rgba(76,175,125,.12);border-left:4px solid #66bb6a}
+.bd-score{font-weight:700;color:#d4af37;min-width:40px;text-align:right}
+.solution-item{background:rgba(255,255,255,.03);border-left:3px solid #4caf7d;border-radius:10px;padding:16px 18px;margin-bottom:12px;font-size:13.5px;line-height:1.75}
+.solution-item .sol-title{font-weight:700;color:#e6c86a;display:block;margin-bottom:8px;font-size:14.5px}
+.solution-item ul{margin:8px 0 0 20px}
+.solution-item li{margin-bottom:6px}
+.solution-item.warn{border-left-color:#ef5350;background:rgba(229,57,53,.06)}
+.solution-item.mid{border-left-color:#ffb300;background:rgba(255,193,7,.05)}
+.disclaimer{background:rgba(255,193,7,.08);border:1px solid rgba(255,193,7,.35);border-radius:12px;padding:16px 18px;font-size:12.5px;line-height:1.7;margin-top:20px;color:#ffd97a}
+.disclaimer strong{color:#ffb300}
+.disclaimer ul{margin:10px 0 0 20px}
+footer{text-align:center;padding:20px;font-size:11.5px;color:rgba(255,255,255,.35);border-top:1px solid rgba(212,175,55,.12)}
+@media(max-width:500px){header h1{font-size:20px}.q-text{font-size:15px}.option{font-size:13px;padding:12px 13px}.dimensions{grid-template-columns:1fr}.grade-badge{font-size:56px}}
+</style>
+</head>
+<body>
+
+<div class="container">
+<header>
+<span class="moon">☪️</span>
+<h1>Apa akidah guru anda ? Manhaj <em>Salaf</em> atau <em>Ahli Bid'ah</em>?</h1>
+<p>Menilai seberapa sesuai seorang ustad dengan<br>Al-Qur'an, Sunnah Nabi ﷺ, dan pemahaman para sahabat</p>
+</header>
+
+<div class="content">
+
+<div class="warn-box">
+<strong>⚠️ Peringatan Penting:</strong> Kuis ini adalah <strong>alat edukasi</strong> untuk memahami kriteria manhaj salaf — <em>bukan</em> pengganti penilaian ulama. Menilai manhaj seseorang secara hakiki membutuhkan ilmu yang dalam, interaksi langsung, dan rujukan kepada ulama yang tsiqah. Jangan jadikan hasil kuis ini sebagai vonis final terhadap seseorang.
+</div>
+
+<div class="intro">
+<strong>📖 Cara mengisi:</strong><br>
+Jawab berdasarkan <em>pengetahuan Anda tentang ustad tersebut</em> — apa yang ia ajarkan, amalkan, dan dakwahkan secara terbuka. Fokus pada <strong>kesesuaian dengan sunnah Nabi ﷺ dan pemahaman para sahabat</strong>.<br><br>
+<strong>Skor:</strong> Semakin rendah = semakin sesuai dengan manhaj salaf.
+</div>
+
+<div class="progress-wrap">
+<div class="progress-bar-bg"><div class="progress-bar" id="progressBar"></div></div>
+<div class="progress-text" id="progressText">0 dari 20 pertanyaan terjawab</div>
+</div>
+
+<form id="quizForm">
+
+<div class="question">
+<span class="q-cat">🕋 Akidah &amp; Tauhid</span>
+<div class="q-text">1. Bagaimana ustad tersebut menjelaskan tauhid — khususnya dalam doa dan istighatsah (meminta pertolongan) kepada selain Allah?</div>
+<div class="q-hint">💡 Generasi Salaf menegaskan bahwa berdoa/meminta kepada selain Allah (wali, kuburan, dll) adalah syirik akbar.</div>
+<div class="options">
+<label class="option"><input type="radio" name="q0" value="0"><span class="radio-mark"></span><span class="opt-label">Tegas: hanya Allah yang boleh dimintai, meminta kepada wali/kuburan = syirik</span></label>
+<label class="option"><input type="radio" name="q0" value="1"><span class="radio-mark"></span><span class="opt-label">Menjelaskan tauhid tapi kurang tegas pada kasus tawassul yang diperselisihkan</span></label>
+<label class="option"><input type="radio" name="q0" value="2"><span class="radio-mark"></span><span class="opt-label">Cenderung menghindari pembahasan ini agar tidak "memecah umat"</span></label>
+<label class="option"><input type="radio" name="q0" value="3"><span class="radio-mark"></span><span class="opt-label">Membolehkan/menghalalkan tawassul dengan dzat orang shaleh, istighatsah ke wali</span></label>
+</div>
+</div>
+
+<div class="question">
+<span class="q-cat">🕋 Akidah &amp; Tauhid</span>
+<div class="q-text">2. Bagaimana sikapnya terhadap sifat-sifat Allah (asma wa sifat) seperti istiwa, tangan, wajah, dll?</div>
+<div class="q-hint">💡 Salaf menetapkan sifat sesuai zahirnya tanpa takwil, ta'thil, tasybih, atau tahrif.</div>
+<div class="options">
+<label class="option"><input type="radio" name="q1" value="0"><span class="radio-mark"></span><span class="opt-label">Menetapkan tanpa takwil, tanpa menyerupakan — sesuai manhaj salaf</span></label>
+<label class="option"><input type="radio" name="q1" value="1"><span class="radio-mark"></span><span class="opt-label">Menetapkan tapi kadang memakai takwil ringan karena "susah dipahami awam"</span></label>
+<label class="option"><input type="radio" name="q1" value="2"><span class="radio-mark"></span><span class="opt-label">Tidak pernah membahas sama sekali — dianggap "bukan prioritas"</span></label>
+<label class="option"><input type="radio" name="q1" value="3"><span class="radio-mark"></span><span class="opt-label">Menakwil sifat-sifat Allah (Jahmiyah/Mu'tazilah) atau menyerupakan-Nya</span></label>
+</div>
+</div>
+
+<div class="question">
+<span class="q-cat">🕋 Akidah &amp; Tauhid</span>
+<div class="q-text">3. Bagaimana sikapnya terhadap kuburan wali/ulama, meminta berkah, atau tabarruk dengan benda tertentu?</div>
+<div class="q-hint">💡 Salaf melarang tabarruk dengan dzat orang shaleh setelah wafat, dan melarang menjadikan kuburan sebagai tempat ibadah.</div>
+<div class="options">
+<label class="option"><input type="radio" name="q2" value="0"><span class="radio-mark"></span><span class="opt-label">Melarang tegas — kuburan bukan tempat ibadah, tabarruk hanya dengan yang syar'i</span></label>
+<label class="option"><input type="radio" name="q2" value="1"><span class="radio-mark"></span><span class="opt-label">Melarang tapi kurang tegas, kadang mendiamkan praktik di masyarakat</span></label>
+<label class="option"><input type="radio" name="q2" value="2"><span class="radio-mark"></span><span class="opt-label">Mendiamkan / tidak membahas sama sekali</span></label>
+<label class="option"><input type="radio" name="q2" value="3"><span class="radio-mark"></span><span class="opt-label">Membolehkan ziarah kubur dengan niat minta hajat, tabarruk, atau tawassul</span></label>
+</div>
+</div>
+
+<div class="question">
+<span class="q-cat">🕋 Akidah &amp; Tauhid</span>
+<div class="q-text">4. Bagaimana sikapnya terhadap kelompok-kelompok yang akidahnya menyimpang (Syiah, Jahmiyah, Mu'tazilah, dll)?</div>
+<div class="q-hint">💡 Salaf memperingatkan dari ahli bid'ah dengan ilmu, tanpa mengkafirkan sembarangan, dan tanpa berdiam diri.</div>
+<div class="options">
+<label class="option"><input type="radio" name="q3" value="0"><span class="radio-mark"></span><span class="opt-label">Memperingatkan dengan ilmu dan adab, membedakan mana yang dikafirkan dan tidak</span></label>
+<label class="option"><input type="radio" name="q3" value="1"><span class="radio-mark"></span><span class="opt-label">Memperingatkan tapi sering memakai bahasa umum "semua golongan benar"</span></label>
+<label class="option"><input type="radio" name="q3" value="2"><span class="radio-mark"></span><span class="opt-label">Tidak pernah menyebut penyimpangan, seolah semua golongan sama saja</span></label>
+<label class="option"><input type="radio" name="q3" value="3"><span class="radio-mark"></span><span class="opt-label">Memuji/membela kelompok menyimpang, atau mengajak "menghargai semua akidah"</span></label>
+</div>
+</div>
+
+<div class="question">
+<span class="q-cat">🕌 Ibadah &amp; Sunnah</span>
+<div class="q-text">5. Bagaimana sikapnya terhadap praktik yang tidak dicontohkan Nabi ﷺ (maulid, tahlilan, yasinan berjamaah, dll)?</div>
+<div class="q-hint">💡 Nabi ﷺ bersabda: "Barangsiapa mengada-adakan dalam urusan kami apa yang bukan darinya, maka ia tertolak."</div>
+<div class="options">
+<label class="option"><input type="radio" name="q4" value="0"><span class="radio-mark"></span><span class="opt-label">Tegas: bid'ah dalam ibadah tertolak, tidak ada bid'ah hasanah dalam ibadah mahdhah</span></label>
+<label class="option"><input type="radio" name="q4" value="1"><span class="radio-mark"></span><span class="opt-label">Membedakan bid'ah hasanah &amp; sayyi'ah — condong membolehkan sebagian</span></label>
+<label class="option"><input type="radio" name="q4" value="2"><span class="radio-mark"></span><span class="opt-label">Menghindari bahasan, "yang penting niat baik"</span></label>
+<label class="option"><input type="radio" name="q4" value="3"><span class="radio-mark"></span><span class="opt-label">Menganjurkan/mempraktikkan maulid, tahlilan, atau ritual yang tidak diajarkan Nabi ﷺ</span></label>
+</div>
+</div>
+
+<div class="question">
+<span class="q-cat">🕌 Ibadah &amp; Sunnah</span>
+<div class="q-text">6. Bagaimana sikapnya terhadap shalat, puasa, dan ibadah lain — apakah sesuai sunnah atau ditambah/dikurangi?</div>
+<div class="q-hint">💡 Salaf mengikuti tata cara Nabi ﷺ persis, dari takbir sampai salam.</div>
+<div class="options">
+<label class="option"><input type="radio" name="q5" value="0"><span class="radio-mark"></span><span class="opt-label">Persis sesuai sunnah, mengoreksi praktik yang menyelisihi</span></label>
+<label class="option"><input type="radio" name="q5" value="1"><span class="radio-mark"></span><span class="opt-label">Sesuai sunnah tapi tidak mengoreksi ketika ada tambahan di masyarakat</span></label>
+<label class="option"><input type="radio" name="q5" value="2"><span class="radio-mark"></span><span class="opt-label">Tidak memperhatikan detail — "yang penting sah"</span></label>
+<label class="option"><input type="radio" name="q5" value="3"><span class="radio-mark"></span><span class="opt-label">Menambah/mengurangi syariat (mis. shalat dengan bacaan baru, ritual baru)</span></label>
+</div>
+</div>
+
+<div class="question">
+<span class="q-cat">🕌 Ibadah &amp; Sunnah</span>
+<div class="q-text">7. Bagaimana sikapnya terhadap dzikir berjamaah dengan suara keras, atau ritual dzikir dengan tata cara tertentu yang tidak dicontohkan Nabi ﷺ?</div>
+<div class="q-hint">💡 Salaf membolehkan dzikir jahr dalam kondisi tertentu, tapi tidak menjadikannya ritual rutin dengan tata cara baru.</div>
+<div class="options">
+<label class="option"><input type="radio" name="q6" value="0"><span class="radio-mark"></span><span class="opt-label">Mengikuti sunnah — dzikir seperti yang diajarkan Nabi ﷺ, tanpa tata cara baru</span></label>
+<label class="option"><input type="radio" name="q6" value="1"><span class="radio-mark"></span><span class="opt-label">Tidak melarang tapi juga tidak menganjurkan</span></label>
+<label class="option"><input type="radio" name="q6" value="2"><span class="radio-mark"></span><span class="opt-label">Mendiamkan / ikut-ikutan agar tidak dianggap "asing"</span></label>
+<label class="option"><input type="radio" name="q6" value="3"><span class="radio-mark"></span><span class="opt-label">Memimpin/menganjurkan dzikir dengan tata cara baru tanpa dalil</span></label>
+</div>
+</div>
+
+<div class="question">
+<span class="q-cat">🕌 Ibadah &amp; Sunnah</span>
+<div class="q-text">8. Bagaimana sikapnya terhadap hari besar atau perayaan yang tidak ada di zaman Nabi ﷺ (maulid Nabi, Isra Mi'raj, Nuzulul Qur'an, dll)?</div>
+<div class="q-hint">💡 Salaf hanya merayakan Idul Fitri dan Idul Adha.</div>
+<div class="options">
+<label class="option"><input type="radio" name="q7" value="0"><span class="radio-mark"></span><span class="opt-label">Hanya 'Ied yang disyariatkan (Idul Fitri &amp; Adha) — selain itu tidak dijadikan perayaan</span></label>
+<label class="option"><input type="radio" name="q7" value="1"><span class="radio-mark"></span><span class="opt-label">Tidak merayakan tapi tidak mengingkari yang merayakan</span></label>
+<label class="option"><input type="radio" name="q7" value="2"><span class="radio-mark"></span><span class="opt-label">Tidak pernah membahas</span></label>
+<label class="option"><input type="radio" name="q7" value="3"><span class="radio-mark"></span><span class="opt-label">Merayakan/mengadakan acara khusus untuk hari-hari tersebut sebagai ibadah</span></label>
+</div>
+</div>
+
+<div class="question">
+<span class="q-cat">📚 Manhaj Dakwah</span>
+<div class="q-text">9. Apa yang menjadi prioritas dakwah ustad tersebut?</div>
+<div class="q-hint">💡 Salaf memulai dakwah dengan tauhid — mengajak manusia mengesakan Allah.</div>
+<div class="options">
+<label class="option"><input type="radio" name="q8" value="0"><span class="radio-mark"></span><span class="opt-label">Tauhid dulu — sesuai metode dakwah para nabi (tauhid → akhlak → syariat)</span></label>
+<label class="option"><input type="radio" name="q8" value="1"><span class="radio-mark"></span><span class="opt-label">Menggabung tauhid, akhlak, dan fikih — tapi kadang akhlak lebih dominan</span></label>
+<label class="option"><input type="radio" name="q8" value="2"><span class="radio-mark"></span><span class="opt-label">Fokus akhlak/sosial saja, akidah dianggap "sudah jelas" atau "bikin pecah"</span></label>
+<label class="option"><input type="radio" name="q8" value="3"><span class="radio-mark"></span><span class="opt-label">Fokus politik, toleransi antar-agama, atau isu sosial tanpa pernah menyentuh tauhid</span></label>
+</div>
+</div>
+
+<div class="question">
+<span class="q-cat">📚 Manhaj Dakwah</span>
+<div class="q-text">10. Bagaimana sikapnya terhadap amar ma'ruf nahi munkar — khususnya ketika kebid'ahan tersebar di masyarakat?</div>
+<div class="q-hint">💡 Salaf mengingkari kemungkaran dengan ilmu, bertahap, tanpa menimbulkan fitnah yang lebih besar.</div>
+<div class="options">
+<label class="option"><input type="radio" name="q9" value="0"><span class="radio-mark"></span><span class="opt-label">Menegakkan amar ma'ruf nahi munkar dengan ilmu dan hikmah, tidak takut celaan</span></label>
+<label class="option"><input type="radio" name="q9" value="1"><span class="radio-mark"></span><span class="opt-label">Menyampaikan tapi dengan sangat hati-hati, kadang terlalu lunak</span></label>
+<label class="option"><input type="radio" name="q9" value="2"><span class="radio-mark"></span><span class="opt-label">Menghindari sama sekali agar tidak "bermusuhan dengan banyak orang"</span></label>
+<label class="option"><input type="radio" name="q9" value="3"><span class="radio-mark"></span><span class="opt-label">Membiarkan, atau justru mendukung yang munkar dengan alasan "toleransi"</span></label>
+</div>
+</div>
+
+<div class="question">
+<span class="q-cat">📚 Manhaj Dakwah</span>
+<div class="q-text">11. Bagaimana metodenya dalam beragama — apakah mengikuti pemahaman sahabat atau menawarkan "metode baru"?</div>
+<div class="q-hint">💡 Rasulullah ﷺ bersabda: "Sebaik-baik manusia adalah generasiku (para sahabat)..."</div>
+<div class="options">
+<label class="option"><input type="radio" name="q10" value="0"><span class="radio-mark"></span><span class="opt-label">Kembali kepada pemahaman sahabat — sesuai ayat &amp; hadits tentang generasi terbaik</span></label>
+<label class="option"><input type="radio" name="q10" value="1"><span class="radio-mark"></span><span class="opt-label">Menghargai sahabat, tapi kadang memakai "pendekatan modern" untuk konteks</span></label>
+<label class="option"><input type="radio" name="q10" value="2"><span class="radio-mark"></span><span class="opt-label">Menganggap pemahaman sahabat "kontekstual" sehingga bisa diubah</span></label>
+<label class="option"><input type="radio" name="q10" value="3"><span class="radio-mark"></span><span class="opt-label">Mengajarkan semua pendapat sama sahnya, atau mengedepankan rasio di atas wahyu</span></label>
+</div>
+</div>
+
+<div class="question">
+<span class="q-cat">⭐ Sikap pada Sahabat</span>
+<div class="q-text">12. Bagaimana sikapnya terhadap para sahabat Nabi ﷺ secara umum — termasuk Abu Bakar, Umar, Utsman, Ali?</div>
+<div class="q-hint">💡 Ahlus Sunnah mencintai semua sahabat, mengakui keutamaan mereka, dan tidak mencela mereka.</div>
+<div class="options">
+<label class="option"><input type="radio" name="q11" value="0"><span class="radio-mark"></span><span class="opt-label">Mencintai semua sahabat, mengakui keutamaan sesuai urutan, tidak mencela</span></label>
+<label class="option"><input type="radio" name="q11" value="1"><span class="radio-mark"></span><span class="opt-label">Umumnya menghormati, tapi kurang tegas ketika ada yang mencela</span></label>
+<label class="option"><input type="radio" name="q11" value="2"><span class="radio-mark"></span><span class="opt-label">Tidak pernah membahas — "tidak perlu dibahas"</span></label>
+<label class="option"><input type="radio" name="q11" value="3"><span class="radio-mark"></span><span class="opt-label">Mencela sebagian sahabat (terutama Muawiyah, Utsman, atau yang lain) atau mengagungkan Syiah</span></label>
+</div>
+</div>
+
+<div class="question">
+<span class="q-cat">⭐ Sikap pada Sahabat</span>
+<div class="q-text">13. Bagaimana sikapnya terhadap perbedaan pendapat yang terjadi antara sahabat (mis. perang Jamal, Siffin)?</div>
+<div class="q-hint">💡 Ahlus Sunnah diam dari perselisihan sahabat, mendoakan mereka, dan tidak menghukumi salah satu pihak sebagai pendosa.</div>
+<div class="options">
+<label class="option"><input type="radio" name="q12" value="0"><span class="radio-mark"></span><span class="opt-label">Menahan diri, mendoakan sahabat, tidak mengadili sejarah — sesuai manhaj Ahlus Sunnah</span></label>
+<label class="option"><input type="radio" name="q12" value="1"><span class="radio-mark"></span><span class="opt-label">Membahas secara ilmiah tapi cenderung netral tanpa mencela</span></label>
+<label class="option"><input type="radio" name="q12" value="2"><span class="radio-mark"></span><span class="opt-label">Menghindari topik ini agar "tidak bikin ribut"</span></label>
+<label class="option"><input type="radio" name="q12" value="3"><span class="radio-mark"></span><span class="opt-label">Menjelekkan satu pihak (mis. mencela Muawiyah atau Ali secara berlebihan)</span></label>
+</div>
+</div>
+
+<div class="question">
+<span class="q-cat">⭐ Sikap pada Sahabat</span>
+<div class="q-text">14. Bagaimana sikapnya terhadap para imam salaf (Imam Malik, Ahmad, Syafi'i, Bukhari, Ibnu Taimiyah, dll)?</div>
+<div class="q-hint">💡 Salaf menghormati semua imam, mengambil ilmu mereka, tanpa ta'ashub yang berlebihan.</div>
+<div class="options">
+<label class="option"><input type="radio" name="q13" value="0"><span class="radio-mark"></span><span class="opt-label">Menghormati &amp; mengambil ilmu mereka, tidak fanatik berlebihan pada satu imam</span></label>
+<label class="option"><input type="radio" name="q13" value="1"><span class="radio-mark"></span><span class="opt-label">Menghormati, tapi cenderung fanatik pada satu madzhab/ulama tertentu</span></label>
+<label class="option"><input type="radio" name="q13" value="2"><span class="radio-mark"></span><span class="opt-label">Tidak mengajarkan kitab salaf, hanya buku-buku umum</span></label>
+<label class="option"><input type="radio" name="q13" value="3"><span class="radio-mark"></span><span class="opt-label">Merendahkan/melecehkan ulama salaf seperti Ibnu Taimiyah, Albani, atau yang lain</span></label>
+</div>
+</div>
+
+<div class="question">
+<span class="q-cat">📖 Sumber Rujukan</span>
+<div class="q-text">15. Kitab-kitab apa yang menjadi rujukan utama ustad tersebut?</div>
+<div class="q-hint">💡 Salaf merujuk pada kitab-kitab ulama hadits &amp; salaf seperti Shahih Bukhari, Muslim, kitab aqidah Imam Ahmad, Ibnu Taimiyah, Albani, dll.</div>
+<div class="options">
+<label class="option"><input type="radio" name="q14" value="0"><span class="radio-mark"></span><span class="opt-label">Kitab ulama salaf &amp; muhadditsin (Bukhari, Muslim, Ibnu Taimiyah, Albani, dst)</span></label>
+<label class="option"><input type="radio" name="q14" value="1"><span class="radio-mark"></span><span class="opt-label">Sebagian kitab salaf, tapi banyak juga rujukan ulama modern tanpa seleksi</span></label>
+<label class="option"><input type="radio" name="q14" value="2"><span class="radio-mark"></span><span class="opt-label">Kitab-kitab umum tanpa sanad &amp; tanpa seleksi manhaj</span></label>
+<label class="option"><input type="radio" name="q14" value="3"><span class="radio-mark"></span><span class="opt-label">Rujukan utamanya kitab-kitab sufi, filsafat, atau kitab yang penuh kisah tanpa dalil</span></label>
+</div>
+</div>
+
+<div class="question">
+<span class="q-cat">📖 Sumber Rujukan</span>
+<div class="q-text">16. Bagaimana sikapnya terhadap sanad ilmu dan guru-guru yang ia ambil ilmunya?</div>
+<div class="q-hint">💡 Salaf sangat menekankan sanad (rantai keilmuan).</div>
+<div class="options">
+<label class="option"><input type="radio" name="q15" value="0"><span class="radio-mark"></span><span class="opt-label">Memiliki sanad ilmu yang jelas ke ulama tsiqah manhaj salaf</span></label>
+<label class="option"><input type="radio" name="q15" value="1"><span class="radio-mark"></span><span class="opt-label">Belajar dari banyak guru, sebagian jelas manhajnya sebagian tidak</span></label>
+<label class="option"><input type="radio" name="q15" value="2"><span class="radio-mark"></span><span class="opt-label">Tidak jelas guru &amp; sanadnya — lebih banyak belajar otodidak</span></label>
+<label class="option"><input type="radio" name="q15" value="3"><span class="radio-mark"></span><span class="opt-label">Guru-gurunya terkenal sebagai tokoh bid'ah / sufi ekstrem / filsuf</span></label>
+</div>
+</div>
+
+<div class="question">
+<span class="q-cat">📖 Sumber Rujukan</span>
+<div class="q-text">17. Bagaimana sikapnya terhadap dalil — apakah merujuk langsung ke Al-Qur'an &amp; Sunnah, atau taklid buta?</div>
+<div class="q-hint">💡 Salaf mengajak umat untuk merujuk langsung pada dalil, sambil tetap menghormati ulama.</div>
+<div class="options">
+<label class="option"><input type="radio" name="q16" value="0"><span class="radio-mark"></span><span class="opt-label">Mengajak merujuk langsung ke Al-Qur'an &amp; Sunnah dengan pemahaman salaf</span></label>
+<label class="option"><input type="radio" name="q16" value="1"><span class="radio-mark"></span><span class="opt-label">Menyebut dalil, tapi kadang kalah dengan pendapat gurunya</span></label>
+<label class="option"><input type="radio" name="q16" value="2"><span class="radio-mark"></span><span class="opt-label">Lebih banyak mengutip "kata ulama" tanpa dalil — taklid</span></label>
+<label class="option"><input type="radio" name="q16" value="3"><span class="radio-mark"></span><span class="opt-label">Mengajarkan taqlid buta pada satu tokoh, atau sebaliknya menolak semua ulama</span></label>
+</div>
+</div>
+
+<div class="question">
+<span class="q-cat">⚠️ Sikap terhadap Bid'ah</span>
+<div class="q-text">18. Ketika ada praktik bid'ah di masyarakat, apa reaksi ustad tersebut?</div>
+<div class="q-hint">💡 Salaf tidak berdiam diri terhadap kemungkaran, terutama bid'ah yang jelas.</div>
+<div class="options">
+<label class="option"><input type="radio" name="q17" value="0"><span class="radio-mark"></span><span class="opt-label">Mengingkari dengan ilmu, menjelaskan dalil, dan mengarahkan ke sunnah</span></label>
+<label class="option"><input type="radio" name="q17" value="1"><span class="radio-mark"></span><span class="opt-label">Mengingkari tapi dengan bahasa sangat halus agar tidak kehilangan jamaah</span></label>
+<label class="option"><input type="radio" name="q17" value="2"><span class="radio-mark"></span><span class="opt-label">Diam saja — "yang penting rukun" atau "biar Allah yang menilai"</span></label>
+<label class="option"><input type="radio" name="q17" value="3"><span class="radio-mark"></span><span class="opt-label">Membela bid'ah atau ikut mempraktikkannya sebagai "tradisi Islam"</span></label>
+</div>
+</div>
+
+<div class="question">
+<span class="q-cat">⚠️ Sikap terhadap Bid'ah</span>
+<div class="q-text">19. Bagaimana sikapnya terhadap tokoh yang terkenal sebagai ahli bid'ah?</div>
+<div class="q-hint">💡 Salaf memperingatkan umat dari ahli bid'ah dengan ilmu &amp; adab, tapi tidak pula memuji mereka.</div>
+<div class="options">
+<label class="option"><input type="radio" name="q18" value="0"><span class="radio-mark"></span><span class="opt-label">Memperingatkan dengan ilmu &amp; adab, tanpa ghuluw atau ifrath</span></label>
+<label class="option"><input type="radio" name="q18" value="1"><span class="radio-mark"></span><span class="opt-label">Memperingatkan tapi terlalu longgar — tidak menyebut nama agar aman</span></label>
+<label class="option"><input type="radio" name="q18" value="2"><span class="radio-mark"></span><span class="opt-label">Tidak pernah menyebut siapapun salah — "semua punya kelebihan"</span></label>
+<label class="option"><input type="radio" name="q18" value="3"><span class="radio-mark"></span><span class="opt-label">Memuji, membela, atau mengajak "mengapresiasi" tokoh ahli bid'ah</span></label>
+</div>
+</div>
+
+<div class="question">
+<span class="q-cat">⚠️ Sikap terhadap Bid'ah</span>
+<div class="q-text">20. Bagaimana sikapnya terhadap perkumpulan yang menggabungkan semua golongan (mis. "semua Islam sama", "yang penting ukhuwah")?</div>
+<div class="q-hint">💡 Salaf mengajak berukhuwah di atas tauhid &amp; sunnah, bukan menyatukan akidah yang berbeda.</div>
+<div class="options">
+<label class="option"><input type="radio" name="q19" value="0"><span class="radio-mark"></span><span class="opt-label">Ukhuwah di atas tauhid &amp; sunnah — bukan menyatukan akidah yang berbeda</span></label>
+<label class="option"><input type="radio" name="q19" value="1"><span class="radio-mark"></span><span class="opt-label">Mengajak ukhuwah dengan semua, tapi tetap menegaskan prinsip aqidah</span></label>
+<label class="option"><input type="radio" name="q19" value="2"><span class="radio-mark"></span><span class="opt-label">Mengutamakan "damai" di atas prinsip — cenderung mengaburkan perbedaan</span></label>
+<label class="option"><input type="radio" name="q19" value="3"><span class="radio-mark"></span><span class="opt-label">Mengajarkan semua golongan sama sahnya, akidah tidak penting</span></label>
+</div>
+</div>
+
+</form>
+
+<div class="btn-area" id="btnArea">
+<button type="button" class="btn-primary not-ready" id="submitBtn">📖 Lihat Hasil Manhaj (0/20)</button>
+<button type="button" class="btn-secondary" id="resetBtn">Reset</button>
+</div>
+
+<div id="result"></div>
+
+</div>
+
+<footer>
+Kuis edukasi — bukan fatwa. Rujuk ulama tsiqah untuk penilaian hakiki.
+</footer>
+</div>
+
+<script>
+(function(){
+'use strict';
+var TOTAL=20;
+var form=document.getElementById('quizForm');
+var submitBtn=document.getElementById('submitBtn');
+var resetBtn=document.getElementById('resetBtn');
+var progressBar=document.getElementById('progressBar');
+var progressText=document.getElementById('progressText');
+var resultDiv=document.getElementById('result');
+var btnArea=document.getElementById('btnArea');
+var progressWrap=document.querySelector('.progress-wrap');
+
+var CAT_MAP={0:'akidah',1:'akidah',2:'akidah',3:'akidah',4:'ibadah',5:'ibadah',6:'ibadah',7:'ibadah',8:'manhaj',9:'manhaj',10:'manhaj',11:'sahabat',12:'sahabat',13:'sahabat',14:'rujukan',15:'rujukan',16:'rujukan',17:'bidah',18:'bidah',19:'bidah'};
+var CAT_NAMES={akidah:'Akidah & Tauhid',ibadah:'Ibadah & Sunnah',manhaj:'Manhaj Dakwah',sahabat:'Sikap pada Sahabat',rujukan:'Sumber Rujukan',bidah:"Sikap terhadap Bid'ah"};
+var CAT_MAX={akidah:12,ibadah:12,manhaj:9,sahabat:9,rujukan:9,bidah:9};
+
+function $$(s){return Array.prototype.slice.call(document.querySelectorAll(s));}
+function countAnswered(){var n=0;for(var i=0;i<TOTAL;i++){if(document.querySelector('input[name="q'+i+'"]:checked'))n++;}return n;}
+function firstUnanswered(){for(var i=0;i<TOTAL;i++){if(!document.querySelector('input[name="q'+i+'"]:checked'))return i;}return -1;}
+
+function updateProgress(){
+  var n=countAnswered();
+  if(progressBar)progressBar.style.width=(n/TOTAL*100)+'%';
+  if(progressText)progressText.textContent=n+' dari '+TOTAL+' pertanyaan terjawab';
+  if(n>=TOTAL){
+    submitBtn.textContent='📖 Lihat Hasil Manhaj';
+    submitBtn.classList.remove('not-ready');
+  }else{
+    submitBtn.textContent='📖 Lihat Hasil Manhaj ('+n+'/'+TOTAL+')';
+    submitBtn.classList.add('not-ready');
+  }
+}
+
+form.addEventListener('change',function(e){
+  var t=e.target;
+  if(!t||t.type!=='radio')return;
+  var optionEl=t.parentNode;
+  while(optionEl&&optionEl!==document.body&&optionEl.className.indexOf('option')===-1){optionEl=optionEl.parentNode;}
+  if(optionEl&&optionEl.className.indexOf('option')!==-1){
+    var siblings=$$('input[name="'+t.name+'"]');
+    for(var i=0;i<siblings.length;i++){
+      var sib=siblings[i].parentNode;
+      while(sib&&sib!==document.body&&sib.className.indexOf('option')===-1){sib=sib.parentNode;}
+      if(sib&&sib.className.indexOf('option')!==-1)sib.classList.remove('selected');
+    }
+    optionEl.classList.add('selected');
+    var qDiv=optionEl;
+    while(qDiv&&qDiv!==document.body&&qDiv.className.indexOf('question')===-1){qDiv=qDiv.parentNode;}
+    if(qDiv&&qDiv.className.indexOf('question')!==-1)qDiv.classList.add('answered');
+  }
+  updateProgress();
+});
+
+updateProgress();
+
+submitBtn.addEventListener('click',function(){
+  var n=countAnswered();
+  if(n<TOTAL){
+    alert('Masih ada '+(TOTAL-n)+' pertanyaan yang belum dijawab.\n\nMohon lengkapi dulu ya, agar hasil skor akurat.');
+    var idx=firstUnanswered();
+    if(idx>=0){var qDivs=$$('.question');if(qDivs[idx])qDivs[idx].scrollIntoView({behavior:'smooth',block:'center'});}
+    return;
+  }
+  computeAndShowResult();
+});
+
+resetBtn.addEventListener('click',function(){
+  if(confirm('Yakin ingin mengosongkan semua jawaban?'))location.reload();
+});
+
+function computeAndShowResult(){
+  var catTotals={akidah:0,ibadah:0,manhaj:0,sahabat:0,rujukan:0,bidah:0};
+  var details=[];var total=0;var qDivs=$$('.question');
+  for(var i=0;i<TOTAL;i++){
+    var sel=document.querySelector('input[name="q'+i+'"]:checked');
+    var val=sel?parseInt(sel.value,10):0;
+    var qText=qDivs[i]?qDivs[i].querySelector('.q-text').textContent:('Pertanyaan '+(i+1));
+    var cat=CAT_MAP[i];
+    total+=val;catTotals[cat]+=val;
+    details.push({no:i+1,cat:cat,q:qText,score:val});
+  }
+  showResult(total,catTotals,details);
+}
+
+function showResult(total,catTotals,details){
+  var maxScore=TOTAL*3;var percent=Math.round(total/maxScore*100);
+  var grade,gradeTitle,gradeCls,gradeDesc;
+  if(percent<=20){
+    grade=1;gradeTitle='GRADE 1 — Sesuai Manhaj Salaf';gradeCls='grade-1';
+    gradeDesc='<strong>Manhaj ustad ini sangat sesuai dengan Al-Qur\'an, Sunnah Nabi ﷺ, dan pemahaman para sahabat.</strong><ul><li>Akidahnya tegak di atas tauhid murni — sesuai manhaj salaf dalam asma wa sifat dan larangan syirik.</li><li>Ibadahnya bersih dari bid\'ah — mengikuti sunnah Nabi ﷺ tanpa tambahan/kurangan.</li><li>Dakwahnya fokus pada tauhid, mengikuti pemahaman sahabat, dan memperingatkan dari kebid\'ahan dengan ilmu.</li><li>Sanad ilmunya jelas dan merujuk kepada ulama salaf yang tsiqah.</li></ul><em>Ini adalah manhaj Ahlus Sunnah wal Jama\'ah — manhaj yang paling sesuai dengan generasi terbaik umat ini.</em>';
+  }else if(percent<=45){
+    grade=2;gradeTitle='GRADE 2 — Sesuai, tapi Dakwah Tidak Fokus Akidah';gradeCls='grade-2';
+    gradeDesc='<strong>Akidah ustad ini secara umum sesuai, tetapi dakwahnya tidak fokus pada akidah.</strong><ul><li>Tidak jelas menyimpang, tapi banyak diam pada perkara bid\'ah agar "aman".</li><li>Dakwahnya lebih dominan pada akhlak, sosial, atau fikih praktis — bukan tauhid.</li><li>Ketika kebid\'ahan tersebar, ia cenderung "cari aman" — tidak mengingkari dengan tegas.</li><li>Bisa jadi karena kelemahan ilmu, atau memang memilih metode "kalem" agar tidak kehilangan jamaah.</li></ul><em>Ustad seperti ini masih bisa diambil ilmunya selama tidak menyelisihi dalil, tapi umat perlu dilengkapi dengan kajian tauhid &amp; manhaj yang jelas.</em>';
+  }else if(percent<=70){
+    grade=3;gradeTitle='GRADE 3 — Cari Aman, Tidak Peduli Akidah Umat';gradeCls='grade-3';
+    gradeDesc='<strong>Ustad ini cenderung "cari aman" — tidak memperdulikan kondisi akidah umat.</strong><ul><li>Dakwahnya lebih fokus pada keharmonisan, "damai", dan "jangan ribut" — bukan pada tegaknya tauhid.</li><li>Membiarkan bid\'ah menyebar di masyarakat tanpa peringatan.</li><li>Cenderung mengaburkan perbedaan akidah dengan alasan "ukhuwah".</li><li>Akidahnya bisa jadi tercampur dengan pemahaman yang menyimpang karena tidak selektif.</li></ul><em>Perlu sangat hati-hati — ustad seperti ini bisa membahayakan umat karena meninggalkan bagian terpenting dari agama.</em>';
+  }else{
+    grade=4;gradeTitle="GRADE 4 — Ahli Bid'ah Murni";gradeCls='grade-4';
+    gradeDesc='<strong>Manhaj ustad ini jelas menyelisihi manhaj salaf — mengajarkan bid\'ah sebagai agama.</strong><ul><li>Akidahnya bercampur dengan syirik, takwil sifat Allah, atau mengagungkan kuburan &amp; wali secara berlebihan.</li><li>Menganjurkan/mempraktikkan ibadah yang tidak pernah dicontohkan Nabi ﷺ.</li><li>Merendahkan ulama salaf, membela ahli bid\'ah, atau mengajarkan bahwa semua golongan sama sahnya.</li><li>Dakwahnya lebih banyak berisi kisah &amp; dongeng tanpa dalil, atau filsafat yang mengaburkan tauhid.</li></ul><em>⚠️ Sangat berbahaya. Umat harus dijauhkan dari ilmu yang diambil darinya.</em>';
+  }
+
+  var dimHTML='<div class="dimensions">';
+  var catKeys=['akidah','ibadah','manhaj','sahabat','rujukan','bidah'];
+  for(var k=0;k<catKeys.length;k++){dimHTML+=dimCard(CAT_NAMES[catKeys[k]],catTotals[catKeys[k]],CAT_MAX[catKeys[k]]);}
+  dimHTML+='</div>';
+
+  var bdHTML='';
+  for(var d=0;d<details.length;d++){
+    var item=details[d];var c='low';
+    if(item.score===3)c='high';else if(item.score>=2)c='mid';
+    var shortQ=item.q.length>58?item.q.substring(0,58)+'…':item.q;
+    bdHTML+='<div class="bd-item '+c+'"><span style="font-size:12px;">P'+item.no+'. '+shortQ+'</span><span class="bd-score">'+item.score+'/3</span></div>';
+  }
+
+  var saranHTML='';
+  if(grade===1){
+    saranHTML=solutionBlock('','🌿 Rekomendasi (Manhaj Sesuai)','<ul><li>Teruskan belajar ilmu darinya, sambil tetap menuntut ilmu kepada ulama lain yang tsiqah.</li><li>Sebarkan faedah ilmunya, tapi jangan ghuluw (berlebihan) hingga menganggapnya ma\'shum.</li><li>Jaga ukhuwah dengan salafiyyin lain, jangan mudah menghukumi.</li><li>Praktikkan ilmunya — ilmu yang benar akan terlihat dari amal.</li></ul>');
+  }else if(grade===2){
+    saranHTML=solutionBlock('mid','⚠️ Rekomendasi (Perlu Pendampingan)','<ul><li>Ambil ilmunya yang jelas berdasarkan dalil, tinggalkan yang tidak jelas.</li><li>Lengkapi diri dengan kajian kitab aqidah dan manhaj dari ulama salaf.</li><li>Waspada bila ia diam pada kebid\'ahan — jangan ikut diam.</li><li>Perbanyak berguru kepada ulama yang jelas manhajnya.</li></ul>');
+  }else if(grade===3){
+    saranHTML=solutionBlock('warn','🚨 Rekomendasi (Sangat Hati-hati)','<ul><li>Jangan jadikan ia rujukan utama dalam masalah akidah dan manhaj.</li><li>Cari guru lain yang jelas manhaj salaf untuk mendidik diri dan keluarga.</li><li>Waspada dengan dakwah "damai" yang justru meninggalkan tauhid.</li><li>Perbanyak membaca kitab-kitab ulama salaf untuk membentengi diri.</li></ul>');
+  }else{
+    saranHTML=solutionBlock('warn','🛑 Rekomendasi (Jauhkan Diri)','<ul><li><strong>Jauhkan diri dan keluarga dari ilmunya</strong> — ia mengajarkan bid\'ah sebagai agama.</li><li>Rujuk kembali kepada ulama Ahlus Sunnah yang manhajnya jelas &amp; tsiqah.</li><li>Bila ada kekhawatiran penyimpangan, konsultasikan kepada ulama yang Anda percaya.</li><li>Perbanyak doa agar Allah menjaga kita dari fitnah kebid\'ahan.</li></ul>');
+  }
+
+  var html='<div class="result-card '+gradeCls+'"><div class="grade-badge">'+grade+'</div><div class="result-title">'+gradeTitle+'</div><div class="result-sub">Penilaian berbasis kriteria manhaj salaf</div><div class="score-badge">Skor: '+total+' / '+maxScore+' ('+percent+'%)</div><div class="result-desc">'+gradeDesc+'</div></div>'+
+    '<div class="breakdown-box"><h3>📊 Profil Manhaj per Dimensi</h3>'+dimHTML+'</div>'+
+    '<div class="breakdown-box"><h3>📋 Saran &amp; Rekomendasi</h3>'+saranHTML+'</div>'+
+    '<div class="breakdown-box"><h3>📝 Rincian Jawaban Anda</h3>'+bdHTML+'</div>'+
+    '<div class="disclaimer"><strong>⚠️ PENTING — DISCLAIMER:</strong><br>Kuis ini hanya <strong>alat edukasi</strong> untuk memahami kriteria manhaj salaf — <strong>bukan fatwa</strong> dan <strong>bukan vonis</strong> terhadap seseorang. Menilai manhaj ustad secara hakiki memerlukan:<ul><li>Ilmu yang dalam tentang aqidah &amp; manhaj salaf</li><li>Interaksi langsung &amp; pengamatan jangka panjang</li><li>Rujukan kepada ulama tsiqah yang menguasai keadaan</li><li>Adab dalam menilai &amp; tidak ghuluw (berlebihan)</li></ul><br>Jangan jadikan hasil kuis ini sebagai dasar menghukumi atau mencela seseorang. <strong>Kembalikan penilaian hakiki kepada Allah dan para ulama yang tsiqah.</strong></div>'+
+    '<div class="btn-area"><button type="button" class="btn-secondary" onclick="location.reload()">🔄 Ulangi Kuis</button></div>';
+
+  resultDiv.innerHTML=html;
+  resultDiv.style.display='block';
+  if(progressWrap)progressWrap.style.display='none';
+  btnArea.style.display='none';
+  form.style.display='none';
+  resultDiv.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function dimCard(label,val,max){
+  var pct=Math.round(val/max*100);var cls='dim-low';
+  if(pct>=66)cls='dim-high';else if(pct>=34)cls='dim-mid';
+  return '<div class="dim-card '+cls+'"><div class="dim-label">'+label+'</div><div class="dim-value">'+val+' / '+max+'</div><div class="dim-bar"><div class="dim-fill" style="width:'+pct+'%"></div></div></div>';
+}
+
+function solutionBlock(type,title,body){
+  return '<div class="solution-item '+type+'"><span class="sol-title">'+title+'</span>'+body+'</div>';
+}
+})();
+</script>
+</body>
+</html>
