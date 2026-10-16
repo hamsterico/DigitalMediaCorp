@@ -25,7 +25,7 @@
                     <label class="block text-xs uppercase tracking-wider text-slate-400 mb-1">Email Aktif</label>
                     <input type="email" id="userEmailInput" required class="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-3 text-slate-100 focus:outline-none focus:border-blue-500 text-sm" placeholder="emailanda@gmail.com">
                 </div>
-                <button type="submit" id="startBtn" class="w-full bg-blue-600 hover:bg-blue-500 font-semibold py-3.5 rounded-transition text-sm text-white shadow-lg">Mulai Gunakan Alat &rarr;</button>
+                <button type="submit" id="startBtn" class="w-full bg-blue-600 hover:bg-blue-500 font-semibold py-3.5 rounded-xl transition text-sm text-white shadow-lg">Mulai Gunakan Alat &rarr;</button>
             </form>
         </div>
     </div>
@@ -34,11 +34,10 @@
     <header class="border-b border-slate-800 bg-slate-900/50 backdrop-blur sticky top-0 z-40">
         <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
             <div class="flex items-center gap-4">
-                <!-- Tombol Kembali ke Beranda Utama (index.html) -->
                 <a href="index.html" class="text-xs bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-1.5 rounded-lg border border-slate-700 transition flex items-center gap-1">
                     &larr; Beranda
                 </a>
-                <span class="text-lg font-bold bg-gradient-to-r from-blue-400 to-indigo-500 bg-clip-text text-transparent">DigitalMedia.corp AI v2.0</span>
+                <span class="text-lg font-bold bg-gradient-to-r from-blue-400 to-indigo-500 bg-clip-text text-transparent">DigitalMedia.corp AI v2.1</span>
             </div>
             <div class="flex items-center gap-3">
                 <span id="userSessionInfo" class="text-xs text-slate-400 hidden sm:inline"></span>
@@ -52,8 +51,19 @@
         <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl space-y-6 shadow-xl">
             <h2 class="text-xl font-bold border-b border-slate-800 pb-3">Konfigurasi Parameter Prompt</h2>
             
+            <!-- TAMBAHAN FITUR: PILIH TARGET AI ENGINE -->
             <div>
-                <label class="block text-xs uppercase tracking-wider text-blue-400 font-bold mb-1">1. Mode Pembuatan</label>
+                <label class="block text-xs uppercase tracking-wider text-indigo-400 font-bold mb-1">1. Pilih Target AI Engine (Spesialisasi)</label>
+                <select id="targetAiEngine" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-3 text-slate-100 focus:outline-none focus:border-blue-500 font-semibold text-sm">
+                    <option value="midjourney">Midjourney (Spesialis Seni Visual & Sinematik Estetik)</option>
+                    <option value="dall_e">DALL-E 3 (Spesialis Kepatuhan Teks & Ilustrasi Detail)</option>
+                    <option value="stable_diffusion">Stable Diffusion (Spesialis Realisme & Kontrol Parameter / Tag)</option>
+                    <option value="sora_runway">Sora / Runway / Kling (Spesialis Video Generator & Pergerakan Kamera)</option>
+                </select>
+            </div>
+
+            <div>
+                <label class="block text-xs uppercase tracking-wider text-blue-400 font-bold mb-1">2. Mode Pembuatan</label>
                 <select id="modeSelection" onchange="toggleMode()" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-3 text-slate-100 focus:outline-none focus:border-blue-500 font-semibold text-sm">
                     <option value="template">Gunakan Template Profesional (Otomatis)</option>
                     <option value="custom">Atur Kamera & Parameter Sendiri (Custom)</option>
@@ -61,7 +71,7 @@
             </div>
 
             <div>
-                <label class="block text-xs uppercase tracking-wider text-slate-400 mb-1">2. Pilih Jenis Output Kreatif</label>
+                <label class="block text-xs uppercase tracking-wider text-slate-400 mb-1">3. Pilih Jenis Output Kreatif</label>
                 <select id="contentType" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-3 text-slate-100 focus:outline-none focus:border-blue-500 text-sm">
                     <option value="video">Pembuatan Video Sinematik</option>
                     <option value="image">Pembuatan Gambar / Desain Visual</option>
@@ -71,7 +81,7 @@
             </div>
 
             <div id="templateSection">
-                <label class="block text-xs uppercase tracking-wider text-slate-400 mb-1">3. Pilih Template Artistik / Film</label>
+                <label class="block text-xs uppercase tracking-wider text-slate-400 mb-1">4. Pilih Template Artistik / Film</label>
                 <select id="videoTemplate" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-3 text-slate-100 focus:outline-none focus:border-blue-500 text-sm">
                     <option value="realistis">Realistis Dokumenter (Akurat & Natural)</option>
                     <option value="pixar">Animasi Ala Pixar / Disney 3D</option>
@@ -105,7 +115,7 @@
             </div>
 
             <div>
-                <label class="block text-xs uppercase tracking-wider text-slate-400 mb-1">4. Deskripsi Inti Keinginan Anda (Bahasa Indonesia)</label>
+                <label class="block text-xs uppercase tracking-wider text-slate-400 mb-1">5. Deskripsi Inti Keinginan Anda (Bahasa Indonesia)</label>
                 <textarea id="corePromptInput" rows="4" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-4 text-slate-100 focus:outline-none focus:border-blue-500 text-sm" placeholder="Contoh: Seekor kucing astronot sedang berjalan perlahan di permukaan bulan..."></textarea>
             </div>
 
@@ -118,7 +128,7 @@
             <div class="flex-1 bg-slate-950 border border-slate-800 rounded-xl p-4 font-mono text-xs text-slate-300 overflow-y-auto whitespace-pre-wrap select-all" id="promptOutputArea">
                 Belum ada prompt yang dihasilkan. Silakan isi parameter di sebelah kiri lalu klik tombol "Buat Prompt Profesional".
             </div>
-            <button onclick="copyPrompt()" class="bg-indigo-600 hover:bg-indigo-500 font-semibold py-3.5 rounded-transition text-sm text-white shadow-lg">Salin Prompt (Copy Prompt)</button>
+            <button onclick="copyPrompt()" class="bg-indigo-600 hover:bg-indigo-500 font-semibold py-3.5 rounded-xl transition text-sm text-white shadow-lg">Salin Prompt (Copy Prompt)</button>
         </div>
     </main>
 
@@ -128,7 +138,6 @@
     </footer>
 
     <script>
-        // Masukkan URL Web App Google Apps Script Abang di sini:
         const SCRIPT_URL = "MASUKKAN_URL_WEB_APP_APPS_SCRIPT_DISINI";
 
         window.onload = function() {
@@ -148,7 +157,6 @@
             btn.disabled = true;
             btn.innerText = "Menyiapkan aplikasi...";
 
-            // Kirim data pengunjung ke Google Spreadsheet sebagai log
             try {
                 await fetch(SCRIPT_URL, {
                     method: "POST",
@@ -179,6 +187,7 @@
         }
 
         async function generatePrompt() {
+            const aiEngine = document.getElementById('targetAiEngine').value;
             const mode = document.getElementById('modeSelection').value;
             const type = document.getElementById('contentType').value;
             const coreText = document.getElementById('corePromptInput').value.trim();
@@ -189,7 +198,7 @@
                 return;
             }
 
-            outputArea.innerText = "⏳ Sedang menerjemahkan teks ke Bahasa Inggris dan meracik parameter profesional...";
+            outputArea.innerText = `⏳ Menerjemahkan dan mengoptimalkan prompt khusus untuk [${aiEngine.toUpperCase()}]...`;
 
             let translatedText = coreText;
             try {
@@ -202,29 +211,41 @@
                 console.log("Terjemahan otomatis gagal, menggunakan teks asli:", error);
             }
 
-            let finalPrompt = `[Task: High-End ${type.toUpperCase()} Generation]\n`;
-            if(mode === 'template') {
-                const template = document.getElementById('videoTemplate').value;
-                finalPrompt += `[Aesthetic Style: ${template.toUpperCase()}]\n`;
-            } else {
-                const lens = document.getElementById('cameraLens').value;
-                const angle = document.getElementById('cameraAngle').value;
-                finalPrompt += `[Camera & Optics: ${lens}, ${angle}]\n`;
+            // PENYESUAIAN FORMAT BERDASARKAN PILIHAN AI ENGINE
+            let finalPrompt = "";
+
+            if (aiEngine === 'midjourney') {
+                // Karakteristik Midjourney: Menggunakan parameter tag koma dan akhiran versi --ar 16:9 --v 6.0
+                let styleStr = mode === 'template' ? document.getElementById('videoTemplate').value : `${document.getElementById('cameraLens').value}, ${document.getElementById('cameraAngle').value}`;
+                finalPrompt = `${translatedText}, ${styleStr}, cinematic lighting, 8k resolution, highly detailed --ar 16:9 --v 6.0`;
+            } 
+            else if (aiEngine === 'dall_e') {
+                // Karakteristik DALL-E 3: Menyukai kalimat deskriptif naratif yang utuh dan jelas
+                let styleStr = mode === 'template' ? document.getElementById('videoTemplate').value : `${document.getElementById('cameraLens').value} with ${document.getElementById('cameraAngle').value}`;
+                finalPrompt = `A high-definition ${type} in ${styleStr} style showing: ${translatedText}. Photorealistic, masterpiece quality with accurate details and lighting.`;
+            } 
+            else if (aiEngine === 'stable_diffusion') {
+                // Karakteristik Stable Diffusion: Menggunakan tag terstruktur dan menyertakan negative prompt
+                let styleStr = mode === 'template' ? document.getElementById('videoTemplate').value : `${document.getElementById('cameraLens').value}, ${document.getElementById('cameraAngle').value}`;
+                finalPrompt = `masterpiece, best quality, ${translatedText}, ${styleStr}, ultra detailed, photorealistic, 8k uhd.\nNegative prompt: blurry, deformed, bad anatomy, low quality.`;
+            } 
+            else if (aiEngine === 'sora_runway') {
+                // Karakteristik Sora / Runway / Kling: Fokus pada dinamika gerakan kamera dan video
+                let styleStr = mode === 'template' ? document.getElementById('videoTemplate').value : `${document.getElementById('cameraLens').value}, ${document.getElementById('cameraAngle').value}`;
+                finalPrompt = `[Video Generation Task]\nCamera Movement & Optics: ${styleStr}\nScene Description: ${translatedText}\nMotion details: smooth cinematic camera pan, stable professional physics, 4k.`;
             }
-            finalPrompt += `[Core Subject Description (Translated): ${translatedText}]\n`;
-            finalPrompt += `[Final Polish: 8k resolution, volumetric lighting, masterpiece, zero artifacts]`;
 
             outputArea.innerText = finalPrompt;
         }
 
         function copyPrompt() {
             const text = document.getElementById('promptOutputArea').innerText;
-            if(text.includes("Belum ada prompt") || text.includes("Sedang menerjemahkan")) {
+            if(text.includes("Belum ada prompt") || text.includes("Sedang")) {
                 alert('Belum ada hasil prompt yang valid untuk disalin!');
                 return;
             }
             navigator.clipboard.writeText(text);
-            alert('Prompt profesional berhasil disalin ke clipboard!');
+            alert('Prompt spesifik AI berhasil disalin ke clipboard!');
         }
     </script>
 </body>
