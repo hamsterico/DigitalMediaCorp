@@ -1,249 +1,150 @@
 <!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Web B - Prompt Kreator AI Profesional (DigitalMedia.corp)</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+
+<html class="scroll-smooth" lang="id"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>DigitalMedia.Corp - Portal Inovasi &amp; Aplikasi AI Gratis</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+        /* Efek Transisi Keterangan Muncul saat Hover di Desktop / Tap di HP */
+        .card-container .overlay-content {
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.3s ease-in-out;
+            pointer-events: none;
+        }
+        .card-container:hover .overlay-content,
+        .card-container.active-tap .overlay-content {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+    </style>
 </head>
-<body class="bg-slate-950 text-slate-100 font-sans antialiased min-h-screen flex flex-col justify-between">
-    
-    <!-- Modal Pengisian Data Awal (Log Pengguna Gratis) -->
-    <div id="authGate" class="fixed inset-0 bg-slate-950/90 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-        <div class="bg-slate-900 border border-slate-800 p-8 rounded-2xl max-w-md w-full space-y-6 shadow-2xl">
-            <div class="text-center space-y-2">
-                <span class="bg-blue-500/10 text-blue-400 text-[10px] font-bold px-3 py-1 rounded-full border border-blue-500/20 uppercase tracking-widest">Akses Gratis 100%</span>
-                <h2 class="text-2xl font-bold">Selamat Datang di Prompt Kreator</h2>
-                <p class="text-xs text-slate-400">Silakan masukkan nama dan email Anda untuk mulai menggunakan alat ini secara gratis. Sebagai log file di sistem kami.</p>
+<body class="bg-slate-950 text-slate-100 font-sans antialiased min-h-screen flex flex-col justify-between selection:bg-blue-500 selection:text-white">
+<!-- Header / Navbar -->
+<header class="border-b border-slate-800/80 bg-slate-900/70 backdrop-blur-md sticky top-0 z-50" data-section-id="sec_0_5e1aafdc">
+<div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+<span class="text-xl font-extrabold bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-500 bg-clip-text text-transparent" data-editable="digitalmediacorp" data-editable-type="text">DigitalMedia.Corp</span>
+<div class="flex items-center gap-4">
+<a class="text-xs text-slate-300 hover:text-white transition" href="#portofolio">Daftar Aplikasi</a>
+<a class="text-xs text-slate-300 hover:text-white transition" href="#donasi">Dukung Kami</a>
+</div>
+</div>
+</header><main class="max-w-5xl mx-auto px-6 py-16 md:py-24 text-center space-y-12 flex-1 flex flex-col justify-center w-full" data-section-id="sec_1_ba1ed0e6">
+<!-- Hero Section -->
+<div class="space-y-6">
+<div class="inline-block bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs px-4 py-1.5 rounded-full font-semibold uppercase tracking-wider" data-editable="_pusat_inovasi_eksplorasi_digi" data-editable-type="text">
+                🚀 Pusat Inovasi &amp; Eksplorasi Digital Terbuka
             </div>
-            <form onsubmit="startApp(event)" class="space-y-4">
-                <div>
-                    <label class="block text-xs uppercase tracking-wider text-slate-400 mb-1">Nama Lengkap</label>
-                    <input type="text" id="userNameInput" required class="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-3 text-slate-100 focus:outline-none focus:border-blue-500 text-sm" placeholder="Isi Nama Anda">
-                </div>
-                <div>
-                    <label class="block text-xs uppercase tracking-wider text-slate-400 mb-1">Email Aktif</label>
-                    <input type="email" id="userEmailInput" required class="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-3 text-slate-100 focus:outline-none focus:border-blue-500 text-sm" placeholder="emailanda@gmail.com">
-                </div>
-                <button type="submit" id="startBtn" class="w-full bg-blue-600 hover:bg-blue-500 font-semibold py-3.5 rounded-xl transition text-sm text-white shadow-lg">Mulai Gunakan Alat &rarr;</button>
-            </form>
-        </div>
-    </div>
-
-    <!-- Header -->
-    <header class="border-b border-slate-800 bg-slate-900/50 backdrop-blur sticky top-0 z-40">
-        <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-            <div class="flex items-center gap-4">
-                <a href="https://lynk.id/digimedia" class="text-xs bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-1.5 rounded-lg border border-slate-700 transition flex items-center gap-1">
-                    &larr; Beranda
-                </a>
-                <span class="text-lg font-bold bg-gradient-to-r from-blue-400 to-indigo-500 bg-clip-text text-transparent">DigitalMedia.corp AI v2.1</span>
-            </div>
-            <div class="flex items-center gap-3">
-                <span id="userSessionInfo" class="text-xs text-slate-400 hidden sm:inline"></span>
-            </div>
-        </div>
-    </header>
-
-    <!-- Main Workspace -->
-    <main class="max-w-6xl mx-auto px-6 py-10 flex-1 w-full grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <!-- Input Panel -->
-        <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl space-y-6 shadow-xl">
-            <h2 class="text-xl font-bold border-b border-slate-800 pb-3">Konfigurasi Parameter Prompt</h2>
-            
-            <!-- TAMBAHAN FITUR: PILIH TARGET AI ENGINE -->
-            <div>
-                <label class="block text-xs uppercase tracking-wider text-indigo-400 font-bold mb-1">1. Pilih Target AI Engine (Spesialisasi)</label>
-                <select id="targetAiEngine" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-3 text-slate-100 focus:outline-none focus:border-blue-500 font-semibold text-sm">
-                    <option value="midjourney">Midjourney (Spesialis Seni Visual & Sinematik Estetik)</option>
-                    <option value="dall_e">DALL-E 3 (Spesialis Kepatuhan Teks & Ilustrasi Detail)</option>
-                    <option value="stable_diffusion">Stable Diffusion (Spesialis Realisme & Kontrol Parameter / Tag)</option>
-                    <option value="sora_runway">Sora / Runway / Kling (Spesialis Video Generator & Pergerakan Kamera)</option>
-                </select>
-            </div>
-
-            <div>
-                <label class="block text-xs uppercase tracking-wider text-blue-400 font-bold mb-1">2. Mode Pembuatan</label>
-                <select id="modeSelection" onchange="toggleMode()" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-3 text-slate-100 focus:outline-none focus:border-blue-500 font-semibold text-sm">
-                    <option value="template">Gunakan Template Profesional (Otomatis)</option>
-                    <option value="custom">Atur Kamera & Parameter Sendiri (Custom)</option>
-                </select>
-            </div>
-
-            <div>
-                <label class="block text-xs uppercase tracking-wider text-slate-400 mb-1">3. Pilih Jenis Output Kreatif</label>
-                <select id="contentType" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-3 text-slate-100 focus:outline-none focus:border-blue-500 text-sm">
-                    <option value="video">Pembuatan Video Sinematik</option>
-                    <option value="image">Pembuatan Gambar / Desain Visual</option>
-                    <option value="audio">Audio / Text-to-Speech & Sound Effects</option>
-                    <option value="presentation">Presentasi HTML Slide / PowerPoint</option>
-                </select>
-            </div>
-
-            <div id="templateSection">
-                <label class="block text-xs uppercase tracking-wider text-slate-400 mb-1">4. Pilih Template Artistik / Film</label>
-                <select id="videoTemplate" class="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-3 text-slate-100 focus:outline-none focus:border-blue-500 text-sm">
-                    <option value="realistis">Realistis Dokumenter (Akurat & Natural)</option>
-                    <option value="pixar">Animasi Ala Pixar / Disney 3D</option>
-                    <option value="cyberpunk">Cyberpunk Neon Futuristic</option>
-                    <option value="ghibli">Anime 2D Studio Ghibli</option>
-                    <option value="cinematic_noir">Cinematic Noir (Monokrom Dramatis)</option>
-                    <option value="unreal5">Unreal Engine 5 Hyper-Detailed Render</option>
-                </select>
-            </div>
-
-            <div id="customCameraSection" class="hidden space-y-3 bg-slate-950 p-4 rounded-xl border border-slate-800">
-                <p class="text-xs text-blue-400 font-bold uppercase tracking-wider">Pengaturan Kamera Manual</p>
-                <div class="grid grid-cols-2 gap-3">
-                    <div>
-                        <label class="block text-[10px] text-slate-400 mb-1">Pilih Lensa</label>
-                        <select id="cameraLens" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-slate-100">
-                            <option value="Anamorphic 35mm lens">Anamorphic 35mm</option>
-                            <option value="Telephoto 85mm lens">Telephoto 85mm</option>
-                            <option value="Wide angle 16mm lens">Wide Angle 16mm</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block text-[10px] text-slate-400 mb-1">Pilih Angle</label>
-                        <select id="cameraAngle" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-xs text-slate-100">
-                            <option value="Drone FPV shot">Drone FPV</option>
-                            <option value="Low angle cinematic">Low Angle (Megah)</option>
-                            <option value="Dolly zoom tracking">Dolly Zoom</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-
-            <div>
-                <label class="block text-xs uppercase tracking-wider text-slate-400 mb-1">5. Deskripsi Inti Keinginan Anda (Bahasa Indonesia)</label>
-                <textarea id="corePromptInput" rows="4" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-4 text-slate-100 focus:outline-none focus:border-blue-500 text-sm" placeholder="Contoh: Seekor kucing astronot sedang berjalan perlahan di permukaan bulan..."></textarea>
-            </div>
-
-            <button onclick="generatePrompt()" class="w-full bg-blue-600 hover:bg-blue-500 font-semibold py-3.5 rounded-xl transition shadow-lg text-sm text-white">Buat Prompt Profesional (Auto-Translate)</button>
-        </div>
-
-        <!-- Output Panel -->
-        <div class="bg-slate-900 border border-slate-800 p-6 rounded-2xl flex flex-col space-y-4 shadow-xl">
-            <h2 class="text-xl font-bold border-b border-slate-800 pb-3">Hasil Prompt AI Siap Pakai</h2>
-            <div class="flex-1 bg-slate-950 border border-slate-800 rounded-xl p-4 font-mono text-xs text-slate-300 overflow-y-auto whitespace-pre-wrap select-all" id="promptOutputArea">
-                Belum ada prompt yang dihasilkan. Silakan isi parameter di sebelah kiri lalu klik tombol "Buat Prompt Profesional".
-            </div>
-            <button onclick="copyPrompt()" class="bg-indigo-600 hover:bg-indigo-500 font-semibold py-3.5 rounded-xl transition text-sm text-white shadow-lg">Salin Prompt (Copy Prompt)</button>
-        </div>
-    </main>
-
-    <!-- Footer -->
-    <footer class="border-t border-slate-800 py-6 text-center text-xs text-slate-500">
-        &copy; 2026 DigitalMedia.corp AI Prompt System. All rights reserved.
+<h1 class="text-4xl md:text-6xl font-extrabold tracking-tight leading-tight" data-editable="masuk_ke_ekosistem_berkah_digi" data-editable-type="text" data-gramm="false" data-lpop-hide-native-caret="" data-qb-tmp-id="lt-877822" spellcheck="false">
+                Masuk ke Ekosistem<br/>Artificial Intelligence Core<br/>
+<span class="bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-500 bg-clip-text text-transparent" data-editable="digitalmediacorp" data-editable-type="text">DigitalMedia.Corp</span>
+</h1>
+<p class="text-slate-400 text-base md:text-lg max-w-2xl mx-auto leading-relaxed" data-editable="nikmati_berbagai_perangkat_pin" data-editable-type="text" data-lpop-hide-native-caret="">
+                Nikmati berbagai perangkat pintar, utilitas AI, dan kuis kesehatan interaktif secara <strong class="text-slate-200" data-editable="100_gratis" data-editable-type="text">100% Gratis</strong> untuk membantu produktivitas dan kreativitas Anda. kecuali untuk produk versi pro.<br/></p>
+</div>
+<!-- Portofolio / Portal Cabang Web (Grid Kartu Visual Interaktif) -->
+<section class="pt-8 text-left space-y-8 border-t border-slate-900 w-full" id="portofolio">
+<div class="text-center space-y-2">
+<h2 class="text-2xl md:text-3xl font-bold" data-editable="heading_1" data-editable-type="text">Lab Digital Kami - Coba Sekarang!</h2>
+<p class="text-xs md:text-sm text-slate-400 max-w-xl mx-auto" data-editable="arahkan_kursor_atau_ketuk_gamb" data-editable-type="text" data-lpop-hide-native-caret="">Arahkan kursor atau ketuk gambar untuk melihat detail &amp; tombol akses!.<br/>PERINGATAN..!!!<br/>🔒 Komitmen Etika: Tool AI ini dilarang digunakan untuk membuat konten asusila, pornografi, dan segala bentuk pelecehan SARA (Suku, Agama, Ras). Mari berkarya dengan cerdas &amp; beretika. Pelanggaran = Auto Banned.<br/><br/></p>
+</div>
+<!-- Grid Container -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<!-- Card 1: AI Prompt Kreator Profesional -->
+<div class="card-container relative h-80 rounded-2xl overflow-hidden border border-slate-800 shadow-xl cursor-pointer group bg-slate-900" onclick="handleCardTap(event, this)">
+<div class="absolute inset-0 bg-gradient-to-br from-blue-950 via-slate-900 to-indigo-950 flex flex-col items-center justify-center p-6">
+<svg class="w-20 h-20 text-blue-400 mb-2 opacity-80 group-hover:scale-110 transition duration-500" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path></svg>
+<h3 class="text-lg font-bold text-slate-200 tracking-wide" data-editable="heading_2" data-editable-type="text">Universal AI Prompt Kreator Profesional</h3>
+<span class="text-[10px] text-blue-400 uppercase tracking-widest mt-1 font-semibold" data-editable="ai_kreatif" data-editable-type="text">AI &amp; Kreatif</span>
+</div>
+<div class="overlay-content absolute inset-x-0 bottom-0 p-5 bg-slate-950/90 backdrop-blur-md border-t border-slate-800 flex flex-col items-center text-center space-y-3">
+<p class="text-xs text-slate-300 leading-relaxed" data-editable="sistem_perakit_prompt_cerdas_d" data-editable-type="text">Sistem perakit prompt cerdas dengan fitur auto-translate otomatis untuk menghasilkan gambar sinematik, video AI, dan konten visual berkualitas tinggi. khusus untuk para influencer agar tidak sia siakan credit AI yang di buat. Prompt yang tepat dan detail adalah kunci kesuksesan kerjasama dengan AI.</p>
+<a class="inline-block bg-blue-600 hover:bg-blue-500 text-white font-semibold py-2 px-6 rounded-xl transition text-xs shadow-lg" data-editable="cta_text" data-editable-type="text" href="https://hamsterico.github.io/DigitalMediaCorp/prompt-creator.html">Buka Aplikasi →</a>
+</div>
+</div>
+<!-- Card 2: Special Video AI Prompt Kreator -->
+<div class="card-container relative h-80 rounded-2xl overflow-hidden border border-slate-800 shadow-xl cursor-pointer group bg-slate-900" onclick="handleCardTap(event, this)">
+<div class="absolute inset-0 bg-gradient-to-br from-indigo-950 via-slate-900 to-purple-950 flex flex-col items-center justify-center p-6">
+<svg class="w-20 h-20 text-indigo-400 mb-2 opacity-80 group-hover:scale-110 transition duration-500" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path></svg>
+<h3 class="text-lg font-bold text-slate-200 tracking-wide" data-editable="heading_3" data-editable-type="text">Khusus buat prompt Video AI Sistematis dan Presisi</h3>
+<span class="text-[10px] text-indigo-400 uppercase tracking-widest mt-1 font-semibold" data-editable="video_sinematik" data-editable-type="text">Video Sinematik</span>
+</div>
+<div class="overlay-content absolute inset-x-0 bottom-0 p-5 bg-slate-950/90 backdrop-blur-md border-t border-slate-800 flex flex-col items-center text-center space-y-3">
+<p class="text-xs text-slate-300 leading-relaxed" data-editable="text_3" data-editable-type="text">Sistem perakit prompt cerdas dengan fitur auto-translate otomatis untuk menghasilkan khusus untuk video AI, dan konten visual berkualitas tinggi. Untuk para influencer agar tidak sia siakan credit AI yang di buat. Prompt yang tepat dan detail adalah kunci kesuksesan kerjasama dengan AI.</p>
+<a class="inline-block bg-blue-600 hover:bg-blue-500 text-white font-semibold py-2 px-6 rounded-xl transition text-xs shadow-lg" data-editable="btn_1_text" data-editable-type="text" href="https://hamsterico.github.io/DigitalMediaCorp/video-prompt.html">Buka Aplikasi →</a>
+</div>
+</div>
+<!-- Card 3: Cek Kesehatan Ginjal Mandiri -->
+<div class="card-container relative h-80 rounded-2xl overflow-hidden border border-slate-800 shadow-xl cursor-pointer group bg-slate-900" onclick="handleCardTap(event, this)">
+<div class="absolute inset-0 bg-gradient-to-br from-teal-950 via-slate-900 to-blue-950 flex flex-col items-center justify-center p-6">
+<svg class="w-20 h-20 text-teal-400 mb-2 opacity-80 group-hover:scale-110 transition duration-500" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path></svg>
+<h3 class="text-lg font-bold text-slate-200 tracking-wide" data-editable="heading_4" data-editable-type="text">Cek Kesehatan Ginjal Mandiri</h3>
+<span class="text-[10px] text-teal-400 uppercase tracking-widest mt-1 font-semibold" data-editable="kesehatan_kuis" data-editable-type="text">Kesehatan &amp; Kuis</span>
+</div>
+<div class="overlay-content absolute inset-x-0 bottom-0 p-5 bg-slate-950/90 backdrop-blur-md border-t border-slate-800 flex flex-col items-center text-center space-y-3">
+<p class="text-xs text-slate-300 leading-relaxed">Kuis interaktif cerdas untuk mendeteksi dini kesehatan ginjal berdasarkan gaya hidup, kebiasaan minum, dan riwayat kesehatan Anda. jangan sampai terlambat. karena kalau terlambat resikonya gagal ginjal atau cuci darah seumur hidup. kenali gejalanya agar bisa segera di temukan solusinya.</p>
+<a class="inline-block bg-indigo-600 hover:bg-indigo-500 text-white font-semibold py-2 px-6 rounded-xl transition text-xs shadow-lg" data-editable="btn_2_text" data-editable-type="text" href="https://hamsterico.github.io/DigitalMediaCorp/Cek kesehatan Khusus Kekuatan Pria.html">Mulai Cek →</a>
+</div>
+</div>
+<!-- Card 4: Cek Kesehatan Seksual & Reproduksi (Simbol Terong Ungu Tegak/Ereksi) -->
+<div class="card-container relative h-80 rounded-2xl overflow-hidden border border-slate-800 shadow-xl cursor-pointer group bg-slate-900" onclick="handleCardTap(event, this)">
+<div class="absolute inset-0 bg-gradient-to-br from-purple-950 via-slate-900 to-indigo-950 flex flex-col items-center justify-center p-6">
+<!-- Ilustrasi SVG Terong Ungu Tegak (Simbolis Artistik) -->
+<svg class="w-20 h-20 text-purple-400 mb-2 opacity-90 group-hover:scale-110 transition duration-500 transform rotate-180" fill="currentColor" viewbox="0 0 24 24">
+<path d="M12 2C9.5 2 7 5 7 9.5c0 3.2 1.8 5.9 4.3 6.9V20H9v2h6v-2h-2.3v-3.6c2.5-1 4.3-3.7 4.3-6.9C17 5 14.5 2 12 2zm0 13c-2.2 0-4-2.5-4-5.5 0-2.3 1.3-4.5 3.3-5.3.4-.2.9-.2 1.3 0 2 .8 3.3 3 3.3 5.3 0 3-1.8 5.5-4 5.5z"></path>
+</svg>
+<h3 class="text-lg font-bold text-slate-200 tracking-wide" data-editable="heading_5" data-editable-type="text">Cek Kesehatan Seksual &amp; Reproduksi</h3>
+<span class="text-[10px] text-purple-400 uppercase tracking-widest mt-1 font-semibold" data-editable="kesehatan_kuis" data-editable-type="text">Kesehatan &amp; Kuis</span>
+</div>
+<div class="overlay-content absolute inset-x-0 bottom-0 p-5 bg-slate-950/90 backdrop-blur-md border-t border-slate-800 flex flex-col items-center text-center space-y-3">
+<p class="text-xs text-slate-300 leading-relaxed">Evaluasi Awal Kesehatan Seksual dan Reproduksi Berbasis AI. Jawab beberapa pertanyaan seputar gaya hidup, kebiasaan minum, dan riwayat kesehatan Anda, dan dapatkan analisis personal sebagai langkah deteksi dini. Hasil bersifat edukatif dan bukan pengganti diagnosis medis profesional. Semua sumber data AI berasal dari data riset yang valid sebagai deteksi awal untuk langkah prefentif selanjutnya.</p>
+<a class="inline-block bg-indigo-600 hover:bg-indigo-500 text-white font-semibold py-2 px-6 rounded-xl transition text-xs shadow-lg" href="https://hamsterico.github.io/DigitalMediaCorp/Cek Kesehatan jangan sampai gagal Ginjal.html">Mulai Cek up →</a>
+</div>
+</div>
+</div>
+</section>
+<!-- Section Donasi / Dukungan QRIS -->
+<section class="pt-8 border-t border-slate-900 flex flex-col items-center w-full" id="donasi">
+<div class="bg-slate-900 border border-slate-800 p-8 rounded-3xl max-w-md w-full shadow-2xl text-center space-y-4">
+<span class="bg-purple-500/10 text-purple-400 text-[10px] font-bold px-3 py-1 rounded-full border border-purple-500/20 uppercase tracking-widest" data-editable="dukung_pengembangan" data-editable-type="text">Dukung Pengembangan</span>
+<h3 class="text-xl font-bold" data-editable="heading_6" data-editable-type="text">Dukungan anda adalah semangat kami</h3>
+<p class="text-xs text-slate-400 leading-relaxed">
+                    Semua aplikasi di DigitalMedia.corp kami gratiskan untuk umum. Jika proyek ini bermanfaat bagi Anda, dukung kami agar terus berinovasi melalui donasi sukarela via QRIS berikut:
+                </p>
+<!-- Gambar QRIS -->
+<div class="bg-white p-3 rounded-2xl inline-block shadow-lg max-w-[180px] mx-auto">
+<img alt="QRIS DigitalMedia.corp" class="w-full h-auto rounded-lg" data-editable="hero_img" data-editable-type="image" src="https://cdn.lynkid.my.id/media/16-10-2026/1792150197561_1887235.webp" style="aspect-ratio: 1220 / 1359; height: auto; max-height: none;"/>
+</div>
+<p class="text-[11px] text-slate-500">Terima kasih atas apresiasi dan dukungan Anda! 🙏</p>
+</div>
+</section>
+<!-- Tombol Kembali -->
+<div class="pt-4">
+<a class="inline-block text-center bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-semibold py-3 px-6 rounded-xl transition text-xs shadow-lg" href="https://lynk.id/digimedia">Profile DigitalMedia.Corp</a>
+</div>
+</main><footer class="border-t border-slate-800 py-6 text-center text-xs text-slate-500" data-section-id="sec_2_496bb439">
+        © 2026 DigitalMedia.Corp. All rights reserved.
     </footer>
-
-    <!-- Script JavaScript Utama -->
-    <script>
-        // URL Google Apps Script Abang yang sudah terhubung
-        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxkmLAQwnFAjQVG8TH2l1c85nY-KaalRqfYipIbxxpuruanAMlcDxBlwxjzIvQGK781/exec";
-
-        window.onload = function() {
-            const activeUser = sessionStorage.getItem('visitor_email');
-            if (activeUser) {
-                document.getElementById('authGate').classList.add('hidden');
-                document.getElementById('userSessionInfo').innerText = `Pengguna: ${activeUser}`;
-            }
-        };
-
-        async function startApp(e) {
-            e.preventDefault();
-            const nama = document.getElementById('userNameInput').value.trim();
-            const email = document.getElementById('userEmailInput').value.trim();
-            const btn = document.getElementById('startBtn');
-
-            btn.disabled = true;
-            btn.innerText = "Menyiapkan aplikasi...";
-
-            try {
-                await fetch(SCRIPT_URL, {
-                    method: "POST",
-                    mode: "no-cors",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ action: "register", nama, email, whatsapp: "Free User Web B" })
-                });
-            } catch (err) {
-                console.log("Log tercatat secara lokal", err);
-            }
-
-            sessionStorage.setItem('visitor_email', email);
-            document.getElementById('authGate').classList.add('hidden');
-            document.getElementById('userSessionInfo').innerText = `Pengguna: ${email}`;
-        }
-
-        function toggleMode() {
-            const mode = document.getElementById('modeSelection').value;
-            const templateSec = document.getElementById('templateSection');
-            const customSec = document.getElementById('customCameraSection');
-            if(mode === 'template') {
-                templateSec.classList.remove('hidden');
-                customSec.classList.add('hidden');
-            } else {
-                templateSec.classList.add('hidden');
-                customSec.classList.remove('hidden');
-            }
-        }
-
-        async function generatePrompt() {
-            const aiEngine = document.getElementById('targetAiEngine').value;
-            const mode = document.getElementById('modeSelection').value;
-            const type = document.getElementById('contentType').value;
-            const coreText = document.getElementById('corePromptInput').value.trim();
-            const outputArea = document.getElementById('promptOutputArea');
-
-            if (!coreText) {
-                alert('Mohon isi deskripsi inti prompt terlebih dahulu!');
-                return;
-            }
-
-            outputArea.innerText = `⏳ Menerjemahkan dan mengoptimalkan prompt khusus untuk [${aiEngine.toUpperCase()}]...`;
-
-            let translatedText = coreText;
-            try {
-                const res = await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(coreText)}&langpair=id|en`);
-                const data = await res.json();
-                if (data && data.responseData && data.responseData.translatedText) {
-                    translatedText = data.responseData.translatedText;
+<!-- Main Content Wrapper -->
+<!-- Footer -->
+<!-- Skrip Interaktif khusus perangkat HP (Tap pertama muncul deskripsi, tap kedua masuk link) -->
+<script>
+        function handleCardTap(event, cardElement) {
+            const isTouchScreen = window.matchMedia("(pointer: coarse)").matches;
+            
+            if (isTouchScreen) {
+                if (!cardElement.classList.contains('active-tap')) {
+                    event.preventDefault();
+                    
+                    document.querySelectorAll('.card-container').forEach(c => {
+                        if (c !== cardElement) c.classList.remove('active-tap');
+                    });
+                    
+                    cardElement.classList.add('active-tap');
                 }
-            } catch (error) {
-                console.log("Terjemahan otomatis gagal, menggunakan teks asli:", error);
             }
-
-            let finalPrompt = "";
-
-            if (aiEngine === 'midjourney') {
-                let styleStr = mode === 'template' ? document.getElementById('videoTemplate').value : `${document.getElementById('cameraLens').value}, ${document.getElementById('cameraAngle').value}`;
-                finalPrompt = `${translatedText}, ${styleStr}, cinematic lighting, 8k resolution, highly detailed --ar 16:9 --v 6.0`;
-            } 
-            else if (aiEngine === 'dall_e') {
-                let styleStr = mode === 'template' ? document.getElementById('videoTemplate').value : `${document.getElementById('cameraLens').value} with ${document.getElementById('cameraAngle').value}`;
-                finalPrompt = `A high-definition ${type} in ${styleStr} style showing: ${translatedText}. Photorealistic, masterpiece quality with accurate details and lighting.`;
-            } 
-            else if (aiEngine === 'stable_diffusion') {
-                let styleStr = mode === 'template' ? document.getElementById('videoTemplate').value : `${document.getElementById('cameraLens').value}, ${document.getElementById('cameraAngle').value}`;
-                finalPrompt = `masterpiece, best quality, ${translatedText}, ${styleStr}, ultra detailed, photorealistic, 8k uhd.\nNegative prompt: blurry, deformed, bad anatomy, low quality.`;
-            } 
-            else if (aiEngine === 'sora_runway') {
-                let styleStr = mode === 'template' ? document.getElementById('videoTemplate').value : `${document.getElementById('cameraLens').value}, ${document.getElementById('cameraAngle').value}`;
-                finalPrompt = `[Video Generation Task]\nCamera Movement & Optics: ${styleStr}\nScene Description: ${translatedText}\nMotion details: smooth cinematic camera pan, stable professional physics, 4k.`;
-            }
-
-            outputArea.innerText = finalPrompt;
-        }
-
-        function copyPrompt() {
-            const text = document.getElementById('promptOutputArea').innerText;
-            if(text.includes("Belum ada prompt") || text.includes("Sedang")) {
-                alert('Belum ada hasil prompt yang valid untuk disalin!');
-                return;
-            }
-            navigator.clipboard.writeText(text);
-            alert('Prompt spesifik AI berhasil disalin ke clipboard!');
         }
     </script>
-</body>
-</html>
+</body></html>
