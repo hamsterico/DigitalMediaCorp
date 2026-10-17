@@ -280,4 +280,588 @@
   .btn-secondary:hover { background: rgba(92,225,230,0.1); color: var(--cream); }
 
   .btn-accent {
-    background: linear-gradient(135deg, #2563eb, #1d4ed
+    background: linear-gradient(135deg, #2563eb, #1d4ed8);
+    color: #fff;
+    box-shadow: 0 8px 30px rgba(37, 99, 235, 0.3);
+  }
+  .btn-accent:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(37, 99, 235, 0.45);
+  }
+
+  #result { display: none; }
+
+  .result-card {
+    border-radius: 20px;
+    padding: 32px 26px;
+    text-align: center;
+    margin-bottom: 22px;
+    animation: fadeInUp 0.6s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .result-good  { background: linear-gradient(135deg, rgba(76,175,80,0.18), rgba(56,142,60,0.08)); border: 2px solid rgba(129,199,132,0.4); }
+  .result-mid   { background: linear-gradient(135deg, rgba(255,193,7,0.15), rgba(255,152,0,0.08)); border: 2px solid rgba(255,193,7,0.4); }
+  .result-warn  { background: linear-gradient(135deg, rgba(255,111,0,0.15), rgba(230,81,0,0.08)); border: 2px solid rgba(255,111,0,0.4); }
+  .result-alert { background: linear-gradient(135deg, rgba(229,57,53,0.18), rgba(183,28,28,0.08)); border: 2px solid rgba(229,57,53,0.45); }
+
+  .result-icon {
+    font-size: 64px;
+    margin-bottom: 14px;
+    display: block;
+    filter: drop-shadow(0 0 25px rgba(92,225,230,0.4));
+  }
+  .result-title {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--cream);
+  }
+  .result-sub {
+    font-size: 13.5px;
+    color: var(--text-soft);
+    margin-bottom: 18px;
+  }
+
+  .score-badge {
+    display: inline-block;
+    background: rgba(0,0,0,0.35);
+    border: 1px solid rgba(92,225,230,0.3);
+    padding: 8px 22px;
+    border-radius: 30px;
+    font-size: 17px;
+    font-weight: 800;
+    margin-bottom: 20px;
+    color: var(--teal);
+  }
+
+  .result-desc {
+    font-size: 14.5px;
+    line-height: 1.7;
+    text-align: left;
+    background: rgba(0,0,0,0.25);
+    padding: 18px 20px;
+    border-radius: 14px;
+    margin-top: 8px;
+    color: var(--text);
+    border: 1px solid rgba(92,225,230,0.1);
+  }
+  .result-desc ul { margin: 10px 0 0 22px; }
+  .result-desc li { margin-bottom: 8px; }
+  .result-desc strong { color: var(--teal); }
+
+  .dimensions {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 12px;
+    margin-top: 22px;
+  }
+  .dim-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(92,225,230,0.15);
+    border-radius: 14px;
+    padding: 16px 18px;
+    text-align: left;
+    transition: transform 0.2s;
+  }
+  .dim-card:hover { transform: translateY(-2px); }
+  .dim-card .dim-label {
+    font-size: 11.5px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-soft);
+    margin-bottom: 6px;
+    font-weight: 600;
+  }
+  .dim-card .dim-value {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--teal);
+    margin-bottom: 4px;
+  }
+  .dim-card .dim-bar {
+    height: 5px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-top: 8px;
+  }
+  .dim-card .dim-fill {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 0.8s ease;
+  }
+  .dim-low .dim-fill  { background: linear-gradient(90deg, #66bb6a, #43a047); }
+  .dim-mid .dim-fill  { background: linear-gradient(90deg, #ffca28, #ff9800); }
+  .dim-high .dim-fill { background: linear-gradient(90deg, #ef5350, #b71c1c); }
+
+  .solutions {
+    background: linear-gradient(135deg, rgba(92,225,230,0.08), rgba(0,150,136,0.06));
+    border: 1px solid rgba(92,225,230,0.25);
+    border-radius: 16px;
+    padding: 24px;
+    margin-top: 22px;
+  }
+  .solutions h3 {
+    font-size: 19px;
+    color: var(--cream);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .solution-item {
+    background: rgba(255,255,255,0.03);
+    border-left: 3px solid var(--teal);
+    border-radius: 10px;
+    padding: 16px 18px;
+    margin-bottom: 12px;
+    font-size: 13.5px;
+    line-height: 1.7;
+    color: var(--text);
+  }
+  .solution-item .sol-title {
+    font-weight: 700;
+    color: var(--teal);
+    display: block;
+    margin-bottom: 6px;
+    font-size: 14.5px;
+  }
+  .solution-item ul { margin: 8px 0 0 20px; }
+  .solution-item li { margin-bottom: 6px; }
+  .solution-item.urgent { border-left-color: #ef5350; background: rgba(229,57,53,0.08); }
+  .solution-item.med    { border-left-color: #64b5f6; }
+  .solution-item.life   { border-left-color: #66bb6a; }
+
+  .breakdown-box {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(92,225,230,0.15);
+    border-radius: 16px;
+    padding: 22px;
+    margin-top: 20px;
+  }
+  .breakdown-box h3 {
+    color: var(--cream);
+    font-weight: 600;
+    margin-bottom: 16px;
+    font-size: 17px;
+  }
+  .bd-item {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 9px 12px; border-radius: 8px;
+    font-size: 13px; margin-bottom: 6px;
+    background: rgba(255,255,255,0.04);
+    color: var(--text);
+    gap: 10px;
+  }
+  .bd-item.high { background: rgba(229,57,53,0.15); border-left: 4px solid #ef5350; }
+  .bd-item.mid  { background: rgba(255,193,7,0.12); border-left: 4px solid #ffb300; }
+  .bd-item.low  { background: rgba(76,175,80,0.12); border-left: 4px solid #66bb6a; }
+  .bd-score { font-weight: 700; color: var(--teal); min-width: 40px; text-align: right; }
+
+  .disclaimer {
+    background: rgba(255,193,7,0.08);
+    border: 1px solid rgba(255,193,7,0.35);
+    border-radius: 14px;
+    padding: 18px 20px;
+    font-size: 12.5px;
+    line-height: 1.7;
+    margin-top: 24px;
+    color: #ffd97a;
+  }
+  .disclaimer strong { color: #ffb300; }
+
+  .privacy-note {
+    background: rgba(100,181,246,0.08);
+    border-left: 4px solid #64b5f6;
+    border-radius: 10px;
+    padding: 14px 18px;
+    font-size: 12.5px;
+    line-height: 1.6;
+    margin-top: 16px;
+    color: #b3d9ff;
+  }
+  .privacy-note strong { color: #e3f2fd; }
+
+  footer {
+    text-align: center;
+    padding: 20px;
+    font-size: 11.5px;
+    color: rgba(255,255,255,0.35);
+    border-top: 1px solid rgba(92,225,230,0.1);
+    letter-spacing: 0.5px;
+  }
+
+  @media (max-width: 500px) {
+    header h1 { font-size: 21px; }
+    .q-text { font-size: 15px; }
+    .option { font-size: 13px; padding: 12px 13px; }
+    button { font-size: 14.5px; }
+    .dimensions { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <div class="top-nav">
+      <a href="https://lynk.id/digimedia" class="btn-back-top">&larr; Beranda Utama</a>
+    </div>
+    <span class="icon">💧</span>
+    <h1>Cek Kesehatan <span>Ginjal Mandiri</span></h1>
+    <p>Deteksi dini risiko gangguan fungsi ginjal, kebiasaan minum,<br>tekanan darah, dan langkah preventif</p>
+  </header>
+
+  <div class="content">
+    <div id="intro" class="intro">
+      <strong>🩺 Panduan Pengisian:</strong><br>
+      Jawablah setiap pertanyaan secara objektif berdasarkan kebiasaan dan kondisi tubuh Anda <strong>dalam beberapa bulan terakhir</strong>. 
+      Kuis ini dirancang untuk skrining awal kesehatan ginjal agar Anda bisa mengenali gejalanya sebelum terlambat.
+    </div>
+
+    <div class="progress-wrap" id="progressWrap">
+      <div class="progress-bar-bg"><div class="progress-bar" id="progressBar"></div></div>
+      <div class="progress-text" id="progressText">0 dari 0 pertanyaan terjawab</div>
+    </div>
+
+    <form id="quizForm"></form>
+
+    <div class="btn-area" id="btnArea">
+      <button type="button" class="btn-primary" id="submitBtn" disabled>✨ Lihat Hasil &amp; Analisis Ginjal</button>
+      <button type="button" class="btn-secondary" id="resetBtn">Reset</button>
+    </div>
+
+    <div id="result"></div>
+  </div>
+
+  <footer>
+    Kuis edukasi kesehatan — bukan pengganti diagnosis atau pemeriksaan laboratorium medis profesional.
+  </footer>
+</div>
+
+<script>
+/* ============================================================
+   DATA PERTANYAAN KESEHATAN GINJAL (15 Pertanyaan)
+   ============================================================ */
+const CAT_LABELS = {
+  gejala:   '⚠️ Gejala Fisik & Kemih',
+  medis:    '🩺 Riwayat Medis & Tekanan Darah',
+  gaya:     '💧 Hidrasi & Pola Makan',
+  kebiasaan:'💊 Penggunaan Obat & Suplemen'
+};
+
+const QUESTIONS = [
+  { cat:'gejala',
+    q: "Apakah Anda sering merasa lemas, cepat lelah, atau kurang bertenaga tanpa sebab jelas?",
+    hint: "Penurunan fungsi ginjal dapat menumpuk racun dalam darah yang memicu anemia dan kelelahan kronis.",
+    opts: [ {t:"Tidak / Stamina normal",s:0}, {t:"Kadang-kadang merasa lelah",s:1}, {t:"Sering merasa lelah dan lesu",s:2}, {t:"Hampir setiap hari sangat kelelahan",s:3} ] },
+
+  { cat:'gejala',
+    q: "Apakah Anda menyadari adanya pembengkakan (edema) pada kelopak mata, kaki, atau pergelangan kaki?",
+    hint: "Retensi cairan akibat ginjal kurang efektif membuang natrium dan cairan berlebih.",
+    opts: [ {t:"Tidak pernah ada pembengkakan",s:0}, {t:"Kadang bengkak ringan setelah berdiri lama",s:1}, {t:"Sering bengkak di kaki/mata",s:2}, {t:"Selalu bengkak nyata setiap hari",s:3} ] },
+
+  { cat:'gejala',
+    q: "Bagaimana kondisi buang air kecil (urine) Anda akhir-akhir ini?",
+    hint: "Perhatikan apakah urine berbusa banyak, berwarna kemerahan (darah), atau keruh.",
+    opts: [ {t:"Normal, jernih/kekuningan biasa",s:0}, {t:"Kadang berbusa atau agak pekat",s:1}, {t:"Sering berbusa tebal atau bau menyengat",s:2}, {t:"Sering ada darah / perubahan drastis warna urine",s:3} ] },
+
+  { cat:'gejala',
+    q: "Seberapa sering Anda terbangun di malam hari untuk buang air kecil (nokturia)?",
+    hint: "Ginjal yang mulai menurun kemampuannya sering gagal memekatkan urine di malam hari.",
+    opts: [ {t:"Tidak pernah atau 1 kali saja",s:0}, {t:"2 kali dalam semalam",s:1}, {t:"3 hingga 4 kali semalam",s:2}, {t:"Lebih dari 4 kali semalam secara rutin",s:3} ] },
+
+  { cat:'gejala',
+    q: "Apakah Anda mengalami penurunan nafsu makan, mual, atau rasa logam di mulut?",
+    hint: "Akumulasi uremi (toksin uremik) dalam darah akibat gagal ginjal dapat mengganggu pencernaan.",
+    opts: [ {t:"Nafsu makan sangat baik",s:0}, {t:"Kadang nafsu makan menurun",s:1}, {t:"Sering mual dan nafsu makan turun",s:2}, {t:"Hilang nafsu makan total / muntah-muntah",s:3} ] },
+
+  { cat:'medis',
+    q: "Apakah Anda memiliki riwayat tekanan darah tinggi (hipertensi)?",
+    hint: "Tekanan darah tinggi adalah penyebab utama sekaligus akibat dari kerusakan pembuluh darah di ginjal.",
+    opts: [ {t:"Tekanan darah normal (<120/80 mmHg)",s:0}, {t:"Pre-hipertensi / kadang di atas normal",s:1}, {t:"Hipertensi terdiagnosis dan minum obat",s:2}, {t:"Hipertensi tinggi dan sulit dikontrol",s:3} ] },
+
+  { cat:'medis',
+    q: "Apakah Anda memiliki riwayat diabetes (gula darah tinggi) atau prediabetes?",
+    hint: "Gula darah tinggi merusak unit penyaring kecil di ginjal (nefron) secara perlahan (nefropati diabetik).",
+    opts: [ {t:"Gula darah normal / tidak ada",s:0}, {t:"Prediabetes / gula darah batas atas",s:1}, {t:"Diabetes terkontrol dengan baik",s:2}, {t:"Diabetes menahun / tidak terkontrol",s:3} ] },
+
+  { cat:'medis',
+    q: "Apakah ada anggota keluarga kandung (ayah, ibu, saudara) yang memiliki gagal ginjal atau cuci darah?",
+    hint: "Faktor genetik seperti penyakit ginjal polikistik atau riwayat keluarga memperbesar risiko.",
+    opts: [ {t:"Tidak ada sama sekali",s:0}, {t:"Tidak yakin / kurang tahu",s:1}, {t:"Ada kerabat jauh",s:2}, {t:"Ada orang tua / saudara kandung",s:3} ] },
+
+  { cat:'medis',
+    q: "Apakah Anda pernah mengalami infeksi saluran kemih (ISK) berulang atau batu ginjal?",
+    hint: "Infeksi atau sumbatan batu ginjal yang dibiarkan dapat merusak jaringan ginjal secara permanen.",
+    opts: [ {t:"Tidak pernah",s:0}, {t:"Pernah sekali di masa lalu",s:1}, {t:"Beberapa kali mengalami ISK / nyeri batu ginjal",s:2}, {t:"Sering kambuh dan butuh penanganan medis",s:3} ] },
+
+  { cat:'gaya',
+    q: "Berapa banyak jumlah air putih yang Anda minum setiap harinya?",
+    hint: "Kurang minum membuat ginjal bekerja lebih berat dalam menyaring darah pekat.",
+    opts: [ {t:"Sangat cukup (lebih dari 2 liter / 8 gelas sehari)",s:0}, {t:"Cukup (sekitar 1.5 - 2 liter sehari)",s:1}, {t:"Kurang (1 liter sehari)",s:2}, {t:"Sangat kurang (sering merasa haus dan jarang minum air putih)",s:3} ] },
+
+  { cat:'gaya',
+    q: "Bagaimana pola konsumsi garam (makanan asin, makanan instan, junk food) Anda?",
+    hint: "Konsumsi natrium/garam berlebih memicu hipertensi dan memperberat kerja penyaringan ginjal.",
+    opts: [ {t:"Sangat terkontrol / cenderung hambar",s:0}, {t:"Sedang / sesuai standar umum",s:1}, {t:"Menyukai makanan asin dan gurih",s:2}, {t:"Sangat sering makanan instan / tinggi garam",s:3} ] },
+
+  { cat:'gaya',
+    q: "Apakah Anda sering menahan buang air kecil karena kesibukan?",
+    hint: "Menahan kencing meningkatkan risiko perkembangbiakan bakteri yang memicu infeksi ginjal.",
+    opts: [ {t:"Tidak pernah menahan",s:0}, {t:"Jarang (hanya jika darurat)",s:1}, {t:"Sering menahan karena sibuk bekerja",s:2}, {t:"Hampir setiap hari kebiasaan menahan kencing",s:3} ] },
+
+  { cat:'kebiasaan',
+    q: "Seberapa sering Anda mengonsumsi obat pereda nyeri (painkiller seperti ibuprofen, asam mefenamat, parasetamol dosis tinggi) tanpa resep dokter?",
+    hint: "Penggunaan obat NSAID dalam jangka panjang adalah salah satu penyebab utama kerusakan ginjal (nefropati analgesik).",
+    opts: [ {t:"Tidak pernah",s:0}, {t:"Sangat jarang (hanya saat sakit berat)",s:1}, {t:"Cukup sering jika pusing / nyeri otot",s:2}, {t:"Rutin / hampir setiap hari mengonsumsi obat warung",s:3} ] },
+
+  { cat:'kebiasaan',
+    q: "Apakah Anda rutin mengonsumsi suplemen penambah massa otot, jamu pegal linu tradisional tanpa izin BPOM, atau minuman energi dosis tinggi?",
+    hint: "Beberapa produk herbal ilegal atau suplemen berlebih mengandung zat berat yang tidak bisa disaring ginjal.",
+    opts: [ {t:"Tidak pernah mengonsumsi",s:0}, {t:"Pernah coba sesekali",s:1}, {t:"Sering minum suplemen/jamu tertentu",s:2}, {t:"Rutin setiap hari tanpa pengawasan",s:3} ] },
+
+  { cat:'kebiasaan',
+    q: "Apakah Anda merokok atau sering terpapar asap rokok secara aktif?",
+    hint: "Merokok merusak pembuluh darah, mengurangi aliran darah ke ginjal, dan mempercepat penurunan fungsi organ.",
+    opts: [ {t:"Tidak merokok sama sekali",s:0}, {t:"Mantan perokok",s:1}, {t:"Perokok ringan",s:2}, {t:"Perokok aktif berat setiap hari",s:3} ] }
+];
+
+/* ============================================================
+   RENDER KUIS & LOGIKA UTAMA
+   ============================================================ */
+const form         = document.getElementById('quizForm');
+const submitBtn    = document.getElementById('submitBtn');
+const resetBtn     = document.getElementById('resetBtn');
+const progressBar  = document.getElementById('progressBar');
+const progressText = document.getElementById('progressText');
+const resultDiv    = document.getElementById('result');
+const progressWrap = document.getElementById('progressWrap');
+const btnArea      = document.getElementById('btnArea');
+const introDiv     = document.getElementById('intro');
+
+const TOTAL = QUESTIONS.length;
+let answered = new Set();
+
+QUESTIONS.forEach((item, i) => {
+  const div = document.createElement('div');
+  div.className = 'question';
+  div.id = 'q' + i;
+
+  let optsHTML = '';
+  item.opts.forEach(opt => {
+    optsHTML += `
+      <label class="option" data-q="${i}">
+        <input type="radio" name="q${i}" value="${opt.s}" data-q="${i}">
+        <span class="radio-mark"></span>
+        <span class="opt-label">${opt.t}</span>
+      </label>`;
+  });
+
+  div.innerHTML = `
+    <span class="q-cat">${CAT_LABELS[item.cat]}</span>
+    <div class="q-text">${i+1}. ${item.q}</div>
+    <div class="q-hint">${item.hint}</div>
+    <div class="options">${optsHTML}</div>`;
+
+  form.appendChild(div);
+});
+
+form.addEventListener('change', (e) => {
+  if (e.target.type === 'radio') {
+    const qIndex = parseInt(e.target.dataset.q);
+    document.querySelectorAll(`.option[data-q="${qIndex}"]`).forEach(o => o.classList.remove('selected'));
+    e.target.closest('.option').classList.add('selected');
+    document.getElementById('q' + qIndex).classList.add('answered');
+    answered.add(qIndex);
+    updateProgress();
+  }
+});
+
+function updateProgress() {
+  const n = answered.size;
+  progressBar.style.width = (n / TOTAL) * 100 + '%';
+  progressText.textContent = `${n} dari ${TOTAL} pertanyaan terjawab`;
+  submitBtn.disabled = n < TOTAL;
+  if (n === TOTAL) submitBtn.textContent = '✨ Lihat Hasil & Analisis Ginjal';
+}
+progressText.textContent = `0 dari ${TOTAL} pertanyaan terjawab`;
+
+submitBtn.addEventListener('click', () => {
+  const catTotals = { gejala:0, medis:0, gaya:0, kebiasaan:0 };
+  const catMax = { 
+    gejala: 5*3, 
+    medis: 4*3, 
+    gaya: 3*3, 
+    kebiasaan: 3*3 
+  };
+  const details = [];
+  let total = 0;
+
+  QUESTIONS.forEach((item, i) => {
+    const sel = document.querySelector(`input[name="q${i}"]:checked`);
+    const val = sel ? parseInt(sel.value) : 0;
+    const label = item.opts.find(o => o.s === val)?.t || '-';
+    total += val;
+    catTotals[item.cat] += val;
+    details.push({ no:i+1, cat:item.cat, q:item.q, answer:label, score:val });
+  });
+
+  showResult(total, catTotals, catMax, details);
+});
+
+function showResult(total, catTotals, catMax, details) {
+  const maxScore = TOTAL * 3;
+  const percent  = Math.round((total / maxScore) * 100);
+
+  const pct = {
+    gejala:    catTotals.gejala    / catMax.gejala    * 100,
+    medis:     catTotals.medis     / catMax.medis     * 100,
+    gaya:      catTotals.gaya      / catMax.gaya      * 100,
+    kebiasaan: catTotals.kebiasaan / catMax.kebiasaan * 100
+  };
+
+  let icon, title, cls, desc;
+  if (percent <= 20) {
+    icon = "🛡️"; title = "Fungsi Ginjal Terindikasi Sangat Baik"; cls = "result-good";
+    desc = `Berdasarkan jawaban Anda, <strong>tidak ada indikasi gangguan ginjal yang berarti</strong>. Pertahankan pola hidup sehat, cukupi kebutuhan air putih, kurangi makanan terlalu asin, dan lakukan pemeriksaan kesehatan berkala setahun sekali.`;
+  } else if (percent <= 40) {
+    icon = "💡"; title = "Risiko Ringan — Perlu Perbaikan Gaya Hidup"; cls = "result-mid";
+    desc = `Ada beberapa catatan ringan terkait pola hidrasi atau kebiasaan harian Anda. Mulailah memperbanyak minum air putih, kurangi konsumsi garam berlebih, dan hindari kebiasaan menahan buang air kecil agar ginjal tetap prima.`;
+  } else if (percent <= 60) {
+    icon = "⚠️"; title = "Waspada! Indikasi Beban Kerja Ginjal Meningkat"; cls = "result-warn";
+    desc = `Skor Anda menunjukkan <strong>potensi beban atau risiko kesehatan ginjal</strong> yang perlu mendapat perhatian serius. Sebaiknya periksakan tekanan darah, gula darah, serta tes urin sederhana ke fasilitas kesehatan terdekat.`;
+  } else {
+    icon = "🚨"; title = "Risiko Tinggi — Segera Konsultasi ke Dokter"; cls = "result-alert";
+    desc = `Skor Anda <strong>cukup tinggi</strong> dan mengindikasikan adanya keluhan atau faktor risiko berat pada ginjal. Jangan abaikan kondisi ini. Segera konsultasikan ke dokter spesialis penyakit dalam (internis) atau nefrolog untuk pemeriksaan laboratorium lengkap (ureum, kreatinin, dan eGFR).`;
+  }
+
+  const dimHTML = `
+    <div class="dimensions">
+      ${dimCard('Gejala Fisik & Kemih', catTotals.gejala, catMax.gejala)}
+      ${dimCard('Riwayat Medis & Tekanan', catTotals.medis, catMax.medis)}
+      ${dimCard('Hidrasi & Pola Makan', catTotals.gaya, catMax.gaya)}
+      ${dimCard('Obat & Kebiasaan', catTotals.kebiasaan, catMax.kebiasaan)}
+    </div>
+  `;
+
+  let solutionsHTML = '';
+  if (percent > 40) {
+    solutionsHTML += solutionBlock('urgent', '🔴 Langkah Pencegahan & Medis Penting', `
+      <ul>
+        <li><strong>Tes Laboratorium Wajib:</strong> Periksa kadar ureum, kreatinin darah, dan lakukan tes urine lengkap (urinalisis) untuk menghitung laju penyaringan ginjal (eGFR).</li>
+        <li><strong>Kontrol Tekanan & Gula Darah:</strong> Pastikan tensi stabil di bawah 130/80 mmHg dan jaga kadar gula darah dalam batas aman.</li>
+        <li><strong>Hentikan Obat Pereda Nyeri Bebas:</strong> Hindari konsumsi obat nyeri warung (NSAID) jangka panjang tanpa anjuran dokter.</li>
+        <li><strong>Batasi Garam & Protein Berlebih:</strong> Kurangi makanan olahan tinggi natrium serta konsultasikan porsi protein harian Anda.</li>
+      </ul>`);
+  } else {
+    solutionsHTML += solutionBlock('life', '🌿 Tips Menjaga Kesehatan Ginjal Jangka Panjang', `
+      <ul>
+        <li>Minum air putih minimal 2 liter per hari secara merata sepanjang waktu.</li>
+        <li>Rutin berolahraga ringan minimal 30 menit setiap hari.</li>
+        <li>Hindari merokok dan batasi minuman manis berkalori tinggi.</li>
+        <li>Lakukan medical check-up fungsi ginjal secara rutin setahun sekali.</li>
+      </ul>`);
+  }
+
+  let bdHTML = '';
+  details.forEach(d => {
+    let c = 'low';
+    if (d.score === 3) c = 'high';
+    else if (d.score >= 2) c = 'mid';
+    bdHTML += `<div class="bd-item ${c}">
+        <span style="font-size:12.5px;">P${d.no}. ${d.q.length > 60 ? d.q.substring(0,60)+'…' : d.q}</span>
+        <span class="bd-score">${d.score}/3</span></div>`;
+  });
+
+  resultDiv.innerHTML = `
+    <div class="result-card ${cls}">
+      <span class="result-icon">${icon}</span>
+      <div class="result-title">${title}</div>
+      <div class="result-sub">Hasil Skrining Awal Kesehatan Ginjal Anda</div>
+      <div class="score-badge">Skor Risiko: ${total} / ${maxScore} (${percent}%)</div>
+      <div class="result-desc">${desc}</div>
+    </div>
+
+    <div class="breakdown-box">
+      <h3>📊 Analisis Per Kategori</h3>
+      ${dimHTML}
+    </div>
+
+    <div class="solutions">
+      <h3>💧 Rekomendasi &amp; Tindakan Lanjut</h3>
+      ${solutionsHTML}
+    </div>
+
+    <div class="breakdown-box">
+      <h3>📝 Rincian Jawaban Kuis</h3>
+      ${bdHTML}
+    </div>
+
+    <div class="privacy-note">
+      <strong>🔒 Privasi Terjaga:</strong> Seluruh proses perhitungan kuis berjalan <em>secara lokal di browser Anda</em>. Data tidak dikirim ke server manapun dan aman sepenuhnya.
+    </div>
+
+    <div class="disclaimer">
+      <strong>⚠️ CATATAN PENTING:</strong><br>
+      Kuis ini murni alat <strong>skrining edukasi mandiri</strong> dan bukan pengganti diagnosis medis resmi. Kerusakan atau penurunan fungsi ginjal yang sebenarnya hanya dapat ditegakkan melalui pemeriksaan laboratorium darah dan urine oleh dokter ahli.
+    </div>
+
+    <div class="btn-area">
+      <a href="https://lynk.id/digimedia" class="btn-link-action btn-accent">🏠 Kembali ke Beranda Utama</a>
+      <button type="button" class="btn-secondary" onclick="location.reload()">🔄 Ulangi Kuis</button>
+    </div>`;
+
+  resultDiv.style.display = 'block';
+  progressWrap.style.display = 'none';
+  btnArea.style.display = 'none';
+  introDiv.style.display = 'none';
+  form.style.display = 'none';
+  resultDiv.scrollIntoView({ behavior:'smooth', block:'start' });
+}
+
+function dimCard(label, val, max) {
+  const pct = Math.round((val / max) * 100);
+  let cls = 'dim-low';
+  if (pct >= 66) cls = 'dim-high';
+  else if (pct >= 34) cls = 'dim-mid';
+  return `
+    <div class="dim-card ${cls}">
+      <div class="dim-label">${label}</div>
+      <div class="dim-value">${val} / ${max}</div>
+      <div class="dim-bar"><div class="dim-fill" style="width:${pct}%"></div></div>
+    </div>`;
+}
+
+function solutionBlock(type, title, body) {
+  return `<div class="solution-item ${type}">
+      <span class="sol-title">${title}</span>
+      ${body}
+    </div>`;
+}
+
+resetBtn.addEventListener('click', () => {
+  if (confirm('Yakin ingin mereset seluruh jawaban kuis?')) {
+    form.reset();
+    answered.clear();
+    document.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+    document.querySelectorAll('.question').forEach(q => q.classList.remove('answered'));
+    updateProgress();
+    resultDiv.style.display = 'none';
+    form.style.display = 'block';
+    progressWrap.style.display = 'block';
+    btnArea.style.display = 'flex';
+    introDiv.style.display = 'block';
+    submitBtn.textContent = '✨ Lihat Hasil & Analisis Ginjal';
+    window.scrollTo({ top: 0, behavior:'smooth' });
+  }
+});
+</script>
+</body>
+</html>
