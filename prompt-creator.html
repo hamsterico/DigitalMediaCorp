@@ -113,17 +113,7 @@
                     </div>
                 </div>
             </div>
-<script>
-        // MASUKKAN URL GOOGLE APPS SCRIPT ABANG DI SINI:
-        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxkmLAQwnFAjQVG8TH2l1c85nY-KaalRqfYipIbxxpuruanAMlcDxBlwxjzIvQGK781/exec";
 
-        window.onload = function() {
-            const activeUser = sessionStorage.getItem('visitor_email');
-            if (activeUser) {
-                document.getElementById('authGate').classList.add('hidden');
-                document.getElementById('userSessionInfo').innerText = `Pengguna: ${activeUser}`;
-            }
-        };
             <div>
                 <label class="block text-xs uppercase tracking-wider text-slate-400 mb-1">5. Deskripsi Inti Keinginan Anda (Bahasa Indonesia)</label>
                 <textarea id="corePromptInput" rows="4" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-4 text-slate-100 focus:outline-none focus:border-blue-500 text-sm" placeholder="Contoh: Seekor kucing astronot sedang berjalan perlahan di permukaan bulan..."></textarea>
@@ -147,8 +137,10 @@
         &copy; 2026 DigitalMedia.corp AI Prompt System. All rights reserved.
     </footer>
 
+    <!-- Script JavaScript Utama -->
     <script>
-        const SCRIPT_URL = "MASUKKAN_URL_WEB_APP_APPS_SCRIPT_DISINI";
+        // URL Google Apps Script Abang yang sudah terhubung
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxkmLAQwnFAjQVG8TH2l1c85nY-KaalRqfYipIbxxpuruanAMlcDxBlwxjzIvQGK781/exec";
 
         window.onload = function() {
             const activeUser = sessionStorage.getItem('visitor_email');
@@ -221,26 +213,21 @@
                 console.log("Terjemahan otomatis gagal, menggunakan teks asli:", error);
             }
 
-            // PENYESUAIAN FORMAT BERDASARKAN PILIHAN AI ENGINE
             let finalPrompt = "";
 
             if (aiEngine === 'midjourney') {
-                // Karakteristik Midjourney: Menggunakan parameter tag koma dan akhiran versi --ar 16:9 --v 6.0
                 let styleStr = mode === 'template' ? document.getElementById('videoTemplate').value : `${document.getElementById('cameraLens').value}, ${document.getElementById('cameraAngle').value}`;
                 finalPrompt = `${translatedText}, ${styleStr}, cinematic lighting, 8k resolution, highly detailed --ar 16:9 --v 6.0`;
             } 
             else if (aiEngine === 'dall_e') {
-                // Karakteristik DALL-E 3: Menyukai kalimat deskriptif naratif yang utuh dan jelas
                 let styleStr = mode === 'template' ? document.getElementById('videoTemplate').value : `${document.getElementById('cameraLens').value} with ${document.getElementById('cameraAngle').value}`;
                 finalPrompt = `A high-definition ${type} in ${styleStr} style showing: ${translatedText}. Photorealistic, masterpiece quality with accurate details and lighting.`;
             } 
             else if (aiEngine === 'stable_diffusion') {
-                // Karakteristik Stable Diffusion: Menggunakan tag terstruktur dan menyertakan negative prompt
                 let styleStr = mode === 'template' ? document.getElementById('videoTemplate').value : `${document.getElementById('cameraLens').value}, ${document.getElementById('cameraAngle').value}`;
                 finalPrompt = `masterpiece, best quality, ${translatedText}, ${styleStr}, ultra detailed, photorealistic, 8k uhd.\nNegative prompt: blurry, deformed, bad anatomy, low quality.`;
             } 
             else if (aiEngine === 'sora_runway') {
-                // Karakteristik Sora / Runway / Kling: Fokus pada dinamika gerakan kamera dan video
                 let styleStr = mode === 'template' ? document.getElementById('videoTemplate').value : `${document.getElementById('cameraLens').value}, ${document.getElementById('cameraAngle').value}`;
                 finalPrompt = `[Video Generation Task]\nCamera Movement & Optics: ${styleStr}\nScene Description: ${translatedText}\nMotion details: smooth cinematic camera pan, stable professional physics, 4k.`;
             }
