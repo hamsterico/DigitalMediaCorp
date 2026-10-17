@@ -113,7 +113,17 @@
                     </div>
                 </div>
             </div>
+<script>
+        // MASUKKAN URL GOOGLE APPS SCRIPT ABANG DI SINI:
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxkmLAQwnFAjQVG8TH2l1c85nY-KaalRqfYipIbxxpuruanAMlcDxBlwxjzIvQGK781/exec";
 
+        window.onload = function() {
+            const activeUser = sessionStorage.getItem('visitor_email');
+            if (activeUser) {
+                document.getElementById('authGate').classList.add('hidden');
+                document.getElementById('userSessionInfo').innerText = `Pengguna: ${activeUser}`;
+            }
+        };
             <div>
                 <label class="block text-xs uppercase tracking-wider text-slate-400 mb-1">5. Deskripsi Inti Keinginan Anda (Bahasa Indonesia)</label>
                 <textarea id="corePromptInput" rows="4" class="w-full bg-slate-950 border border-slate-800 rounded-lg p-4 text-slate-100 focus:outline-none focus:border-blue-500 text-sm" placeholder="Contoh: Seekor kucing astronot sedang berjalan perlahan di permukaan bulan..."></textarea>
