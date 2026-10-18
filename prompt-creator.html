@@ -139,11 +139,12 @@
 
     <!-- Script JavaScript Utama -->
     <script>
-        // URL Google Apps Script Abang yang sudah terhubung
+        // URL Google Apps Script yang terhubung
         const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxkmLAQwnFAjQVG8TH2l1c85nY-KaalRqfYipIbxxpuruanAMlcDxBlwxjzIvQGK781/exec";
 
         window.onload = function() {
-            const activeUser = sessionStorage.getItem('visitor_email');
+            // Diubah menggunakan localStorage agar tersimpan permanen di browser
+            const activeUser = localStorage.getItem('visitor_email');
             if (activeUser) {
                 document.getElementById('authGate').classList.add('hidden');
                 document.getElementById('userSessionInfo').innerText = `Pengguna: ${activeUser}`;
@@ -170,7 +171,8 @@
                 console.log("Log tercatat secara lokal", err);
             }
 
-            sessionStorage.setItem('visitor_email', email);
+            // Menyimpan ke localStorage agar data diingat terus oleh browser
+            localStorage.setItem('visitor_email', email);
             document.getElementById('authGate').classList.add('hidden');
             document.getElementById('userSessionInfo').innerText = `Pengguna: ${email}`;
         }
