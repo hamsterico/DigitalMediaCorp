@@ -23,8 +23,12 @@ header p{font-size:13.5px;color:#a8bfa8;line-height:1.65}
 .progress-bar-bg{background:rgba(255,255,255,.06);height:8px;border-radius:10px;overflow:hidden;border:1px solid rgba(212,175,55,.15)}
 .progress-bar{background:linear-gradient(90deg,#e6c86a,#4caf7d,#1e5f3f);height:100%;width:0;transition:width .4s ease;border-radius:10px}
 .progress-text{text-align:center;font-size:12.5px;color:#a8bfa8;margin-top:9px;font-weight:500}
-.question{background:rgba(255,255,255,.04);border:1px solid rgba(212,175,55,.22);border-radius:14px;padding:22px;margin-bottom:18px;transition:all .3s;position:relative}
-.question.answered{border-color:rgba(76,175,125,.5);background:rgba(76,175,125,.05)}
+
+/* Tampilan Per Halaman */
+.question-page{display:none}
+.question-page.active{display:block}
+
+.question{background:rgba(255,255,255,.04);border:1px solid rgba(212,175,55,.22);border-radius:14px;padding:22px;margin-bottom:18px;position:relative}
 .q-cat{display:inline-block;background:linear-gradient(135deg,rgba(30,95,63,.6),rgba(20,52,38,.6));color:#e6c86a;font-size:10.5px;font-weight:700;padding:4px 12px;border-radius:20px;margin-bottom:12px;letter-spacing:1px;text-transform:uppercase;border:1px solid rgba(212,175,55,.3)}
 .q-text{font-size:16px;font-weight:600;margin-bottom:8px;line-height:1.5;color:#f2ecd8}
 .q-hint{font-size:12.5px;color:#a8bfa8;font-style:italic;margin-bottom:16px;line-height:1.55;padding-left:12px;border-left:2px solid rgba(212,175,55,.3)}
@@ -37,13 +41,16 @@ header p{font-size:13.5px;color:#a8bfa8;line-height:1.65}
 .option input:checked+.radio-mark:after{content:"";position:absolute;top:4px;left:4px;width:8px;height:8px;border-radius:50%;background:#e6c86a}
 .option input:checked~.opt-label{color:#f2ecd8;font-weight:600}
 .option.selected{border-color:#d4af37;background:linear-gradient(135deg,rgba(212,175,55,.08),rgba(76,175,125,.06))}
-.btn-area{display:flex;gap:12px;margin-top:26px;flex-wrap:wrap}
-button{flex:1;min-width:150px;padding:16px 22px;font-size:15px;font-weight:700;border:none;border-radius:12px;cursor:pointer;transition:all .25s;font-family:inherit}
+
+.page-indicator{text-align:center;font-size:13px;color:#d4af37;font-weight:700;margin-bottom:15px;letter-spacing:.5px}
+
+.btn-area{display:flex;gap:12px;margin-top:20px;flex-wrap:wrap}
+button{flex:1;min-width:140px;padding:16px 22px;font-size:15px;font-weight:700;border:none;border-radius:12px;cursor:pointer;transition:all .25s;font-family:inherit}
 .btn-primary{background:linear-gradient(135deg,#1e5f3f,#4caf7d);color:#fff;box-shadow:0 8px 28px rgba(30,95,63,.5)}
 .btn-primary:hover{transform:translateY(-2px)}
-.btn-primary.not-ready{background:rgba(255,255,255,.12);box-shadow:none;color:rgba(255,255,255,.55)}
 .btn-secondary{background:rgba(255,255,255,.06);color:#a8bfa8;border:1px solid rgba(212,175,55,.22)}
 .btn-secondary:hover{background:rgba(212,175,55,.1);color:#f2ecd8}
+
 #result{display:none}
 .result-card{border-radius:18px;padding:34px 26px;text-align:center;margin-bottom:22px;animation:fadeInUp .6s ease}
 @keyframes fadeInUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
@@ -113,13 +120,15 @@ Jawab berdasarkan <em>pengetahuan Anda tentang ustad tersebut</em> — apa yang 
 <strong>Skor:</strong> Semakin rendah = semakin sesuai dengan manhaj salaf.
 </div>
 
-<div class="progress-wrap">
+<div class="progress-wrap" id="progressWrap">
 <div class="progress-bar-bg"><div class="progress-bar" id="progressBar"></div></div>
 <div class="progress-text" id="progressText">0 dari 20 pertanyaan terjawab</div>
 </div>
 
 <form id="quizForm">
 
+<!-- Pertanyaan 1 -->
+<div class="question-page active" data-index="0">
 <div class="question">
 <span class="q-cat">🕋 Akidah &amp; Tauhid</span>
 <div class="q-text">1. Bagaimana ustad tersebut menjelaskan tauhid — khususnya dalam doa dan istighatsah (meminta pertolongan) kepada selain Allah?</div>
@@ -131,7 +140,11 @@ Jawab berdasarkan <em>pengetahuan Anda tentang ustad tersebut</em> — apa yang 
 <label class="option"><input type="radio" name="q0" value="3"><span class="radio-mark"></span><span class="opt-label">Membolehkan/menghalalkan tawassul dengan dzat orang shaleh, istighatsah ke wali</span></label>
 </div>
 </div>
+<div class="page-indicator">Halaman 1 dari 20 (1/20)</div>
+</div>
 
+<!-- Pertanyaan 2 -->
+<div class="question-page" data-index="1">
 <div class="question">
 <span class="q-cat">🕋 Akidah &amp; Tauhid</span>
 <div class="q-text">2. Bagaimana sikapnya terhadap sifat-sifat Allah (asma wa sifat) seperti istiwa, tangan, wajah, dll?</div>
@@ -143,7 +156,11 @@ Jawab berdasarkan <em>pengetahuan Anda tentang ustad tersebut</em> — apa yang 
 <label class="option"><input type="radio" name="q1" value="3"><span class="radio-mark"></span><span class="opt-label">Menakwil sifat-sifat Allah (Jahmiyah/Mu'tazilah) atau menyerupakan-Nya</span></label>
 </div>
 </div>
+<div class="page-indicator">Halaman 2 dari 20 (2/20)</div>
+</div>
 
+<!-- Pertanyaan 3 -->
+<div class="question-page" data-index="2">
 <div class="question">
 <span class="q-cat">🕋 Akidah &amp; Tauhid</span>
 <div class="q-text">3. Bagaimana sikapnya terhadap kuburan wali/ulama, meminta berkah, atau tabarruk dengan benda tertentu?</div>
@@ -155,7 +172,11 @@ Jawab berdasarkan <em>pengetahuan Anda tentang ustad tersebut</em> — apa yang 
 <label class="option"><input type="radio" name="q2" value="3"><span class="radio-mark"></span><span class="opt-label">Membolehkan ziarah kubur dengan niat minta hajat, tabarruk, atau tawassul</span></label>
 </div>
 </div>
+<div class="page-indicator">Halaman 3 dari 20 (3/20)</div>
+</div>
 
+<!-- Pertanyaan 4 -->
+<div class="question-page" data-index="3">
 <div class="question">
 <span class="q-cat">🕋 Akidah &amp; Tauhid</span>
 <div class="q-text">4. Bagaimana sikapnya terhadap kelompok-kelompok yang akidahnya menyimpang (Syiah, Jahmiyah, Mu'tazilah, dll)?</div>
@@ -167,7 +188,11 @@ Jawab berdasarkan <em>pengetahuan Anda tentang ustad tersebut</em> — apa yang 
 <label class="option"><input type="radio" name="q3" value="3"><span class="radio-mark"></span><span class="opt-label">Memuji/membela kelompok menyimpang, atau mengajak "menghargai semua akidah"</span></label>
 </div>
 </div>
+<div class="page-indicator">Halaman 4 dari 20 (4/20)</div>
+</div>
 
+<!-- Pertanyaan 5 -->
+<div class="question-page" data-index="4">
 <div class="question">
 <span class="q-cat">🕌 Ibadah &amp; Sunnah</span>
 <div class="q-text">5. Bagaimana sikapnya terhadap praktik yang tidak dicontohkan Nabi ﷺ (maulid, tahlilan, yasinan berjamaah, dll)?</div>
@@ -179,7 +204,11 @@ Jawab berdasarkan <em>pengetahuan Anda tentang ustad tersebut</em> — apa yang 
 <label class="option"><input type="radio" name="q4" value="3"><span class="radio-mark"></span><span class="opt-label">Menganjurkan/mempraktikkan maulid, tahlilan, atau ritual yang tidak diajarkan Nabi ﷺ</span></label>
 </div>
 </div>
+<div class="page-indicator">Halaman 5 dari 20 (5/20)</div>
+</div>
 
+<!-- Pertanyaan 6 -->
+<div class="question-page" data-index="5">
 <div class="question">
 <span class="q-cat">🕌 Ibadah &amp; Sunnah</span>
 <div class="q-text">6. Bagaimana sikapnya terhadap shalat, puasa, dan ibadah lain — apakah sesuai sunnah atau ditambah/dikurangi?</div>
@@ -191,7 +220,11 @@ Jawab berdasarkan <em>pengetahuan Anda tentang ustad tersebut</em> — apa yang 
 <label class="option"><input type="radio" name="q5" value="3"><span class="radio-mark"></span><span class="opt-label">Menambah/mengurangi syariat (mis. shalat dengan bacaan baru, ritual baru)</span></label>
 </div>
 </div>
+<div class="page-indicator">Halaman 6 dari 20 (6/20)</div>
+</div>
 
+<!-- Pertanyaan 7 -->
+<div class="question-page" data-index="6">
 <div class="question">
 <span class="q-cat">🕌 Ibadah &amp; Sunnah</span>
 <div class="q-text">7. Bagaimana sikapnya terhadap dzikir berjamaah dengan suara keras, atau ritual dzikir dengan tata cara tertentu yang tidak dicontohkan Nabi ﷺ?</div>
@@ -203,7 +236,11 @@ Jawab berdasarkan <em>pengetahuan Anda tentang ustad tersebut</em> — apa yang 
 <label class="option"><input type="radio" name="q6" value="3"><span class="radio-mark"></span><span class="opt-label">Memimpin/menganjurkan dzikir dengan tata cara baru tanpa dalil</span></label>
 </div>
 </div>
+<div class="page-indicator">Halaman 7 dari 20 (7/20)</div>
+</div>
 
+<!-- Pertanyaan 8 -->
+<div class="question-page" data-index="7">
 <div class="question">
 <span class="q-cat">🕌 Ibadah &amp; Sunnah</span>
 <div class="q-text">8. Bagaimana sikapnya terhadap hari besar atau perayaan yang tidak ada di zaman Nabi ﷺ (maulid Nabi, Isra Mi'raj, Nuzulul Qur'an, dll)?</div>
@@ -215,7 +252,11 @@ Jawab berdasarkan <em>pengetahuan Anda tentang ustad tersebut</em> — apa yang 
 <label class="option"><input type="radio" name="q7" value="3"><span class="radio-mark"></span><span class="opt-label">Merayakan/mengadakan acara khusus untuk hari-hari tersebut sebagai ibadah</span></label>
 </div>
 </div>
+<div class="page-indicator">Halaman 8 dari 20 (8/20)</div>
+</div>
 
+<!-- Pertanyaan 9 -->
+<div class="question-page" data-index="8">
 <div class="question">
 <span class="q-cat">📚 Manhaj Dakwah</span>
 <div class="q-text">9. Apa yang menjadi prioritas dakwah ustad tersebut?</div>
@@ -227,7 +268,11 @@ Jawab berdasarkan <em>pengetahuan Anda tentang ustad tersebut</em> — apa yang 
 <label class="option"><input type="radio" name="q8" value="3"><span class="radio-mark"></span><span class="opt-label">Fokus politik, toleransi antar-agama, atau isu sosial tanpa pernah menyentuh tauhid</span></label>
 </div>
 </div>
+<div class="page-indicator">Halaman 9 dari 20 (9/20)</div>
+</div>
 
+<!-- Pertanyaan 10 -->
+<div class="question-page" data-index="9">
 <div class="question">
 <span class="q-cat">📚 Manhaj Dakwah</span>
 <div class="q-text">10. Bagaimana sikapnya terhadap amar ma'ruf nahi munkar — khususnya ketika kebid'ahan tersebar di masyarakat?</div>
@@ -239,7 +284,11 @@ Jawab berdasarkan <em>pengetahuan Anda tentang ustad tersebut</em> — apa yang 
 <label class="option"><input type="radio" name="q9" value="3"><span class="radio-mark"></span><span class="opt-label">Membiarkan, atau justru mendukung yang munkar dengan alasan "toleransi"</span></label>
 </div>
 </div>
+<div class="page-indicator">Halaman 10 dari 20 (10/20)</div>
+</div>
 
+<!-- Pertanyaan 11 -->
+<div class="question-page" data-index="10">
 <div class="question">
 <span class="q-cat">📚 Manhaj Dakwah</span>
 <div class="q-text">11. Bagaimana metodenya dalam beragama — apakah mengikuti pemahaman sahabat atau menawarkan "metode baru"?</div>
@@ -251,7 +300,11 @@ Jawab berdasarkan <em>pengetahuan Anda tentang ustad tersebut</em> — apa yang 
 <label class="option"><input type="radio" name="q10" value="3"><span class="radio-mark"></span><span class="opt-label">Mengajarkan semua pendapat sama sahnya, atau mengedepankan rasio di atas wahyu</span></label>
 </div>
 </div>
+<div class="page-indicator">Halaman 11 dari 20 (11/20)</div>
+</div>
 
+<!-- Pertanyaan 12 -->
+<div class="question-page" data-index="11">
 <div class="question">
 <span class="q-cat">⭐ Sikap pada Sahabat</span>
 <div class="q-text">12. Bagaimana sikapnya terhadap para sahabat Nabi ﷺ secara umum — termasuk Abu Bakar, Umar, Utsman, Ali?</div>
@@ -263,7 +316,11 @@ Jawab berdasarkan <em>pengetahuan Anda tentang ustad tersebut</em> — apa yang 
 <label class="option"><input type="radio" name="q11" value="3"><span class="radio-mark"></span><span class="opt-label">Mencela sebagian sahabat (terutama Muawiyah, Utsman, atau yang lain) atau mengagungkan Syiah</span></label>
 </div>
 </div>
+<div class="page-indicator">Halaman 12 dari 20 (12/20)</div>
+</div>
 
+<!-- Pertanyaan 13 -->
+<div class="question-page" data-index="12">
 <div class="question">
 <span class="q-cat">⭐ Sikap pada Sahabat</span>
 <div class="q-text">13. Bagaimana sikapnya terhadap perbedaan pendapat yang terjadi antara sahabat (mis. perang Jamal, Siffin)?</div>
@@ -275,7 +332,11 @@ Jawab berdasarkan <em>pengetahuan Anda tentang ustad tersebut</em> — apa yang 
 <label class="option"><input type="radio" name="q12" value="3"><span class="radio-mark"></span><span class="opt-label">Menjelekkan satu pihak (mis. mencela Muawiyah atau Ali secara berlebihan)</span></label>
 </div>
 </div>
+<div class="page-indicator">Halaman 13 dari 20 (13/20)</div>
+</div>
 
+<!-- Pertanyaan 14 -->
+<div class="question-page" data-index="13">
 <div class="question">
 <span class="q-cat">⭐ Sikap pada Sahabat</span>
 <div class="q-text">14. Bagaimana sikapnya terhadap para imam salaf (Imam Malik, Ahmad, Syafi'i, Bukhari, Ibnu Taimiyah, dll)?</div>
@@ -287,7 +348,11 @@ Jawab berdasarkan <em>pengetahuan Anda tentang ustad tersebut</em> — apa yang 
 <label class="option"><input type="radio" name="q13" value="3"><span class="radio-mark"></span><span class="opt-label">Merendahkan/melecehkan ulama salaf seperti Ibnu Taimiyah, Albani, atau yang lain</span></label>
 </div>
 </div>
+<div class="page-indicator">Halaman 14 dari 20 (14/20)</div>
+</div>
 
+<!-- Pertanyaan 15 -->
+<div class="question-page" data-index="14">
 <div class="question">
 <span class="q-cat">📖 Sumber Rujukan</span>
 <div class="q-text">15. Kitab-kitab apa yang menjadi rujukan utama ustad tersebut?</div>
@@ -299,7 +364,11 @@ Jawab berdasarkan <em>pengetahuan Anda tentang ustad tersebut</em> — apa yang 
 <label class="option"><input type="radio" name="q14" value="3"><span class="radio-mark"></span><span class="opt-label">Rujukan utamanya kitab-kitab sufi, filsafat, atau kitab yang penuh kisah tanpa dalil</span></label>
 </div>
 </div>
+<div class="page-indicator">Halaman 15 dari 20 (15/20)</div>
+</div>
 
+<!-- Pertanyaan 16 -->
+<div class="question-page" data-index="15">
 <div class="question">
 <span class="q-cat">📖 Sumber Rujukan</span>
 <div class="q-text">16. Bagaimana sikapnya terhadap sanad ilmu dan guru-guru yang ia ambil ilmunya?</div>
@@ -311,7 +380,11 @@ Jawab berdasarkan <em>pengetahuan Anda tentang ustad tersebut</em> — apa yang 
 <label class="option"><input type="radio" name="q15" value="3"><span class="radio-mark"></span><span class="opt-label">Guru-gurunya terkenal sebagai tokoh bid'ah / sufi ekstrem / filsuf</span></label>
 </div>
 </div>
+<div class="page-indicator">Halaman 16 dari 20 (16/20)</div>
+</div>
 
+<!-- Pertanyaan 17 -->
+<div class="question-page" data-index="16">
 <div class="question">
 <span class="q-cat">📖 Sumber Rujukan</span>
 <div class="q-text">17. Bagaimana sikapnya terhadap dalil — apakah merujuk langsung ke Al-Qur'an &amp; Sunnah, atau taklid buta?</div>
@@ -323,7 +396,11 @@ Jawab berdasarkan <em>pengetahuan Anda tentang ustad tersebut</em> — apa yang 
 <label class="option"><input type="radio" name="q16" value="3"><span class="radio-mark"></span><span class="opt-label">Mengajarkan taqlid buta pada satu tokoh, atau sebaliknya menolak semua ulama</span></label>
 </div>
 </div>
+<div class="page-indicator">Halaman 17 dari 20 (17/20)</div>
+</div>
 
+<!-- Pertanyaan 18 -->
+<div class="question-page" data-index="17">
 <div class="question">
 <span class="q-cat">⚠️ Sikap terhadap Bid'ah</span>
 <div class="q-text">18. Ketika ada praktik bid'ah di masyarakat, apa reaksi ustad tersebut?</div>
@@ -335,7 +412,11 @@ Jawab berdasarkan <em>pengetahuan Anda tentang ustad tersebut</em> — apa yang 
 <label class="option"><input type="radio" name="q17" value="3"><span class="radio-mark"></span><span class="opt-label">Membela bid'ah atau ikut mempraktikkannya sebagai "tradisi Islam"</span></label>
 </div>
 </div>
+<div class="page-indicator">Halaman 18 dari 20 (18/20)</div>
+</div>
 
+<!-- Pertanyaan 19 -->
+<div class="question-page" data-index="18">
 <div class="question">
 <span class="q-cat">⚠️ Sikap terhadap Bid'ah</span>
 <div class="q-text">19. Bagaimana sikapnya terhadap tokoh yang terkenal sebagai ahli bid'ah?</div>
@@ -347,7 +428,11 @@ Jawab berdasarkan <em>pengetahuan Anda tentang ustad tersebut</em> — apa yang 
 <label class="option"><input type="radio" name="q18" value="3"><span class="radio-mark"></span><span class="opt-label">Memuji, membela, atau mengajak "mengapresiasi" tokoh ahli bid'ah</span></label>
 </div>
 </div>
+<div class="page-indicator">Halaman 19 dari 20 (19/20)</div>
+</div>
 
+<!-- Pertanyaan 20 -->
+<div class="question-page" data-index="19">
 <div class="question">
 <span class="q-cat">⚠️ Sikap terhadap Bid'ah</span>
 <div class="q-text">20. Bagaimana sikapnya terhadap perkumpulan yang menggabungkan semua golongan (mis. "semua Islam sama", "yang penting ukhuwah")?</div>
@@ -359,11 +444,14 @@ Jawab berdasarkan <em>pengetahuan Anda tentang ustad tersebut</em> — apa yang 
 <label class="option"><input type="radio" name="q19" value="3"><span class="radio-mark"></span><span class="opt-label">Mengajarkan semua golongan sama sahnya, akidah tidak penting</span></label>
 </div>
 </div>
+<div class="page-indicator">Halaman 20 dari 20 (20/20)</div>
+</div>
 
 </form>
 
 <div class="btn-area" id="btnArea">
-<button type="button" class="btn-primary not-ready" id="submitBtn">📖 Lihat Hasil Manhaj (0/20)</button>
+<button type="button" class="btn-secondary" id="prevBtn" style="display:none;">&larr; Sebelumnya</button>
+<button type="button" class="btn-primary" id="nextBtn">Selanjutnya &rarr;</button>
 <button type="button" class="btn-secondary" id="resetBtn">Reset</button>
 </div>
 
@@ -380,14 +468,17 @@ Kuis edukasi — bukan fatwa. Rujuk ulama tsiqah untuk penilaian hakiki.
 (function(){
 'use strict';
 var TOTAL=20;
+var currentPage=0;
 var form=document.getElementById('quizForm');
-var submitBtn=document.getElementById('submitBtn');
+var prevBtn=document.getElementById('prevBtn');
+var nextBtn=document.getElementById('nextBtn');
 var resetBtn=document.getElementById('resetBtn');
 var progressBar=document.getElementById('progressBar');
 var progressText=document.getElementById('progressText');
 var resultDiv=document.getElementById('result');
 var btnArea=document.getElementById('btnArea');
-var progressWrap=document.querySelector('.progress-wrap');
+var progressWrap=document.getElementById('progressWrap');
+var pages=document.querySelectorAll('.question-page');
 
 var CAT_MAP={0:'akidah',1:'akidah',2:'akidah',3:'akidah',4:'ibadah',5:'ibadah',6:'ibadah',7:'ibadah',8:'manhaj',9:'manhaj',10:'manhaj',11:'sahabat',12:'sahabat',13:'sahabat',14:'rujukan',15:'rujukan',16:'rujukan',17:'bidah',18:'bidah',19:'bidah'};
 var CAT_NAMES={akidah:'Akidah & Tauhid',ibadah:'Ibadah & Sunnah',manhaj:'Manhaj Dakwah',sahabat:'Sikap pada Sahabat',rujukan:'Sumber Rujukan',bidah:"Sikap terhadap Bid'ah"};
@@ -395,19 +486,34 @@ var CAT_MAX={akidah:12,ibadah:12,manhaj:9,sahabat:9,rujukan:9,bidah:9};
 
 function $$(s){return Array.prototype.slice.call(document.querySelectorAll(s));}
 function countAnswered(){var n=0;for(var i=0;i<TOTAL;i++){if(document.querySelector('input[name="q'+i+'"]:checked'))n++;}return n;}
-function firstUnanswered(){for(var i=0;i<TOTAL;i++){if(!document.querySelector('input[name="q'+i+'"]:checked'))return i;}return -1;}
 
 function updateProgress(){
   var n=countAnswered();
   if(progressBar)progressBar.style.width=(n/TOTAL*100)+'%';
   if(progressText)progressText.textContent=n+' dari '+TOTAL+' pertanyaan terjawab';
-  if(n>=TOTAL){
-    submitBtn.textContent='📖 Lihat Hasil Manhaj';
-    submitBtn.classList.remove('not-ready');
-  }else{
-    submitBtn.textContent='📖 Lihat Hasil Manhaj ('+n+'/'+TOTAL+')';
-    submitBtn.classList.add('not-ready');
+}
+
+function showPage(index){
+  pages.forEach(function(p, i){
+    if(i === index){
+      p.classList.add('active');
+    } else {
+      p.classList.remove('active');
+    }
+  });
+
+  if(index === 0){
+    prevBtn.style.display = 'none';
+  } else {
+    prevBtn.style.display = 'inline-block';
   }
+
+  if(index === TOTAL - 1){
+    nextBtn.textContent = '📖 Lihat Hasil Manhaj';
+  } else {
+    nextBtn.textContent = 'Selanjutnya →';
+  }
+  window.scrollTo({top: 0, behavior: 'smooth'});
 }
 
 form.addEventListener('change',function(e){
@@ -423,29 +529,44 @@ form.addEventListener('change',function(e){
       if(sib&&sib.className.indexOf('option')!==-1)sib.classList.remove('selected');
     }
     optionEl.classList.add('selected');
-    var qDiv=optionEl;
-    while(qDiv&&qDiv!==document.body&&qDiv.className.indexOf('question')===-1){qDiv=qDiv.parentNode;}
-    if(qDiv&&qDiv.className.indexOf('question')!==-1)qDiv.classList.add('answered');
   }
   updateProgress();
 });
 
-updateProgress();
+prevBtn.addEventListener('click', function(){
+  if(currentPage > 0){
+    currentPage--;
+    showPage(currentPage);
+  }
+});
 
-submitBtn.addEventListener('click',function(){
-  var n=countAnswered();
-  if(n<TOTAL){
-    alert('Masih ada '+(TOTAL-n)+' pertanyaan yang belum dijawab.\n\nMohon lengkapi dulu ya, agar hasil skor akurat.');
-    var idx=firstUnanswered();
-    if(idx>=0){var qDivs=$$('.question');if(qDivs[idx])qDivs[idx].scrollIntoView({behavior:'smooth',block:'center'});}
+nextBtn.addEventListener('click', function(){
+  var sel = document.querySelector('input[name="q'+currentPage+'"]:checked');
+  if(!sel){
+    alert('Silakan pilih salah satu jawaban terlebih dahulu sebelum ke halaman berikutnya.');
     return;
   }
-  computeAndShowResult();
+
+  if(currentPage < TOTAL - 1){
+    currentPage++;
+    showPage(currentPage);
+  } else {
+    // Halaman terakhir, cek apakah semua sudah terjawab
+    var n=countAnswered();
+    if(n<TOTAL){
+      alert('Masih ada '+(TOTAL-n)+' pertanyaan yang belum dijawab.\n\nMohon lengkapi dulu ya.');
+      return;
+    }
+    computeAndShowResult();
+  }
 });
 
 resetBtn.addEventListener('click',function(){
   if(confirm('Yakin ingin mengosongkan semua jawaban?'))location.reload();
 });
+
+updateProgress();
+showPage(0);
 
 function computeAndShowResult(){
   var catTotals={akidah:0,ibadah:0,manhaj:0,sahabat:0,rujukan:0,bidah:0};
