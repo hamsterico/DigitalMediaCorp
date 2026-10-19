@@ -24,7 +24,6 @@ header p{font-size:13.5px;color:#a8bfa8;line-height:1.65}
 .progress-bar{background:linear-gradient(90deg,#e6c86a,#4caf7d,#1e5f3f);height:100%;width:0;transition:width .4s ease;border-radius:10px}
 .progress-text{text-align:center;font-size:12.5px;color:#a8bfa8;margin-top:9px;font-weight:500}
 
-/* Sembunyikan semua halaman soal secara default, tampilkan hanya yang berkelas .active */
 .question-page { display: none; }
 .question-page.active { display: block; }
 
@@ -50,6 +49,20 @@ button{flex:1;min-width:140px;padding:16px 22px;font-size:15px;font-weight:700;b
 .btn-primary:hover{transform:translateY(-2px)}
 .btn-secondary{background:rgba(255,255,255,.06);color:#a8bfa8;border:1px solid rgba(212,175,55,.22)}
 .btn-secondary:hover{background:rgba(255,255,255,.1);color:#f2ecd8}
+
+/* Styling Tombol Share */
+.share-box{background:rgba(255,255,255,.03);border:1px solid rgba(212,175,55,.2);border-radius:14px;padding:20px;margin-top:20px;text-align:center}
+.share-box h3{font-size:15px;color:#f2ecd8;margin-bottom:12px}
+.share-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.btn-share{padding:12px 18px;font-size:13px;font-weight:700;border:none;border-radius:10px;cursor:pointer;color:#fff;text-decoration:none;display:inline-flex;align-items:center;gap:6px;transition:all .2s}
+.btn-wa{background:#25d366}
+.btn-wa:hover{background:#1ebe5d}
+.btn-fb{background:#1877f2}
+.btn-fb:hover{background:#1465c0}
+.btn-tw{background:#1da1f2}
+.btn-tw:hover{background:#1a91da}
+.btn-copy{background:#d4af37;color:#0a1a12}
+.btn-copy:hover{background:#c29f2e}
 
 #result{display:none}
 .result-card{border-radius:18px;padding:34px 26px;text-align:center;margin-bottom:22px;animation:fadeInUp .6s ease}
@@ -121,7 +134,7 @@ Jawab berdasarkan <em>pengetahuan Anda tentang ustad tersebut</em> — apa yang 
 
 <form id="quizForm">
 
-<!-- Halaman Soal 1 -->
+<!-- Halaman Soal 1 s.d 20 -->
 <div class="question-page active" data-index="0">
 <div class="question">
 <span class="q-cat">🕋 Akidah &amp; Tauhid</span>
@@ -137,7 +150,6 @@ Jawab berdasarkan <em>pengetahuan Anda tentang ustad tersebut</em> — apa yang 
 <div class="page-indicator">Halaman 1 dari 20 (1/20)</div>
 </div>
 
-<!-- Halaman Soal 2 -->
 <div class="question-page" data-index="1">
 <div class="question">
 <span class="q-cat">🕋 Akidah &amp; Tauhid</span>
@@ -153,7 +165,6 @@ Jawab berdasarkan <em>pengetahuan Anda tentang ustad tersebut</em> — apa yang 
 <div class="page-indicator">Halaman 2 dari 20 (2/20)</div>
 </div>
 
-<!-- Halaman Soal 3 -->
 <div class="question-page" data-index="2">
 <div class="question">
 <span class="q-cat">🕋 Akidah &amp; Tauhid</span>
@@ -169,7 +180,6 @@ Jawab berdasarkan <em>pengetahuan Anda tentang ustad tersebut</em> — apa yang 
 <div class="page-indicator">Halaman 3 dari 20 (3/20)</div>
 </div>
 
-<!-- Halaman Soal 4 -->
 <div class="question-page" data-index="3">
 <div class="question">
 <span class="q-cat">🕋 Akidah &amp; Tauhid</span>
@@ -185,7 +195,6 @@ Jawab berdasarkan <em>pengetahuan Anda tentang ustad tersebut</em> — apa yang 
 <div class="page-indicator">Halaman 4 dari 20 (4/20)</div>
 </div>
 
-<!-- Halaman Soal 5 -->
 <div class="question-page" data-index="4">
 <div class="question">
 <span class="q-cat">🕌 Ibadah &amp; Sunnah</span>
@@ -201,7 +210,6 @@ Jawab berdasarkan <em>pengetahuan Anda tentang ustad tersebut</em> — apa yang 
 <div class="page-indicator">Halaman 5 dari 20 (5/20)</div>
 </div>
 
-<!-- Halaman Soal 6 -->
 <div class="question-page" data-index="5">
 <div class="question">
 <span class="q-cat">🕌 Ibadah &amp; Sunnah</span>
@@ -217,7 +225,6 @@ Jawab berdasarkan <em>pengetahuan Anda tentang ustad tersebut</em> — apa yang 
 <div class="page-indicator">Halaman 6 dari 20 (6/20)</div>
 </div>
 
-<!-- Halaman Soal 7 -->
 <div class="question-page" data-index="6">
 <div class="question">
 <span class="q-cat">🕌 Ibadah &amp; Sunnah</span>
@@ -233,7 +240,6 @@ Jawab berdasarkan <em>pengetahuan Anda tentang ustad tersebut</em> — apa yang 
 <div class="page-indicator">Halaman 7 dari 20 (7/20)</div>
 </div>
 
-<!-- Halaman Soal 8 -->
 <div class="question-page" data-index="7">
 <div class="question">
 <span class="q-cat">🕌 Ibadah &amp; Sunnah</span>
@@ -249,7 +255,6 @@ Jawab berdasarkan <em>pengetahuan Anda tentang ustad tersebut</em> — apa yang 
 <div class="page-indicator">Halaman 8 dari 20 (8/20)</div>
 </div>
 
-<!-- Halaman Soal 9 -->
 <div class="question-page" data-index="8">
 <div class="question">
 <span class="q-cat">📚 Manhaj Dakwah</span>
@@ -265,7 +270,6 @@ Jawab berdasarkan <em>pengetahuan Anda tentang ustad tersebut</em> — apa yang 
 <div class="page-indicator">Halaman 9 dari 20 (9/20)</div>
 </div>
 
-<!-- Halaman Soal 10 -->
 <div class="question-page" data-index="9">
 <div class="question">
 <span class="q-cat">📚 Manhaj Dakwah</span>
@@ -281,7 +285,6 @@ Jawab berdasarkan <em>pengetahuan Anda tentang ustad tersebut</em> — apa yang 
 <div class="page-indicator">Halaman 10 dari 20 (10/20)</div>
 </div>
 
-<!-- Halaman Soal 11 -->
 <div class="question-page" data-index="10">
 <div class="question">
 <span class="q-cat">📚 Manhaj Dakwah</span>
@@ -297,7 +300,6 @@ Jawab berdasarkan <em>pengetahuan Anda tentang ustad tersebut</em> — apa yang 
 <div class="page-indicator">Halaman 11 dari 20 (11/20)</div>
 </div>
 
-<!-- Halaman Soal 12 -->
 <div class="question-page" data-index="11">
 <div class="question">
 <span class="q-cat">⭐ Sikap pada Sahabat</span>
@@ -313,7 +315,6 @@ Jawab berdasarkan <em>pengetahuan Anda tentang ustad tersebut</em> — apa yang 
 <div class="page-indicator">Halaman 12 dari 20 (12/20)</div>
 </div>
 
-<!-- Halaman Soal 13 -->
 <div class="question-page" data-index="12">
 <div class="question">
 <span class="q-cat">⭐ Sikap pada Sahabat</span>
@@ -329,7 +330,6 @@ Jawab berdasarkan <em>pengetahuan Anda tentang ustad tersebut</em> — apa yang 
 <div class="page-indicator">Halaman 13 dari 20 (13/20)</div>
 </div>
 
-<!-- Halaman Soal 14 -->
 <div class="question-page" data-index="13">
 <div class="question">
 <span class="q-cat">⭐ Sikap pada Sahabat</span>
@@ -343,3 +343,15 @@ Jawab berdasarkan <em>pengetahuan Anda tentang ustad tersebut</em> — apa yang 
 </div>
 </div>
 <div class="page-indicator">Halaman 14 dari 20 (14/20)</div>
+</div>
+
+<div class="question-page" data-index="14">
+<div class="question">
+<span class="q-cat">📖 Sumber Rujukan</span>
+<div class="q-text">15. Kitab-kitab apa yang menjadi rujukan utama ustad tersebut?</div>
+<div class="q-hint">💡 Salaf merujuk pada kitab-kitab ulama hadits &amp; salaf seperti Shahih Bukhari, Muslim, kitab aqidah Imam Ahmad, Ibnu Taimiyah, Albani, dll.</div>
+<div class="options">
+<label class="option"><input type="radio" name="q14" value="0"><span class="radio-mark"></span><span class="opt-label">Kitab ulama salaf &amp; muhadditsin (Bukhari, Muslim, Ibnu Taimiyah, Albani, dst)</span></label>
+<label class="option"><input type="radio" name="q14" value="1"><span class="radio-mark"></span><span class="opt-label">Sebagian kitab salaf, tapi banyak juga rujukan ulama modern tanpa seleksi</span></label>
+<label class="option"><input type="radio" name="q14" value="2"><span class="radio-mark"></span><span class="opt-label">Kitab-kitab umum tanpa sanad &amp; tanpa seleksi manhaj</span></label>
+<label class="option"><input type="radio
