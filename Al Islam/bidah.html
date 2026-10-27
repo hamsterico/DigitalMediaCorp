@@ -404,13 +404,17 @@
       <div class="question-card active" id="card-0">
         <span class="q-number">Kaidah 1 dari 6</span>
         <div class="q-title" id="title-0"></div>
-        <div class="q-desc">Apakah sebab atau latar belakang dilakukannya amalan tersebut memiliki dalil dari syariat?</div>
+        <div class="q-desc">Apakah SEAB atau latar belakang dilakukannya amalan tersebut memiliki dalil dari syariat?</div>
         <div class="options">
           <label class="option-label">
             <input type="radio" name="p0" value="a" onchange="toggleReason(0, false)" required>
             <span>a. Iya, sudah ditentukan dalam syariat yang diajarkan Nabi Muhammad atau dilakukan para sahabat.</span>
           </label>
-          <label class="option-label">
+        </div>
+        <div class="reason-box" id="reason-box-0">
+          <textarea name="alasan0" placeholder="Tuliskan alasan atau argumen Anda mengapa memilih opsi A pada kaidah ini..."></textarea>
+        </div>
+         <label class="option-label">
             <input type="radio" name="p0" value="b" onchange="toggleReason(0, true)">
             <span>b. Tidak ada dalil secara khusus, atau hanya dalil-dalil lain yang digabungkan.</span>
           </label>
@@ -424,15 +428,19 @@
       <div class="question-card" id="card-1">
         <span class="q-number">Kaidah 2 dari 6</span>
         <div class="q-title" id="title-1"></div>
-        <div class="q-desc">Apakah jenis komoditas atau rupa yang digunakan sesuai ketentuan? Sebagai contoh, menyembelih hewan kurban haruslah dari jenis bahimatul an'am (unta, sapi, kambing). Jika berkurban dengan ayam/kuda, tidak sah.</div>
+        <div class="q-desc">Apakah JENIS ibadah ini sesuai ketentuan, atau apakah hal ini sudah di tentukan oleh Nabi dan prakteknya para sahabat nabi? Sebagai contoh, menyembelih hewan kurban haruslah dari jenis bahimatul an'am (unta, sapi, kambing). Jika berkurban dengan ayam/kuda, tidak sah.</div>
         <div class="options">
           <label class="option-label">
             <input type="radio" name="p1" value="a" onchange="toggleReason(1, false)" required>
-            <span>a. Iya, sudah ditentukan dalam syariat yang diajarkan Nabi Muhammad atau dilakukan para sahabat.</span>
+            <span>a. Iya, Jenisnya sudah ditentukan dalam syariat yang diajarkan Nabi Muhammad atau dilakukan para sahabat.</span>
           </label>
-          <label class="option-label">
+        </div>
+        <div class="reason-box" id="reason-box-1">
+          <textarea name="alasan1" placeholder="Tuliskan hadits rujukanya jika memang ada"></textarea>
+        </div>
+         <label class="option-label">
             <input type="radio" name="p1" value="b" onchange="toggleReason(1, true)">
-            <span>b. Tidak ada dalil secara khusus, atau hanya dalil-dalil lain yang digabungkan.</span>
+            <span>b. Tidak ada dalil secara khusus, atau hanya dalil-dalil lain yang digabungkanm, tapi semua adalah kebaikan.</span>
           </label>
         </div>
         <div class="reason-box" id="reason-box-1">
@@ -444,13 +452,17 @@
       <div class="question-card" id="card-2">
         <span class="q-number">Kaidah 3 dari 6</span>
         <div class="q-title" id="title-2"></div>
-        <div class="q-desc">Apakah jumlah bilangan atau takaran amalan tersebut ditambah atau dikurangi secara sengaja? Misalnya menambah rakaat shalat fardhu atau membuat hitungan zikir khusus yang tidak bersumber dari dalil shahih.</div>
+        <div class="q-desc">Apakah JUMLAH bilangan atau takaran amalan tersebut sudah di tentukan ? atau apakah sudah di tambahi atau dikurangi secara agar makin sempurna? Misalnya menambah rakaat shalat fardhu atau membuat 4444 hitungan zikir khusus yang ternyata tidak bersumber dari hadits nabi yang shahih.</div>
         <div class="options">
           <label class="option-label">
             <input type="radio" name="p2" value="a" onchange="toggleReason(2, false)" required>
-            <span>a. Iya, sudah ditentukan dalam syariat yang diajarkan Nabi Muhammad atau dilakukan para sahabat.</span>
+            <span>a. Iya, JUMLAH-nya sudah ditentukan dalam syariat yang diajarkan Nabi Muhammad atau dilakukan para sahabat.</span>
           </label>
-          <label class="option-label">
+        </div>
+        <div class="reason-box" id="reason-box-2">
+          <textarea name="alasan2" placeholder="Tuliskan Hadits Rujukanya kalau memang ada"></textarea>
+        </div>
+         <label class="option-label">
             <input type="radio" name="p2" value="b" onchange="toggleReason(2, true)">
             <span>b. Tidak ada dalil secara khusus, atau hanya dalil-dalil lain yang digabungkan.</span>
           </label>
@@ -464,12 +476,16 @@
       <div class="question-card" id="card-3">
         <span class="q-number">Kaidah 4 dari 6</span>
         <div class="q-title" id="title-3"></div>
-        <div class="q-desc">Bagaimana tata cara teknis pelaksanaan dilakukan? Ibadah harus mengikuti contoh Nabi. Jika wudhu mendahulukan kaki baru wajah, atau gerakan shalat dibalik urutannya, maka cara tersebut menyalahi sunnah.</div>
+        <div class="q-desc">Bagaimana TATA CARA (teknis) pelaksanaan ibadah tersebut dilakukan?</div>
         <div class="options">
           <label class="option-label">
             <input type="radio" name="p3" value="a" onchange="toggleReason(3, false)" required>
-            <span>a. Iya, sudah ditentukan dalam syariat yang diajarkan Nabi Muhammad atau dilakukan para sahabat.</span>
+            <span>a. Iya, ada dalam Quran atau hadits nabi dan yang diajarkan Nabi Muhammad atau dilakukan para sahabat.</span>
           </label>
+        </div>
+        <div class="reason-box" id="reason-box-3">
+          <textarea name="alasan3" placeholder="Tuliskan petunujuk dari Al Quran maupun Hadits nabi yang sohih"></textarea>
+        </div>
           <label class="option-label">
             <input type="radio" name="p3" value="b" onchange="toggleReason(3, true)">
             <span>b. Tidak ada dalil secara khusus, atau hanya dalil-dalil lain yang digabungkan.</span>
@@ -484,19 +500,23 @@
       <div class="question-card" id="card-4">
         <span class="q-number">Kaidah 5 dari 6</span>
         <div class="q-title" id="title-4"></div>
-        <div class="q-desc">Apakah amalan tersebut dikerjakan pada waktu yang telah ditentukan oleh syariat? Seperti shalat tarawih di bulan Syawal, atau haji di bulan Muharram, maka ibadah tersebut tertolak karena menyalahi ketentuan waktu.</div>
+        <div class="q-desc">Apakah amalan tersebut dikerjakan pada WAKTU yang telah ditentukan oleh syariat? Seperti contoh shalat tarawih di bulan Syawal, atau haji di bulan Muharram, maka ibadah tersebut tertolak karena menyalahi ketentuan waktu.</div>
         <div class="options">
           <label class="option-label">
             <input type="radio" name="p4" value="a" onchange="toggleReason(4, false)" required>
-            <span>a. Iya, sudah ditentukan dalam syariat yang diajarkan Nabi Muhammad atau dilakukan para sahabat.</span>
+            <span>a. Iya, sudah ditentukan dalam syariat yang diajarkan Nabi Muhammad atau sudah dilakukan oleh para sahabat.</span>
           </label>
+        </div>
+        <div class="reason-box" id="reason-box-4">
+          <textarea name="alasan4" placeholder="Tuliskan alasan atau argumen Anda di sini, atau sebutkan ayat Al Quran atau Hadits yang menjadi dasarnya"></textarea>
+        </div>
           <label class="option-label">
             <input type="radio" name="p4" value="b" onchange="toggleReason(4, true)">
             <span>b. Tidak ada dalil secara khusus, atau hanya dalil-dalil lain yang digabungkan.</span>
           </label>
         </div>
         <div class="reason-box" id="reason-box-4">
-          <textarea name="alasan4" placeholder="Tuliskan alasan atau argumen Anda di sini..."></textarea>
+          <textarea name="alasan4" placeholder="Tuliskan alasan atau argumen Anda di sini mengapa dilakukan"></textarea>
         </div>
       </div>
 
@@ -546,7 +566,7 @@
   </div>
 
   <footer>
-    Keluaran Sistem Edukasi Manhaj Salaf — Berdasarkan Prinsip Ushulus Sunnah Imam Ahmad bin Hambal.
+    Keluaran Sistem Edukasi Manhaj Salaf — Berdasarkan Prinsip-prinsip yang di jelaskan Imam Ahmad bin Hambal dalam kitabnya Ushulus Sunnah.
   </footer>
 </div>
 
