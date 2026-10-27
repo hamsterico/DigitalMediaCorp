@@ -155,7 +155,7 @@
     border-radius: 16px;
     padding: 22px;
     margin-bottom: 20px;
-    display: none; /* Disembunyikan dulu sebelum isi nama amalan */
+    display: none;
   }
   .question-card.active { display: block; }
 
@@ -380,7 +380,7 @@
     </div>
     <span class="icon">⚖️</span>
     <h1>Uji Kaidah <span>Ushulus Sunnah</span></h1>
-    <p>Deteksi apakah suatu amalan atau ibadah termasuk Sunnah atau Bid'ah yang tertolak berdasarkan manhaj Imam Ahmad bin Hambal.</p>
+    <p>Deteksi apakah amalan atau ibadah anda termasuk Sunnah atau Bid'ah yang tertolak berdasarkan uraian Imam Ahmad bin Hambal dalam kitabnya "Ushulus Sunnah".</p>
   </header>
 
   <div class="content">
@@ -404,17 +404,13 @@
       <div class="question-card active" id="card-0">
         <span class="q-number">Kaidah 1 dari 6</span>
         <div class="q-title" id="title-0"></div>
-        <div class="q-desc">Apakah SEAB atau latar belakang dilakukannya amalan tersebut memiliki dalil dari syariat?</div>
+        <div class="q-desc">Apakah sebab atau latar belakang dilakukannya amalan tersebut memiliki dalil dari syariat?</div>
         <div class="options">
           <label class="option-label">
             <input type="radio" name="p0" value="a" onchange="toggleReason(0, false)" required>
             <span>a. Iya, sudah ditentukan dalam syariat yang diajarkan Nabi Muhammad atau dilakukan para sahabat.</span>
           </label>
-        </div>
-        <div class="reason-box" id="reason-box-0">
-          <textarea name="alasan0" placeholder="Tuliskan alasan atau argumen Anda mengapa memilih opsi A pada kaidah ini..."></textarea>
-        </div>
-         <label class="option-label">
+          <label class="option-label">
             <input type="radio" name="p0" value="b" onchange="toggleReason(0, true)">
             <span>b. Tidak ada dalil secara khusus, atau hanya dalil-dalil lain yang digabungkan.</span>
           </label>
@@ -428,19 +424,15 @@
       <div class="question-card" id="card-1">
         <span class="q-number">Kaidah 2 dari 6</span>
         <div class="q-title" id="title-1"></div>
-        <div class="q-desc">Apakah JENIS ibadah ini sesuai ketentuan, atau apakah hal ini sudah di tentukan oleh Nabi dan prakteknya para sahabat nabi? Sebagai contoh, menyembelih hewan kurban haruslah dari jenis bahimatul an'am (unta, sapi, kambing). Jika berkurban dengan ayam/kuda, tidak sah.</div>
+        <div class="q-desc">Apakah jenis ibadah ini sesuai ketentuan, atau apakah hal ini sudah ditentukan oleh Nabi dan praktek para sahabat? Sebagai contoh, menyembelih hewan kurban haruslah dari jenis bahimatul an'am (unta, sapi, kambing). Jika berkurban dengan ayam/kuda, tidak sah.</div>
         <div class="options">
           <label class="option-label">
             <input type="radio" name="p1" value="a" onchange="toggleReason(1, false)" required>
-            <span>a. Iya, Jenisnya sudah ditentukan dalam syariat yang diajarkan Nabi Muhammad atau dilakukan para sahabat.</span>
+            <span>a. Iya, jenisnya sudah ditentukan dalam syariat yang diajarkan Nabi Muhammad atau dilakukan para sahabat.</span>
           </label>
-        </div>
-        <div class="reason-box" id="reason-box-1">
-          <textarea name="alasan1" placeholder="Tuliskan hadits rujukanya jika memang ada"></textarea>
-        </div>
-         <label class="option-label">
+          <label class="option-label">
             <input type="radio" name="p1" value="b" onchange="toggleReason(1, true)">
-            <span>b. Tidak ada dalil secara khusus, atau hanya dalil-dalil lain yang digabungkanm, tapi semua adalah kebaikan.</span>
+            <span>b. Tidak ada dalil secara khusus, atau hanya dalil-dalil lain yang digabungkan, tapi semua adalah kebaikan.</span>
           </label>
         </div>
         <div class="reason-box" id="reason-box-1">
@@ -452,17 +444,13 @@
       <div class="question-card" id="card-2">
         <span class="q-number">Kaidah 3 dari 6</span>
         <div class="q-title" id="title-2"></div>
-        <div class="q-desc">Apakah JUMLAH bilangan atau takaran amalan tersebut sudah di tentukan ? atau apakah sudah di tambahi atau dikurangi secara agar makin sempurna? Misalnya menambah rakaat shalat fardhu atau membuat 4444 hitungan zikir khusus yang ternyata tidak bersumber dari hadits nabi yang shahih.</div>
+        <div class="q-desc">Apakah jumlah bilangan atau takaran amalan tersebut sudah ditentukan? Atau apakah ditambahi/dikurangi agar makin sempurna? Misalnya menambah rakaat shalat fardhu atau membuat hitungan zikir khusus yang tidak bersumber dari hadits shahih.</div>
         <div class="options">
           <label class="option-label">
             <input type="radio" name="p2" value="a" onchange="toggleReason(2, false)" required>
-            <span>a. Iya, JUMLAH-nya sudah ditentukan dalam syariat yang diajarkan Nabi Muhammad atau dilakukan para sahabat.</span>
+            <span>a. Iya, jumlahnya sudah ditentukan dalam syariat yang diajarkan Nabi Muhammad atau dilakukan para sahabat.</span>
           </label>
-        </div>
-        <div class="reason-box" id="reason-box-2">
-          <textarea name="alasan2" placeholder="Tuliskan Hadits Rujukanya kalau memang ada"></textarea>
-        </div>
-         <label class="option-label">
+          <label class="option-label">
             <input type="radio" name="p2" value="b" onchange="toggleReason(2, true)">
             <span>b. Tidak ada dalil secara khusus, atau hanya dalil-dalil lain yang digabungkan.</span>
           </label>
@@ -476,16 +464,12 @@
       <div class="question-card" id="card-3">
         <span class="q-number">Kaidah 4 dari 6</span>
         <div class="q-title" id="title-3"></div>
-        <div class="q-desc">Bagaimana TATA CARA (teknis) pelaksanaan ibadah tersebut dilakukan?</div>
+        <div class="q-desc">Bagaimana tata cara (teknis) pelaksanaan ibadah tersebut dilakukan?</div>
         <div class="options">
           <label class="option-label">
             <input type="radio" name="p3" value="a" onchange="toggleReason(3, false)" required>
-            <span>a. Iya, ada dalam Quran atau hadits nabi dan yang diajarkan Nabi Muhammad atau dilakukan para sahabat.</span>
+            <span>a. Iya, ada dalam Al-Qur'an atau hadits nabi yang diajarkan Nabi Muhammad atau dilakukan para sahabat.</span>
           </label>
-        </div>
-        <div class="reason-box" id="reason-box-3">
-          <textarea name="alasan3" placeholder="Tuliskan petunujuk dari Al Quran maupun Hadits nabi yang sohih"></textarea>
-        </div>
           <label class="option-label">
             <input type="radio" name="p3" value="b" onchange="toggleReason(3, true)">
             <span>b. Tidak ada dalil secara khusus, atau hanya dalil-dalil lain yang digabungkan.</span>
@@ -500,23 +484,19 @@
       <div class="question-card" id="card-4">
         <span class="q-number">Kaidah 5 dari 6</span>
         <div class="q-title" id="title-4"></div>
-        <div class="q-desc">Apakah amalan tersebut dikerjakan pada WAKTU yang telah ditentukan oleh syariat? Seperti contoh shalat tarawih di bulan Syawal, atau haji di bulan Muharram, maka ibadah tersebut tertolak karena menyalahi ketentuan waktu.</div>
+        <div class="q-desc">Apakah amalan tersebut dikerjakan pada waktu yang telah ditentukan oleh syariat? Seperti contoh shalat tarawih di bulan Syawal, atau haji di bulan Muharram, maka ibadah tersebut tertolak karena menyalahi ketentuan waktu.</div>
         <div class="options">
           <label class="option-label">
             <input type="radio" name="p4" value="a" onchange="toggleReason(4, false)" required>
             <span>a. Iya, sudah ditentukan dalam syariat yang diajarkan Nabi Muhammad atau sudah dilakukan oleh para sahabat.</span>
           </label>
-        </div>
-        <div class="reason-box" id="reason-box-4">
-          <textarea name="alasan4" placeholder="Tuliskan alasan atau argumen Anda di sini, atau sebutkan ayat Al Quran atau Hadits yang menjadi dasarnya"></textarea>
-        </div>
           <label class="option-label">
             <input type="radio" name="p4" value="b" onchange="toggleReason(4, true)">
             <span>b. Tidak ada dalil secara khusus, atau hanya dalil-dalil lain yang digabungkan.</span>
           </label>
         </div>
         <div class="reason-box" id="reason-box-4">
-          <textarea name="alasan4" placeholder="Tuliskan alasan atau argumen Anda di sini mengapa dilakukan"></textarea>
+          <textarea name="alasan4" placeholder="Tuliskan alasan atau argumen Anda di sini..."></textarea>
         </div>
       </div>
 
@@ -566,7 +546,7 @@
   </div>
 
   <footer>
-    Keluaran Sistem Edukasi Manhaj Salaf — Berdasarkan Prinsip-prinsip yang di jelaskan Imam Ahmad bin Hambal dalam kitabnya Ushulus Sunnah.
+    Keluaran Sistem Edukasi Manhaj Salaf — Berdasarkan Prinsip-prinsip yang dijelaskan Imam Ahmad bin Hambal dalam kitabnya Ushulus Sunnah.
   </footer>
 </div>
 
@@ -584,16 +564,13 @@
     }
     namaAmalan = inputVal;
     
-    // Set judul pertanyaan secara dinamis
     for (let i = 0; i < totalQuestions; i++) {
-      document.getElementById(`title-${i}`).innerText = `Apakah sebab atau latar belakang dari "${namaAmalan}" memenuhi aspek ${namaKaidah[i]}?`;
-      // Ubah teks spesifik sesuai kaidah
-      if(i===0) document.getElementById(`title-${i}`).innerText = `Apakah sebab/latar belakang dilakukannya "${namaAmalan}" memiliki dalil dari syariat?`;
-      if(i===1) document.getElementById(`title-${i}`).innerText = `Apakah jenis komoditas atau rupa dalam "${namaAmalan}" sesuai ketentuan syariat?`;
-      if(i===2) document.getElementById(`title-${i}`).innerText = `Apakah jumlah bilangan atau takaran "${namaAmalan}" tidak ditambah/dikurangi secara sengaja?`;
+      if(i===0) document.getElementById(`title-${i}`).innerText = `Apakah sebab atau latar belakang dilakukannya "${namaAmalan}" memiliki dalil dari syariat?`;
+      if(i===1) document.getElementById(`title-${i}`).innerText = `Apakah jenis ibadah dalam "${namaAmalan}" sesuai ketentuan syariat?`;
+      if(i===2) document.getElementById(`title-${i}`).innerText = `Apakah jumlah bilangan atau takaran "${namaAmalan}" sesuai ketentuan?`;
       if(i===3) document.getElementById(`title-${i}`).innerText = `Apakah tata cara teknis pelaksanaan "${namaAmalan}" sesuai contoh Nabi?`;
       if(i===4) document.getElementById(`title-${i}`).innerText = `Apakah "${namaAmalan}" dikerjakan pada waktu yang telah ditentukan oleh syariat?`;
-      if(i===5) document.getElementById(`title-${i}`).innerText = `Di mana "${namaAmalan}" dilaksanakan? Apakah sesuai ikatan tempat dari syariat?`;
+      if(i===5) document.getElementById(`title-${i}`).innerText = `Apakah tempat pelaksanaan "${namaAmalan}" sesuai ikatan tempat dari syariat?`;
     }
 
     document.getElementById("setupSection").style.display = "none";
@@ -606,7 +583,6 @@
   }
 
   function ubahStep(n) {
-    // Validasi input radio pada step aktif jika maju
     if (n === 1) {
       const radios = document.querySelectorAll(`input[name="p${currentStep}"]`);
       let checked = false;
@@ -651,7 +627,6 @@
       }
     }
 
-    // Persentase ancaman dosa/penyimpangan bid'ah sesuai jumlah jawaban b (per 6 soal = kelipatan 16.67%, atau max 100% jika 6 soal bernilai b)
     let persentase = Math.round((jumlahB / totalQuestions) * 100);
     
     let bannerContainer = document.getElementById("resultBannerContainer");
